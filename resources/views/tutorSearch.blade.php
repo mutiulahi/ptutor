@@ -32,71 +32,74 @@
 ================================================== -->
 <div class="full-page-container">
 
-	<div class="full-page-sidebar">
-		<div class="full-page-sidebar-inner" data-simplebar>
-			<div class="sidebar-container">
-				<br>
-				<!-- Location -->
-				<div class="sidebar-widget">
-					<h3>Location</h3>
-					<div class="input-with-icon">
-						<div id="autocomplete-container">
-							<input id="autocomplete-input" type="text" placeholder="Location">
-						</div>
-						<i class="icon-material-outline-location-on"></i>
-					</div>
-				</div>
+	<form action="finderTutors" method="post">
+        @csrf
+        <div class="full-page-sidebar">
+            <div class="full-page-sidebar-inner" data-simplebar>
+                <div class="sidebar-container">
+                    <br>
+                    <!-- Location -->
+                    <div class="sidebar-widget">
+                        <h3>Location</h3>
+                        <div class="input-with-icon">
+                            <div id="autocomplete-container">
+                                <input id="autocomplete-input" type="text" placeholder="Location">
+                            </div>
+                            <i class="icon-material-outline-location-on"></i>
+                        </div>
+                    </div>
 
-				<!-- Subject -->
-				<div class="sidebar-widget">
-					<h3>Subject</h3>
-					<div class="input-with-icon">
-						<div id="autocomplete-container">
-							<input id="autocomplete-input" type="text" placeholder="Subject">
-						</div>
-						<i class="icon-line-awesome-book"></i>
-					</div>
-				</div>
-
-
-				<!-- Category -->
-				<div class="sidebar-widget">
-					<h3>Category</h3>
-					<select class="selectpicker default" multiple data-selected-text-format="count" data-size="7" title="All Categories" >
-						<option>Admin Support</option>
-						<option>Customer Service</option>
-						<option>Data Analytics</option>
-						<option>Design & Creative</option>
-						<option>Legal</option>
-						<option>Software Developing</option>
-						<option>IT & Networking</option>
-						<option>Writing</option>
-						<option>Translation</option>
-						<option>Sales & Marketing</option>
-					</select>
-				</div>
-
-				<!-- Hourly Rate -->
-				<div class="sidebar-widget">
-					<h3>Hourly Rate</h3>
-					<div class="margin-top-55"></div>
-
-					<!-- Range Slider -->
-					<input class="range-slider" type="text" value="50" data-slider-currency="$" data-slider-min="10" data-slider-max="250" data-slider-step="5" data-slider-value="[10,250]"/>
-				</div>
+                    <!-- Subject -->
+                    <div class="sidebar-widget">
+                        <h3>Subject</h3>
+                        <div class="input-with-icon">
+                            <div id="autocomplete-container">
+                                <input id="autocomplete-input" type="text" placeholder="Subject">
+                            </div>
+                            <i class="icon-line-awesome-book"></i>
+                        </div>
+                    </div>
 
 
-			</div>
-			<!-- Sidebar Container / End -->
+                    <!-- Category -->
+                    <div class="sidebar-widget">
+                        <h3>Category</h3>
+                        <select class="selectpicker default" multiple data-selected-text-format="count" data-size="7" title="All Categories" >
+                            <option>Admin Support</option>
+                            <option>Customer Service</option>
+                            <option>Data Analytics</option>
+                            <option>Design & Creative</option>
+                            <option>Legal</option>
+                            <option>Software Developing</option>
+                            <option>IT & Networking</option>
+                            <option>Writing</option>
+                            <option>Translation</option>
+                            <option>Sales & Marketing</option>
+                        </select>
+                    </div>
 
-			<!-- Search Button -->
-			<div class="sidebar-search-button-container">
-				<button class="button ripple-effect">Search</button>
-			</div>
-			<!-- Search Button / End-->
+                    <!-- Hourly Rate -->
+                    <div class="sidebar-widget">
+                        <h3>Hourly Rate</h3>
+                        <div class="margin-top-55"></div>
 
-		</div>
-	</div>
+                        <!-- Range Slider -->
+                        <input class="range-slider" type="text" value="50" data-slider-currency="$" data-slider-min="10" data-slider-max="250" data-slider-step="5" data-slider-value="[10,250]"/>
+                    </div>
+
+
+                </div>
+                <!-- Sidebar Container / End -->
+
+                <!-- Search Button -->
+                <div class="sidebar-search-button-container">
+                    <button class="button ripple-effect">Search</button>
+                </div>
+                <!-- Search Button / End-->
+
+            </div>
+        </div>
+    </form>
 	<!-- Full Page Sidebar / End -->
 
 	<!-- Full Page Content -->
@@ -124,47 +127,53 @@
 			<!-- Freelancers List Container -->
 			<div class="freelancers-container freelancers-grid-layout margin-top-35">
 				<!--Freelancer -->
-                @foreach ($searchGIGs as $search)
-				<div class="freelancer">
-					<!-- Overview -->
-					<div class="freelancer-overview">
-						<div class="freelancer-overview-inner">
+                @if (empty($searchGIGs))
+                    <span style="text-align: center;">{{$hello = "Sorry!!! No record found"}}</span>
+                @else
+                    @foreach ($searchGIGs as $search)
+                    <div class="freelancer">
+                        <!-- Overview -->
+                        <div class="freelancer-overview">
+                            <div class="freelancer-overview-inner">
 
-							<!-- Bookmark Icon -->
-							<span class="bookmark-icon"></span>
+                                <!-- Bookmark Icon -->
+                                <span class="bookmark-icon"></span>
 
-							<!-- Avatar -->
-							<div class="freelancer-avatar">
-								<div class="verified-badge"></div>
-								<a href="single-freelancer-profile.html"><img src="images/user-avatar-big-02.jpg" alt=""></a>
-							</div>
+                                <!-- Avatar -->
+                                <div class="freelancer-avatar">
+                                    <div class="verified-badge"></div>
+                                    <a href="single-freelancer-profile.html"><img src="images/user-avatar-big-02.jpg" alt=""></a>
+                                </div>
 
-							<!-- Name -->
-							<div class="freelancer-name">
-								<h4><a href="#">{{$search->user_id}} <img class="flag" src="images/flags/de.svg" alt="" title="Germany" data-tippy-placement="top"></a></h4>
-								<span>iOS Expert + Node Dev</span>
-							</div>
+                                <!-- Name -->
+                                <div class="freelancer-name">
+                                    <h4><a href="#">{{$search->user_id}} <img class="flag" src="images/flags/de.svg" alt="" title="Germany" data-tippy-placement="top"></a></h4>
+                                    <span>iOS Expert + Node Dev</span>
+                                </div>
 
-							<!-- Rating -->
-							<div class="freelancer-rating">
-								<div class="star-rating" data-rating="4.2"></div>
-							</div>
-						</div>
-					</div>
+                                <!-- Rating -->
+                                <div class="freelancer-rating">
+                                    <div class="star-rating" data-rating="4.2"></div>
+                                </div>
+                            </div>
+                        </div>
 
-					<!-- Details -->
-					<div class="freelancer-details">
-						<div class="freelancer-details-list">
-							<ul>
-								<li>Location <strong><i class="icon-material-outline-location-on"></i> Berlin</strong></li>
-								<li>Rate <strong>$40 / hr</strong></li>
-								<li>Job Success <strong>88%</strong></li>
-							</ul>
-						</div>
-						<a href="single-freelancer-profile.html" class="button button-sliding-icon ripple-effect">View Profile <i class="icon-material-outline-arrow-right-alt"></i></a>
-					</div>
-				</div>
-                @endforeach
+                        <!-- Details -->
+                        <div class="freelancer-details">
+                            <div class="freelancer-details-list">
+                                <ul>
+                                    <li>Location <strong><i class="icon-material-outline-location-on"></i> Berlin</strong></li>
+                                    <li>Rate <strong>$40 / hr</strong></li>
+                                    <li>Job Success <strong>88%</strong></li>
+                                </ul>
+                            </div>
+                            <a href="single-freelancer-profile.html" class="button button-sliding-icon ripple-effect">View Profile <i class="icon-material-outline-arrow-right-alt"></i></a>
+                        </div>
+                    </div>
+
+                    @endforeach
+                @endif
+
 				<!-- Freelancer / End -->
 			</div>
 			<!-- Freelancers Container / End -->
