@@ -25,7 +25,6 @@
 <!-- Header Container
 ================================================== -->
 @include('dashboard/layout/header')
-
 <div class="clearfix"></div>
 
 <!-- Header Container / End -->
@@ -36,9 +35,7 @@
 
 	<!-- Dashboard Sidebar
 	================================================== -->
-
-    @include('dashboard/layout/dashboard_side_bar')
-
+	@include('dashboard/layout/dashboard_side_bar')
 	<!-- Dashboard Sidebar / End -->
 
 
@@ -46,12 +43,6 @@
 	================================================== -->
 	<div class="dashboard-content-container" data-simplebar>
 		<div class="dashboard-content-inner" >
-            @if(session('Account_Creation'))
-            <div class="notification success closeable">
-				<p>{{session('Account_Creation')}}</p>
-				<a class="close" href="#"></a>
-			</div>
-            @endif
 
 			<!-- Dashboard Headline -->
 			<div class="dashboard-headline">
@@ -66,39 +57,76 @@
 					</ul>
 				</nav>
 			</div>
+            <div class="row">
 
-			<!-- Fun Facts Container -->
-			<div class="fun-facts-container">
-                @if ($status > 0)
-                    <div class="fun-fact" data-fun-fact-color="#36bd78">
-                        <div class="fun-fact-text">
-                            <span>Accepted Order</span>
-                            <h4>22</h4>
-                        </div>
-                        <div class="fun-fact-icon" style="background-color: rgba(54, 189, 120, 0.07);"><i class="icon-brand-first-order" style="color: rgb(54, 189, 120);"></i></div>
-                    </div>
-                @endif
+				<!-- Dashboard Box -->
+				<div class="col-xl-12">
+					<div class="dashboard-box margin-top-0">
+
+						<!-- Headline -->
+						<div class="headline">
+							<h3>Recieved Request</h3>
+						</div>
+
+						<div class="content">
+							<ul class="dashboard-box-list">
+                                @foreach ($order_message as $msg )
+								<li>
+									<!-- Overview -->
+									<div class="freelancer-overview manage-candidates">
 
 
-				<div class="fun-fact" data-fun-fact-color="#b81b7f">
-					<div class="fun-fact-text">
-						<span>Cancled Order</span>
-						<h4>4</h4>
+                                        {{-- {{$msg->request_message}} --}}
+
+
+                                        <div class="freelancer-overview-inner">
+
+											<!-- Avatar -->
+											<div class="freelancer-avatar">
+                                                @if ($msg->status == 'accept')
+                                                    <div class="verified-badge"></div>
+                                                @endif
+
+												<a href="#"><img src="images/passport/{{$msg->passport}}" alt=""></a>
+											</div>
+
+											<!-- Name -->
+											<div class="freelancer-name">
+												<h4><a href="#">{{$msg->fullname}} </a>
+                                                    @if ($msg->status == 'accept')
+                                                    <span class="dashboard-status-button green">Accepted</span>
+                                                    @else
+                                                    <span class="dashboard-status-button yellow">Not Accepted</span>
+                                                    @endif
+
+                                                </h4>
+
+
+												<!-- Details -->
+												<span class="freelancer-detail-item"><a href="#"><i class="icon-feather-mail"> </i>{{$msg->email}}</a></span>
+												{{-- <span class="freelancer-detail-item"><i class="icon-feather-phone"></i> </span> --}}
+
+                                                <p class="with-border">{{$msg->request_message}}</p>
+
+
+												<!-- Buttons -->
+												<div class="buttons-to-right always-visible margin-top-25 margin-bottom-5">
+													<a href="{{route('accept',$msg->id)}}" class="button  ripple-effect"><i class="icon-material-outline-check"></i> Accept Offer</a>
+													<a href="{{route('reject',$msg->id)}}" class="button  ripple-effect"><i class="icon-feather-trash-2"></i> Reject Offer</a>
+													<a href="#small-dialog" class="popup-with-zoom-anim button  ripple-effect"><i class="icon-feather-mail"></i> Send Message</a>
+												</div>
+											</div>
+										</div>
+
+									</div>
+								</li>
+                                @endforeach
+							</ul>
+						</div>
 					</div>
-					<div class="fun-fact-icon" style="background-color: rgba(184, 27, 127, 0.07);"><i class="icon-feather-thumbs-down" style="color: rgb(184, 27, 127);"></i></div>
 				</div>
-
-				<div class="fun-fact" data-fun-fact-color="#2a41e6">
-					<div class="fun-fact-text">
-						<span>This Month Views</span>
-						<h4>987</h4>
-					</div>
-					<div class="fun-fact-icon" style="background-color: rgba(42, 65, 230, 0.07);"><i class="icon-feather-trending-up" style="color: rgb(42, 65, 230);"></i></div>
-				</div>
-
 
 			</div>
-        </div>
 
 
 
@@ -151,41 +179,23 @@
 <div id="small-dialog" class="zoom-anim-dialog mfp-hide dialog-with-tabs">
 
 	<!--Tabs -->
-	<div class="sign-in-form">
+    <ul class="popup-tabs-nav">
+        <li><a href="#tab">Accept Offer</a></li>
+    </ul>
 
-		<ul class="popup-tabs-nav">
-			<li><a href="#tab">Add Note</a></li>
-		</ul>
+		<div class="popup-tab-content">
+            <div class="welcome-text ">
+                <h3>Write a request note to </h3>
+            </div>
+            <form action="../placeOrder" method="post" >
+                @csrf
+                <input type="hidden" value="" name="tutor_id">
 
-		<div class="popup-tabs-container">
+                <textarea  name="message" cols="10" placeholder="Message" class="with-border"></textarea>
 
-			<!-- Tab -->
-			<div class="popup-tab-content" id="tab">
-
-				<!-- Welcome Text -->
-				<div class="welcome-text">
-					<h3>Do Not Forget 😎</h3>
-				</div>
-
-				<!-- Form -->
-				<form method="post" id="add-note">
-
-					<select class="selectpicker with-border default margin-bottom-20" data-size="7" title="Priority">
-						<option>Low Priority</option>
-						<option>Medium Priority</option>
-						<option>High Priority</option>
-					</select>
-
-					<textarea name="textarea" cols="10" placeholder="Note" class="with-border"></textarea>
-
-				</form>
-
-				<!-- Button -->
-				<button class="button full-width button-sliding-icon ripple-effect" type="submit" form="add-note">Add Note <i class="icon-material-outline-arrow-right-alt"></i></button>
-
-			</div>
-
-		</div>
+            <!-- Button -->
+                <button class="button full-width button-sliding-icon ripple-effect margin-top-10" type="submit" >Place Request <i class="icon-material-outline-arrow-right-alt"></i></button>
+            </form>
 	</div>
 </div>
 <!-- Apply for a job popup / End -->

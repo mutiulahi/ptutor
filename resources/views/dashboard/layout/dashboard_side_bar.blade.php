@@ -1,5 +1,3 @@
-
-
 	<!-- Dashboard Sidebar
 	================================================== -->
 	<div class="dashboard-sidebar">
@@ -15,33 +13,38 @@
 					</span>
 					<span class="trigger-title">Dashboard Navigation</span>
 				</a>
-				
+
 				<!-- Navigation -->
 				<div class="dashboard-nav">
 					<div class="dashboard-nav-inner">
 
 						<ul data-submenu-title="Start">
-							<li class="active"><a href="dashboard.html"><i class="icon-material-outline-dashboard"></i> Dashboard</a></li>
-							<li><a href="dashboard-messages.html"><i class="icon-material-outline-question-answer"></i> Messages <span class="nav-tag">2</span></a></li>
-							<li><a href="dashboard-reviews.html"><i class="icon-material-outline-rate-review"></i> Reviews</a></li>
+							<li ><a href="{{route('dashboard')}}"><i class="icon-material-outline-dashboard"></i> Dashboard</a></li>
+							<li><a href=""><i class="icon-material-outline-message"></i> Messages <span class="nav-tag">2</span></a></li>
+                            @if($status > 0)
+
+							<li><a href="{{route('ads')}}"><i class=""></i> Ads </a></li>
+                            @endif
 						</ul>
-						
-						<ul data-submenu-title="Ordered Classes">
-							<li><a href="#"><i class="icon-material-outline-assignment"></i> Orders</a>
+
+						<ul data-submenu-title="Organize and Manage">
+							<li><a href="#"><i class="icon-material-outline-business-center"></i> Request</a>
 								<ul>
-									<li><a href="dashboard-manage-tasks.html">Manage Orders <span class="nav-tag">2</span></a></li>
-									{{-- <li><a href="dashboard-manage-bidders.html">Manage Bidders</a></li> --}}
-									<li><a href="dashboard-my-active-bids.html">My Active Orders <span class="nav-tag">4</span></a></li>
-									{{-- <li><a href="dashboard-post-a-task.html">Post a Task</a></li> --}}
-								</ul>	
+                                    @if($status > 0)
+                                        <li><a href="{{route('recieved')}}">Recieved request </a></li>
+                                        {{-- <li><a href="{{route('recieved')}}">Accepted request</a></li> --}}
+                                    @endif
+									<li><a href="{{route('sendOrder')}}">Sent request</a></li>
+								</ul>
 							</li>
 						</ul>
 
 						<ul data-submenu-title="Account">
-							<li><a href="dashboard-settings.html"><i class="icon-material-outline-settings"></i> Settings</a></li>
-							<li><a href="index-logged-out.html"><i class="icon-material-outline-power-settings-new"></i> Logout</a></li>
+							{{-- <li><a href=""><i class="icon-brand-google-wallet"></i> Wallet</a></li> --}}
+							<li><a href="{{route('setting')}}"><i class="icon-material-outline-settings"></i> Settings</a></li>
+							<li><a href="{{route('logout')}}"><i class="icon-material-outline-power-settings-new"></i> Logout</a></li>
 						</ul>
-						
+
 					</div>
 				</div>
 				<!-- Navigation / End -->
@@ -52,4 +55,3 @@
 	<!-- Dashboard Sidebar / End -->
 
 
-	

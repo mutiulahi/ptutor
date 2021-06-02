@@ -60,13 +60,19 @@
 				<div class="welcome-text">
 					<h3>We're glad to see you again!</h3>
 					<span>Don't have an account? <a href="{{route('RegisterUser')}}">Sign Up!</a></span>
+
 					@if(session('error'))
-					<span style="color: #fff; background-color: rgb(247, 149, 154); padding: 5px; width: 50%; margin-left: 25%; border-radius: 5px">
+                    <div class="notification error closeable">
+                        <p>{{session('error')}}</p>
+                        <a class="close" href="#"></a>
+                    </div>
+					{{-- <span style="color: #fff; background-color: rgb(247, 149, 154); padding: 5px; width: 50%; margin-left: 25%; border-radius: 5px">
 							{{session('error')}}
-					</span>
+					</span> --}}
+
 					@endif
 				</div>
-					
+
 				<!-- Form -->
 				<form action="Login" method="post" >
 					@csrf
@@ -102,7 +108,7 @@
 <!-- Footer
 ================================================== -->
 
-	
+
 <!-- Footer / End -->
 
 </div>
@@ -127,7 +133,7 @@
 <!-- Snackbar // documentation: https://www.polonel.com/snackbar/ -->
 <script>
 // Snackbar for user status switcher
-$('#snackbar-user-status label').click(function() { 
+$('#snackbar-user-status label').click(function() {
 	Snackbar.show({
 		text: 'Your status has been changed!',
 		pos: 'bottom-center',
@@ -136,11 +142,12 @@ $('#snackbar-user-status label').click(function() {
 		duration: 3000,
 		textColor: '#fff',
 		backgroundColor: '#383838'
-	}); 
-}); 
+	});
+});
 </script>
 
 </body>
 
 <!-- Mirrored from www.vasterad.com/themes/hireo/pages-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 12 Dec 2020 02:32:30 GMT -->
 </html>
+

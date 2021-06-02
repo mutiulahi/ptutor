@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 
 class Login extends Controller
 {
@@ -11,7 +14,7 @@ class Login extends Controller
     {
         $this->middleware(['guest']);
     }
-    
+
     public function index(){
         return view('Auth.login');
     }
@@ -25,6 +28,8 @@ class Login extends Controller
         if(!auth()->attempt($loginUser->only('email','password'))) {
             return back()->with('error', 'Invalid Login Details');
         }
-        return redirect('/');
+        else{
+            return redirect()->route('/');
+        }
     }
 }

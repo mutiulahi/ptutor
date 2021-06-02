@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tutregister;
+use App\Models\User;
+use Faker\Provider\Lorem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TutoringRegistration extends Controller
 {
@@ -17,44 +20,50 @@ class TutoringRegistration extends Controller
         return view('tutoringRegister');
     }
 
-    public function storeGIG(Request $gigstore ) 
+    public function storeGIG(Request $gigstore )
     {
-      
-        //     Tutregister::create([
-        //     'categories' => $gigstore->categories,
-        //     'user_id' =>auth()->id(),
-        //     'other_skill' => $gigstore->other_skill,
-        //     'class_type' => $gigstore->class_type,
-        //     'title_ads' => $gigstore->title_ads,
-        //     'background' => $gigstore->background,
-        //     'teaching_mathod' => $gigstore->teaching_mathod,
-        //     'cv' => $gigstore->cv,
-        //     'address' => $gigstore->address,
-        //     'meeting_point' => $gigstore->meeting_point,
-        //     'language' => $gigstore->language,
-        //     'parhrs' => $gigstore->parhrs,
-        //     'parfivehrs' => $gigstore->parfivehrs,
-        //     'morefivehrs' => $gigstore->morefivehrs,
-        // ]);
+        $this->validate($gigstore, [
+            "subject"=>"required|max:255",
+            "categories"=>"required|max:255",
+            "title_ads"=>"required",
+            "class_type"=>"required",
+            "address"=>"required",
+            "class_location"=>"required",
+            "meeting_point"=>"required",
+            "language"=>"required",
+            "method"=>"required",
+            "about_tutor"=>"required",
+            "week"=>"required",
+            "month"=>"required",
+            "year"=>"required",
+        ]);
 
         $createGIG = new Tutregister;
+        $createGIG->subject=$gigstore->subject;
         $createGIG->categories=$gigstore->categories;
-        $createGIG->other_skill=$gigstore->other_skill;
         $createGIG->user_id=auth()->user()->id;
-        $createGIG->class_type=$gigstore->class_type;
         $createGIG->title_ads=$gigstore->title_ads;
-        $createGIG->background=$gigstore->background;
-        $createGIG->teaching_mathod=$gigstore->teaching_mathod;
-        // $createGIG->cv=$gigstore->cv;
+        $createGIG->class_type=$gigstore->class_type;
         $createGIG->address=$gigstore->address;
+        $createGIG->class_location=$gigstore->class_location;
         $createGIG->meeting_point=$gigstore->meeting_point;
         $createGIG->language=$gigstore->language;
-        $createGIG->parhrs=$gigstore->parhrs;
-        $createGIG->parfivehrs=$gigstore->parfivehrs;
-        $createGIG->morefivehrs=$gigstore->morefivehrs;
+        $createGIG->method=$gigstore->method;
+        $createGIG->about_tutor=$gigstore->about_tutor;
+        $createGIG->week=$gigstore->week;
+        $createGIG->month=$gigstore->month;
+        $createGIG->year=$gigstore->year;
+        $createGIG->status='active';
         $createGIG->save();
 
-        return back();
+        $id = auth()->user()->id;
+        $createGIG = DB::table('users')
+                ->where('id', $id)
+                ->update(['status' => 'Tutor']);
+
+
+        return redirect()->route('dashboard')->with('Account_Creation','Congratulation Your Lession has been created');
+        // return back(); view('dashboard.index')
 
         // dd($gigstore->input());
     }

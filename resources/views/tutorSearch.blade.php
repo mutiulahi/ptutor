@@ -62,7 +62,7 @@
 
 
                     <!-- Category -->
-                    <div class="sidebar-widget">
+                    {{-- <div class="sidebar-widget">
                         <h3>Category</h3>
                         <select class="selectpicker default" multiple data-selected-text-format="count" data-size="7" title="All Categories" >
                             <option>Admin Support</option>
@@ -85,7 +85,7 @@
 
                         <!-- Range Slider -->
                         <input class="range-slider" type="text" value="50" data-slider-currency="$" data-slider-min="10" data-slider-max="250" data-slider-step="5" data-slider-value="[10,250]"/>
-                    </div>
+                    </div> --}}
 
 
                 </div>
@@ -109,11 +109,11 @@
 			<h3 class="page-title">Search Results</h3>
 
 			<div class="notify-box margin-top-15">
-				<div class="switch-container">
+				{{-- <div class="switch-container">
 					<label class="switch"><input type="checkbox"><span class="switch-button"></span><span class="switch-text">Turn on email alerts for this search</span></label>
-				</div>
+				</div> --}}
 
-				<div class="sort-by">
+				{{-- <div class="sort-by">
 					<span>Sort by:</span>
 					<select class="selectpicker hide-tick">
 						<option>Relevance</option>
@@ -121,61 +121,72 @@
 						<option>Oldest</option>
 						<option>Random</option>
 					</select>
-				</div>
+				</div> --}}
 			</div>
 
 			<!-- Freelancers List Container -->
-			<div class="freelancers-container freelancers-grid-layout margin-top-35">
-				<!--Freelancer -->
-                @if (empty($searchGIGs))
-                    <span style="text-align: center;">{{$hello = "Sorry!!! No record found"}}</span>
-                @else
-                    @foreach ($searchGIGs as $search)
-                    <div class="freelancer">
-                        <!-- Overview -->
-                        <div class="freelancer-overview">
-                            <div class="freelancer-overview-inner">
+            <div class="col-xl-12">
+                <div class="freelancers-container freelancers-grid-layout margin-top-35">
+                    <!--Freelancer -->
+                    @if (empty($searchGIGs))
+                        <h3 style="margin-left: 35%; font-weight: 600">Sorry!!! No record found</h3>
+                    @else
+                        @foreach ($searchGIGs as $search)
+                        <div class="freelancer">
 
-                                <!-- Bookmark Icon -->
-                                <span class="bookmark-icon"></span>
+                            <!-- Overview -->
+                            <div class="freelancer-overview">
+                                <div class="freelancer-overview-inner">
 
-                                <!-- Avatar -->
-                                <div class="freelancer-avatar">
-                                    <div class="verified-badge"></div>
-                                    <a href="single-freelancer-profile.html"><img src="images/user-avatar-big-02.jpg" alt=""></a>
-                                </div>
+                                    <!-- Bookmark Icon -->
+                                    <span class="bookmark-icon"></span>
 
-                                <!-- Name -->
-                                <div class="freelancer-name">
-                                    <h4><a href="#">{{$search->user_id}} <img class="flag" src="images/flags/de.svg" alt="" title="Germany" data-tippy-placement="top"></a></h4>
-                                    <span>iOS Expert + Node Dev</span>
-                                </div>
+                                    <!-- Avatar -->
+                                    <div class="freelancer-avatar">
+                                        <div class="verified-badge"></div>
+                                        @if ($search->passport == '')
+                                        <a href="single-freelancer-profile.html"><img src="images/user-avatar-placeholder.png" alt=""></a>
+                                        @else
+                                        <a href="single-freelancer-profile.html"><img src="images/passport/{{$search->passport}}" alt=""></a>
+                                        @endif
 
-                                <!-- Rating -->
-                                <div class="freelancer-rating">
-                                    <div class="star-rating" data-rating="4.2"></div>
+                                    </div>
+
+                                    <!-- Name -->
+                                    <div class="freelancer-name">
+                                        <h2 style="font-weight: 700; margin-bottom: 10px">
+                                            <a href="{{route('detail',$search->id)}}">{{$search->title_ads}}</a>
+                                        </h2>
+                                        <h4 style="margin-bottom: 5px"><a href="{{route('detail', $search->id)}}">{{$search->fullname}}</a></h4>
+                                        <span>{{$search->subject}}</span>
+                                    </div>
+
+                                    <!-- Rating -->
+                                    <div class="freelancer-rating">
+                                        <div class="star-rating" data-rating="5.0"></div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Details -->
-                        <div class="freelancer-details">
-                            <div class="freelancer-details-list">
-                                <ul>
-                                    <li>Location <strong><i class="icon-material-outline-location-on"></i> Berlin</strong></li>
-                                    <li>Rate <strong>$40 / hr</strong></li>
-                                    <li>Job Success <strong>88%</strong></li>
-                                </ul>
+                            <!-- Details -->
+                            <div class="freelancer-details">
+                                <div class="freelancer-details-list">
+                                    <ul>
+                                        <li>Location <strong><i class="icon-material-outline-location-on"></i> {{$search->meeting_point}}</strong></li>
+                                        <li>Rate <strong>{{$search->week}} / week</strong></li>
+                                        <li>Rate <strong>{{$search->month}} / month</strong></li>
+                                        {{-- <li>Rate <strong>{{$search->year}} / year</strong></li> --}}
+                                    </ul>
+                                </div>
+                                <a href="{{route('detail',$search->id)}}" class="button button-sliding-icon ripple-effect">View Profile <i class="icon-material-outline-arrow-right-alt"></i></a>
                             </div>
-                            <a href="single-freelancer-profile.html" class="button button-sliding-icon ripple-effect">View Profile <i class="icon-material-outline-arrow-right-alt"></i></a>
                         </div>
-                    </div>
+                        @endforeach
+                    @endif
 
-                    @endforeach
-                @endif
-
-				<!-- Freelancer / End -->
-			</div>
+                    <!-- Freelancer / End -->
+                </div>
+            </div>
 			<!-- Freelancers Container / End -->
 
 			<!-- Pagination -->

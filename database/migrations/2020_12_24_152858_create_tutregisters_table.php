@@ -15,24 +15,24 @@ class CreateTutregistersTable extends Migration
     {
         Schema::create('tutregisters', function (Blueprint $table) {
             $table->id();
-            $table->string('categories');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('other_skill');
+            $table->string('subject');
+            $table->string('title_ads');
+            $table->string('categories');
             $table->string('class_type');
-            $table->text('title_ads');
-            $table->text('background');
-            $table->text('teaching_mathod');
-            // $table->string('cv');
-            $table->string('address');
+            $table->text('address');
             $table->string('meeting_point');
+            $table->string('class_location');
             $table->string('language');
-            $table->string('parhrs');
-            $table->string('parfivehrs');
-            $table->string('morefivehrs');
+            $table->text('method');
+            $table->text('about_tutor');
+            $table->string('week');
+            $table->string('month');
+            $table->string('year');
+            $table->string('status');
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      *

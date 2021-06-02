@@ -15,18 +15,20 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('firstname');
-            $table->string('lastname');
-            $table->string('username');
-            $table->string('email')->unique();
+            $table->string('fullname')->nullable();
+            $table->string('username')->nullable();
+            $table->string('email')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('phone')->nullable();
+            $table->string('passport')->nullable();
+            $table->string('status')->default('student');
             $table->rememberToken();
             $table->timestamps();
         });
     }
 
-    /**  
+    /**
      * Reverse the migrations.
      *
      * @return void
@@ -34,6 +36,6 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::dropIfExists('users');
-        
+
     }
 }

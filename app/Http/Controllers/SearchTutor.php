@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Tutregister;
 use Illuminate\Support\Facades\DB;
 class SearchTutor extends Controller
 {
@@ -10,8 +11,15 @@ class SearchTutor extends Controller
     public function index(Request $searchDetail)
     {
         // dd($searchDetail->only('location','subject'));
+        $location= $searchDetail->input('location');
+        $subject= $searchDetail->input('subject');
+        // dd($subject);
 
-        $searchGIG = DB::select('select * from tutregisters');
+        $searchGIG = Tutregister::where('subject', 'like', "%$subject%")
+
+                                    ->orWhere('meeting_point', 'like', "%$location%")->paginate(6);
+                                    // dd($searchGIG->id);
         return view('tutorSearch',['searchGIGs'=>$searchGIG]);
     }
 }
+
