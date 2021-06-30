@@ -51,6 +51,8 @@ class Dashboard extends Controller
                         ->select('users.*', 'place__requests.*')
                         ->where('user_id', $id)
                         ->get();
+           
+            
 
 
         $status = DB::table('tutregisters')

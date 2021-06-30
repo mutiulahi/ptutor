@@ -89,7 +89,7 @@
 									</div>
 								</div>
                                 {{-- <img src="images/passport/tesleem.png" alt="mnn" srcset=""> --}}
-                                {{$data->passport}}
+                                {{-- {{$data->passport}} --}}
 								<div class="col">
 									<div class="row">
                                             <div class="col-xl-6">
@@ -141,7 +141,7 @@
 				</div>
 				<!-- Button -->
                 <div class="col-xl-12">
-                    <button type="submit" class="button ripple-effect big margin-top-30">Published class ad</button>
+                    <button type="submit" class="button ripple-effect big margin-top-30">Update Profile</button>
                 </div>
 
 			</div>

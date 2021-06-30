@@ -237,7 +237,7 @@
 
 
 <!-- Some recormended tutor's -->
-@include('layout/recormended')
+{{-- @include('layout/recormended') --}}
 <!-- Some recormended tutor's / End-->
 
 <!-- Footer

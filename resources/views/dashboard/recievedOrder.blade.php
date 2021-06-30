@@ -93,6 +93,7 @@
 											<!-- Name -->
 											<div class="freelancer-name">
 												<h4><a href="#">{{$msg->fullname}} </a>
+
                                                     @if ($msg->status == 'accept')
                                                     <span class="dashboard-status-button green">Accepted</span>
                                                     @else
@@ -104,7 +105,7 @@
 
 												<!-- Details -->
 												<span class="freelancer-detail-item"><a href="#"><i class="icon-feather-mail"> </i>{{$msg->email}}</a></span>
-												{{-- <span class="freelancer-detail-item"><i class="icon-feather-phone"></i> </span> --}}
+
 
                                                 <p class="with-border">{{$msg->request_message}}</p>
 
@@ -187,9 +188,11 @@
             <div class="welcome-text ">
                 <h3>Write a request note to </h3>
             </div>
-            <form action="../placeOrder" method="post" >
+            <form action="sendMeg" method="post" >
+
                 @csrf
-                <input type="hidden" value="" name="tutor_id">
+
+                <input type="hidden" value="{{$msg->user_id}}" name="destination">
 
                 <textarea  name="message" cols="10" placeholder="Message" class="with-border"></textarea>
 

@@ -72,13 +72,20 @@
                 @if ($status > 0)
                     <div class="fun-fact" data-fun-fact-color="#36bd78">
                         <div class="fun-fact-text">
-                            <span>Accepted Order</span>
+                            <span>Recieved Order</span>
                             <h4>22</h4>
                         </div>
                         <div class="fun-fact-icon" style="background-color: rgba(54, 189, 120, 0.07);"><i class="icon-brand-first-order" style="color: rgb(54, 189, 120);"></i></div>
                     </div>
-                @endif
 
+
+				<div class="fun-fact" data-fun-fact-color="#b81b7f">
+					<div class="fun-fact-text">
+						<span>Accept Order</span>
+						<h4>4</h4>
+					</div>
+					<div class="fun-fact-icon" style="background-color: rgba(184, 27, 127, 0.07);"><i class="icon-feather-thumbs-up" style="color: rgb(184, 27, 127);"></i></div>
+				</div>
 
 				<div class="fun-fact" data-fun-fact-color="#b81b7f">
 					<div class="fun-fact-text">
@@ -87,7 +94,17 @@
 					</div>
 					<div class="fun-fact-icon" style="background-color: rgba(184, 27, 127, 0.07);"><i class="icon-feather-thumbs-down" style="color: rgb(184, 27, 127);"></i></div>
 				</div>
+                @else
 
+
+				<div class="fun-fact" data-fun-fact-color="#2a41e6">
+					<div class="fun-fact-text">
+						<span>This Mth Views</span>
+						<h4>987</h4>
+					</div>
+					<div class="fun-fact-icon" style="background-color: rgba(42, 65, 230, 0.07);"><i class="icon-feather-trending-up" style="color: rgb(42, 65, 230);"></i></div>
+				</div>
+				
 				<div class="fun-fact" data-fun-fact-color="#2a41e6">
 					<div class="fun-fact-text">
 						<span>This Month Views</span>
@@ -95,6 +112,7 @@
 					</div>
 					<div class="fun-fact-icon" style="background-color: rgba(42, 65, 230, 0.07);"><i class="icon-feather-trending-up" style="color: rgb(42, 65, 230);"></i></div>
 				</div>
+				@endif
 
 
 			</div>

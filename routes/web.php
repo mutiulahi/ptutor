@@ -8,6 +8,10 @@ use App\Http\Controllers\TutoringRegistration;
 use App\Http\Controllers\SearchTutor;
 use App\Http\Controllers\Userall\Dashboard;
 use App\Http\Controllers\General;
+use App\Http\Controllers\AddReview;
+use App\Http\Controllers\SendAndMeg;
+use App\Models\Review as ModelsReview;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -68,16 +72,27 @@ Route::get('adsEdit', [Dashboard::class, 'adsEdit'])->middleware('auth');
 Route::post('adsUpdate', [Dashboard::class, 'adsUpdate'])->middleware('auth');
 Route::get('adsDelet', [Dashboard::class, 'adsDelet'])->middleware('auth');
 
+//message
+Route::get('message', [SendAndMeg::class, 'index'])->name('message')->middleware('auth');
+Route::post('sendMeg', [SendAndMeg::class, 'sendMessage'])->middleware('auth');
+Route::get('show', [SendAndMeg::class, 'Show'])->middleware('auth');
+
+Route::get('Recievedmessage', [SendAndMeg::class, 'Recievedindex'])->name('Recievedmessage')->middleware('auth');
+Route::post('RecievedsendMeg', [SendAndMeg::class, 'RecievedsendMessage'])->middleware('auth');
+Route::get('Recievedshow', [SendAndMeg::class, 'RecievedShow'])->middleware('auth');
+
+
 
 // Tutor Detail
-
 Route::get('detail/{id}', [General::class, 'index'])->name('detail');
 
 Route::get('payment', [General::class, 'checkout'])->name('payment');
 Route::post('placeOrder', [General::class, 'order']);
 
+//review
+Route::post('review', [AddReview::class, 'Review']);
 
-
+//admin
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });

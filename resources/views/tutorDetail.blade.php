@@ -48,7 +48,7 @@
                                 <h4>{{$search->fullname}} </h4>
                                 <span> <strong>Subject: </strong> {{$search->subject}}</span>
                                 <ul>
-                                    <li><div class="star-rating" data-rating="5.0"></div></li>
+                                    <li><div class="star-rating" data-rating="{{$rate}}"></div></li>
                                     <li> {{$search->meeting_point}}</li>
                                     <li><div class="verified-badge-with-title">Verified</div></li>
                                 </ul>
@@ -91,78 +91,24 @@
 					<h3><i class="icon-material-outline-thumb-up"></i> Work History and Feedback</h3>
 				</div>
 				<ul class="boxed-list-ul">
-					<li>
-						<div class="boxed-list-item">
-							<!-- Content -->
-							<div class="item-content">
-								<h4>Web, Database and API Developer <span>Rated as Freelancer</span></h4>
-								<div class="item-details margin-top-10">
-									<div class="star-rating" data-rating="5.0"></div>
-									<div class="detail-item"><i class="icon-material-outline-date-range"></i> August 2019</div>
-								</div>
-								<div class="item-description">
-									<p>Excellent programmer - fully carried out my project in a very professional manner. </p>
-								</div>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div class="boxed-list-item">
-							<!-- Content -->
-							<div class="item-content">
-								<h4>WordPress Theme Installation <span>Rated as Freelancer</span></h4>
-								<div class="item-details margin-top-10">
-									<div class="star-rating" data-rating="5.0"></div>
-									<div class="detail-item"><i class="icon-material-outline-date-range"></i> June 2019</div>
-								</div>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div class="boxed-list-item">
-							<!-- Content -->
-							<div class="item-content">
-								<h4>Fix Python Selenium Code <span>Rated as Employer</span></h4>
-								<div class="item-details margin-top-10">
-									<div class="star-rating" data-rating="5.0"></div>
-									<div class="detail-item"><i class="icon-material-outline-date-range"></i> May 2019</div>
-								</div>
-								<div class="item-description">
-									<p>I was extremely impressed with the quality of work AND how quickly he got it done. He then offered to help with another side part of the project that we didn't even think about originally.</p>
-								</div>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div class="boxed-list-item">
-							<!-- Content -->
-							<div class="item-content">
-								<h4>PHP Core Website Fixes <span>Rated as Freelancer</span></h4>
-								<div class="item-details margin-top-10">
-									<div class="star-rating" data-rating="5.0"></div>
-									<div class="detail-item"><i class="icon-material-outline-date-range"></i> May 2019</div>
-								</div>
-								<div class="item-description">
-									<p>Awesome work, definitely will rehire. Poject was completed not only with the requirements, but on time, within our small budget.</p>
-								</div>
-							</div>
-						</div>
-					</li>
-				</ul>
-
-				<!-- Pagination -->
-				<div class="clearfix"></div>
-				<div class="pagination-container margin-top-40 margin-bottom-10">
-					<nav class="pagination">
-						<ul>
-							<li><a href="#" class="ripple-effect current-page">1</a></li>
-							<li><a href="#" class="ripple-effect">2</a></li>
-							<li class="pagination-arrow"><a href="#" class="ripple-effect"><i class="icon-material-outline-keyboard-arrow-right"></i></a></li>
-						</ul>
-					</nav>
-				</div>
-				<div class="clearfix"></div>
-				<!-- Pagination / End -->
+                    @foreach ($review as $rev)
+                        <li>
+                            <div class="boxed-list-item">
+                                <!-- Content -->
+                                <div class="item-content">
+                                    <h4>{{$rev->fullname}} <span>Rated as Tutor</span></h4>
+                                    <div class="item-details margin-top-10">
+                                        <div class="star-rating" data-rating="{{$rev->rate}}"></div>
+                                        <div class="detail-item"><i class="icon-material-outline-date-range"></i>{{$rev->created_at}}</div>
+                                    </div>
+                                    <div class="item-description">
+                                        <p>{{$rev->comment}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    @endforeach
+                </ul>
 			</div>
 		</div>
 
@@ -214,19 +160,6 @@
 					</div>
 				</div>
 
-				<!-- Widget -->
-				<div class="sidebar-widget">
-					<h3>Social Profiles</h3>
-					<div class="freelancer-socials margin-top-25">
-						<ul>
-							<li><a href="#" title="Dribbble" data-tippy-placement="top"><i class="icon-brand-dribbble"></i></a></li>
-							<li><a href="#" title="Twitter" data-tippy-placement="top"><i class="icon-brand-twitter"></i></a></li>
-							<li><a href="#" title="Behance" data-tippy-placement="top"><i class="icon-brand-behance"></i></a></li>
-							<li><a href="#" title="GitHub" data-tippy-placement="top"><i class="icon-brand-github"></i></a></li>
-
-						</ul>
-					</div>
-				</div>
 
 				<!-- Widget -->
 				<div class="sidebar-widget">
@@ -457,6 +390,9 @@
                 @csrf
                 @foreach ($Detail as $search)
                 <input type="hidden" value="{{$search->user_id}}" name="tutor_id">
+                <input type="hidden" value="{{$search->email}}" name="email">
+                {{-- <input type="hidden" value="{{$search->u}}" name="email"> --}}
+				
                 @endforeach
 
                 <textarea  name="message" cols="10" placeholder="Message" class="with-border"></textarea>

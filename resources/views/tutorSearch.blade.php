@@ -43,7 +43,7 @@
                         <h3>Location</h3>
                         <div class="input-with-icon">
                             <div id="autocomplete-container">
-                                <input id="autocomplete-input" type="text" placeholder="Location">
+                                <input id="autocomplete-input" type="text" name="location" placeholder="Location">
                             </div>
                             <i class="icon-material-outline-location-on"></i>
                         </div>
@@ -54,7 +54,7 @@
                         <h3>Subject</h3>
                         <div class="input-with-icon">
                             <div id="autocomplete-container">
-                                <input id="autocomplete-input" type="text" placeholder="Subject">
+                                <input id="autocomplete-input" type="text" name="subject" placeholder="Subject">
                             </div>
                             <i class="icon-line-awesome-book"></i>
                         </div>
@@ -129,58 +129,66 @@
                 <div class="freelancers-container freelancers-grid-layout margin-top-35">
                     <!--Freelancer -->
                     @if (empty($searchGIGs))
-                        <h3 style="margin-left: 35%; font-weight: 600">Sorry!!! No record found</h3>
+                        <h3 style="margin-left: 15%; font-weight: 600">Please use the side search bar to select your prefered tutor</h3>
                     @else
+
                         @foreach ($searchGIGs as $search)
-                        <div class="freelancer">
+                            @if ($search->tutor_id=='')
+                            <div class="freelancer">
+                                {{-- {{$search['user_id']}} --}}
 
-                            <!-- Overview -->
-                            <div class="freelancer-overview">
-                                <div class="freelancer-overview-inner">
+                                <!-- Overview -->
+                                <div class="freelancer-overview">
+                                    <div class="freelancer-overview-inner">
 
-                                    <!-- Bookmark Icon -->
-                                    <span class="bookmark-icon"></span>
+                                        <!-- Bookmark Icon -->
+                                        <span class="bookmark-icon"></span>
 
-                                    <!-- Avatar -->
-                                    <div class="freelancer-avatar">
-                                        <div class="verified-badge"></div>
-                                        @if ($search->passport == '')
-                                        <a href="single-freelancer-profile.html"><img src="images/user-avatar-placeholder.png" alt=""></a>
-                                        @else
-                                        <a href="single-freelancer-profile.html"><img src="images/passport/{{$search->passport}}" alt=""></a>
-                                        @endif
+                                        <!-- Avatar -->
+                                        <div class="freelancer-avatar">
+                                            <div class="verified-badge"></div>
+                                            @if ($search->passport == '')
+                                            <a href="single-freelancer-profile.html"><img src="images/user-avatar-placeholder.png" alt=""></a>
+                                            @else
+                                            <a href="single-freelancer-profile.html"><img src="images/passport/{{$search->passport}}" alt=""></a>
+                                            {{-- {{$search->passport}} --}}
+                                            @endif
 
-                                    </div>
+                                        </div>
 
-                                    <!-- Name -->
-                                    <div class="freelancer-name">
-                                        <h2 style="font-weight: 700; margin-bottom: 10px">
-                                            <a href="{{route('detail',$search->id)}}">{{$search->title_ads}}</a>
-                                        </h2>
-                                        <h4 style="margin-bottom: 5px"><a href="{{route('detail', $search->id)}}">{{$search->fullname}}</a></h4>
-                                        <span>{{$search->subject}}</span>
-                                    </div>
+                                        <!-- Name -->
+                                        <div class="freelancer-name">
+                                            <h2 style="font-weight: 700; margin-bottom: 10px">
+                                                <a href="{{route('detail',$search->id)}}">{{$search->title_ads}}</a>
+                                            </h2>
+                                            <h4 style="margin-bottom: 5px"><a href="{{route('detail', $search->id)}}">{{$search->fullname}}</a></h4>
+                                            <span>{{$search->subject}}</span>
+                                        </div>
 
-                                    <!-- Rating -->
-                                    <div class="freelancer-rating">
-                                        <div class="star-rating" data-rating="5.0"></div>
+                                        <!-- Rating -->
+                                        {{-- <div class="freelancer-rating">
+                                            <div class="star-rating" data-rating="5"></div>
+                                        </div> --}}
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- Details -->
-                            <div class="freelancer-details">
-                                <div class="freelancer-details-list">
-                                    <ul>
-                                        <li>Location <strong><i class="icon-material-outline-location-on"></i> {{$search->meeting_point}}</strong></li>
-                                        <li>Rate <strong>{{$search->week}} / week</strong></li>
-                                        <li>Rate <strong>{{$search->month}} / month</strong></li>
-                                        {{-- <li>Rate <strong>{{$search->year}} / year</strong></li> --}}
-                                    </ul>
+                                <!-- Details -->
+                                <div class="freelancer-details">
+                                    <div class="freelancer-details-list">
+                                        <ul>
+                                            <li>Location <strong><i class="icon-material-outline-location-on"></i> {{$search->meeting_point}}</strong></li>
+                                            <li>Rate <strong>{{$search->week}} / week</strong></li>
+                                            <li>Rate <strong>{{$search->month}} / month</strong></li>
+                                            {{-- <li>Rate <strong>{{$search->year}} / year</strong></li> --}}
+                                        </ul>
+                                    </div>
+                                    <a href="{{route('detail',$search->id)}}" class="button button-sliding-icon ripple-effect">View Profile <i class="icon-material-outline-arrow-right-alt"></i></a>
                                 </div>
-                                <a href="{{route('detail',$search->id)}}" class="button button-sliding-icon ripple-effect">View Profile <i class="icon-material-outline-arrow-right-alt"></i></a>
                             </div>
-                        </div>
+                            @elseif($search->tutor_id=='')
+                                <h3 style="margin-left: 35%; font-weight: 600">Sorry, No tutor available for your demand</h3>
+                            @endif
+
                         @endforeach
                     @endif
 
@@ -191,25 +199,17 @@
 
 			<!-- Pagination -->
 			<div class="clearfix"></div>
-			<div class="pagination-container margin-top-20 margin-bottom-20">
-				<nav class="pagination">
-					<ul>
-						<li class="pagination-arrow"><a href="#" class="ripple-effect"><i class="icon-material-outline-keyboard-arrow-left"></i></a></li>
-						<li><a href="#" class="ripple-effect">1</a></li>
-						<li><a href="#" class="ripple-effect current-page">2</a></li>
-						<li><a href="#" class="ripple-effect">3</a></li>
-						<li><a href="#" class="ripple-effect">4</a></li>
-						<li class="pagination-arrow"><a href="#" class="ripple-effect"><i class="icon-material-outline-keyboard-arrow-right"></i></a></li>
-					</ul>
-				</nav>
-			</div>
+
+			<div class="clearfix"></div>
+			<div class="clearfix"></div>
+			<div class="clearfix"></div>
 			<div class="clearfix"></div>
 			<!-- Pagination / End -->
 
 			<!-- Footer -->
 			<div class="small-footer margin-top-15">
 				<div class="small-footer-copyrights">
-					© 2019 <strong>Hireo</strong>. All Rights Reserved.
+					© {{date('Y')}} <strong>Hireo</strong>. All Rights Reserved.
 				</div>
 				<ul class="footer-social-links">
 					<li>

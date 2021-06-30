@@ -43,7 +43,18 @@
 	================================================== -->
 	<div class="dashboard-content-container" data-simplebar>
 		<div class="dashboard-content-inner" >
-
+            @if(session('error'))
+            <div class="notification success closeable">
+				<p>{{session('error')}}</p>
+				<a class="close" href="#"></a>
+			</div>
+            @endif
+            @if(session('review'))
+            <div class="notification success closeable">
+				<p>{{session('review')}}</p>
+				<a class="close" href="#"></a>
+			</div>
+            @endif
 			<!-- Dashboard Headline -->
 			<div class="dashboard-headline">
 				<h3>{{auth()->user()->username}}</h3>
@@ -113,7 +124,9 @@
 
 
 												<!-- Buttons -->
-												
+                                                <a href="#small-dialog-2" class="popup-with-zoom-anim button ripple-effect margin-top-5 margin-bottom-10 right-side"><i class="icon-material-outline-thumb-up"></i> Leave a Review</a>
+
+
 											</div>
 										</div>
 
@@ -177,26 +190,51 @@
 
 <!-- Apply for a job popup
 ================================================== -->
-<div id="small-dialog" class="zoom-anim-dialog mfp-hide dialog-with-tabs">
-
+<div id="small-dialog-2" class="zoom-anim-dialog mfp-hide dialog-with-tabs">
 	<!--Tabs -->
-    <ul class="popup-tabs-nav">
-        <li><a href="#tab">Accept Offer</a></li>
-    </ul>
+	<div class="sign-in-form">
+		<ul class="popup-tabs-nav">
+		</ul>
+		<div class="popup-tabs-container">
+			<!-- Tab -->
+            @foreach ($order_message as $msg )
+			<div class="popup-tab-content" id="tab2">
+				<!-- Welcome Text -->
+				<div class="welcome-text">
+					<h3>Leave a Review</h3>
+					<span>Rate <a href="#">{{$msg->fullname}}</a> base on his services</span>
+				</div>
 
-		<div class="popup-tab-content">
-            <div class="welcome-text ">
-                <h3>Write a request note to </h3>
-            </div>
-            <form action="../placeOrder" method="post" >
-                @csrf
-                <input type="hidden" value="" name="tutor_id">
+				<!-- Form -->
+				<form action="review" method="post" id="leave-review-form">
+                    @csrf
 
-                <textarea  name="message" cols="10" placeholder="Message" class="with-border"></textarea>
+                    <div class="feedback-yes-no">
+						<strong>Your Rating</strong>
+						<div class="leave-rating">
+							<input type="radio" name="rating" id="rating-radio-1" value="1" required>
+							<label for="rating-radio-1" class="icon-material-outline-star"></label>
+							<input type="radio" name="rating" id="rating-radio-2" value="2" required>
+							<label for="rating-radio-2" class="icon-material-outline-star"></label>
+							<input type="radio" name="rating" id="rating-radio-3" value="3" required>
+							<label for="rating-radio-3" class="icon-material-outline-star"></label>
+							<input type="radio" name="rating" id="rating-radio-4" value="4" required>
+							<label for="rating-radio-4" class="icon-material-outline-star"></label>
+							<input type="radio" name="rating" id="rating-radio-5" value="5" required>
+							<label for="rating-radio-5" class="icon-material-outline-star"></label>
+						</div><div class="clearfix"></div>
+					</div>
+                    <input type="hidden" name="tutor_id" value="{{$msg->tutor_id}}">
+					<textarea class="with-border" placeholder="Comment" name="comment" id="message2" cols="7" required></textarea>
 
-            <!-- Button -->
-                <button class="button full-width button-sliding-icon ripple-effect margin-top-10" type="submit" >Place Request <i class="icon-material-outline-arrow-right-alt"></i></button>
+
+				<!-- Button -->
+				<button class="button full-width button-sliding-icon ripple-effect" type="submit" form="leave-review-form">Leave a Review <i class="icon-material-outline-arrow-right-alt"></i></button>
             </form>
+			</div>
+            @endforeach
+
+		</div>
 	</div>
 </div>
 <!-- Apply for a job popup / End -->

@@ -20,7 +20,15 @@
 
 						<ul data-submenu-title="Start">
 							<li ><a href="{{route('dashboard')}}"><i class="icon-material-outline-dashboard"></i> Dashboard</a></li>
-							<li><a href=""><i class="icon-material-outline-message"></i> Messages <span class="nav-tag">2</span></a></li>
+							{{-- <li><a href=""><i class="icon-material-outline-message"></i> Messages <span class="nav-tag">2</span></a></li> --}}
+                            <ul data-submenu-title="Message">
+                                <li><a href="#"><i class="icon-material-outline-business-center"></i> Message</a>
+                                    <ul>
+                                            <li><a href="{{route('Recievedmessage')}}">Recieved Message </a></li>
+                                        <li><a href="{{route('message')}}">Sent Message</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
                             @if($status > 0)
 
 							<li><a href="{{route('ads')}}"><i class=""></i> Ads </a></li>
