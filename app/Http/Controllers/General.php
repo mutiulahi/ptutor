@@ -52,9 +52,11 @@ class General extends Controller
             $order->request_message=$order_data->message;
             $order->status='pending';
             $order->save();
-            $mail = $order_data->email;
+
+            // $mail = $order_data->email;
             $data = ['name'=>"Tesleem", ];
             $users['to'] = $order_data->email;
+            
             Mail::send('mail', $data, function ($message) use ($users) {
                 $message->sender('john@johndoe.com', 'John Doe');
                 $message->to($users['to']);
