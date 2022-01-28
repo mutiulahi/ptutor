@@ -92,7 +92,4 @@ Route::post('placeOrder', [General::class, 'order']);
 //review
 Route::post('review', [AddReview::class, 'Review']);
 
-//admin
-Route::group(['prefix' => 'admin'], function () {
-    Voyager::routes();
-});
+
