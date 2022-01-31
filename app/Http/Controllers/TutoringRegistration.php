@@ -7,6 +7,9 @@ use App\Models\User;
 use Faker\Provider\Lorem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
+
+// Http
 
 class TutoringRegistration extends Controller
 {
@@ -15,9 +18,11 @@ class TutoringRegistration extends Controller
     {
         $this->middleware(['auth']);
     }
-
+// https://locus.fkkas.com/api/states
     public function index() {
-        return view('tutoringRegister');
+        $response = Http::get('https://locus.fkkas.com/api/states');
+        echo($response);
+        // return view('tutoringRegister');
     }
 
     public function storeGIG(Request $gigstore )

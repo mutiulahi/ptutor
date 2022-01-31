@@ -44,8 +44,8 @@ Route::get('Logout', [Logout::class, 'logout'])->name('logout');
 
 
 // Tutoring gig creation
-Route::get('become_tutor', [TutoringRegistration::class, 'index'])->name('becometutor');
-Route::post('become_tutor', [TutoringRegistration::class, 'storeGIG']);
+Route::get('creategig', [TutoringRegistration::class, 'index'])->name('becometutor');
+Route::post('creategig', [TutoringRegistration::class, 'storeGIG']);
 
 
 // finding tutor section

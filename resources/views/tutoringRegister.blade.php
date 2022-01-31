@@ -40,94 +40,95 @@
                 <!-- Dashboard Headline -->
                  {{-- updated form --}}
                 @if(!empty($ads))
-                <div class="dashboard-headline">
-                    <h3>Make changes to your own class ad 💎</h3>
+                    <div class="dashboard-headline">
+                        <h3>Make changes to your own class ad 💎</h3>
 
-                    <!-- Breadcrumbs -->
-                    <nav id="breadcrumbs" class="dark">
-                        <ul>
-                            <li><a href="{{route('/')}}">Home</a></li>
-                            <li><a href="{{route('dashboard')}}">Dashboard</a></li>
-                            <li>Update Ads</li>
-                        </ul>
-                    </nav>
-                </div>
-                @foreach ($ads as $adsDetail )
+                        <!-- Breadcrumbs -->
+                        <nav id="breadcrumbs" class="dark">
+                            <ul>
+                                <li><a href="{{route('/')}}">Home</a></li>
+                                <li><a href="{{route('dashboard')}}">Dashboard</a></li>
+                                <li>Update Ads</li>
+                            </ul>
+                        </nav>
+                    </div>
+                    @foreach ($ads as $adsDetail )
 
-                <div class="row">
-                    <form action="adsUpdate" method="POST">
-                        @csrf
-                        <!-- Dashboard Box -->
-                        <div class="col-xl-12">
-                            <div class="dashboard-box margin-top-0">
+                    <div class="row">
+                        <form action="adsUpdate" method="POST">
+                            @csrf
+                            <!-- Dashboard Box -->
+                            <div class="col-xl-12">
+                                <div class="dashboard-box margin-top-0">
 
-                                <!-- Headline -->
-                                <div class="headline">
-                                    <h3><i class="icon-material-outline-account-circle"></i><strong>What do you have to
-                                            offer</strong></h3>
-                                </div>
+                                    <!-- Headline -->
+                                    <div class="headline">
+                                        <h3><i class="icon-material-outline-account-circle"></i><strong>What do you have to
+                                                offer</strong></h3>
+                                    </div>
 
-                                <input type="hidden" name="hid" value="{{$adsDetail->id}}">
+                                    <input type="hidden" name="hid" value="{{$adsDetail->id}}">
 
-                                <div class="content with-padding padding-bottom-0">
+                                    <div class="content with-padding padding-bottom-0">
 
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="row">
-                                                <div class="col-xl-12">
-                                                    <div class="submit-field">
-                                                        <h5>Which subject do you wish to teach? 🎓</h5>
-                                                        <input type="text" class="with-border" name="subject" max="20" @error('subject') style="box-shadow: 0px 0px 5px  red"@enderror placeholder="e.g : Physics" value="{{$adsDetail->subject}}">
-                                                        @error('subject')
-                                                            <span style="color:red;">{{$message}}</span>
-                                                        @enderror
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="row">
+                                                    <div class="col-xl-12">
+                                                        <div class="submit-field">
+                                                            <h5>Which subject do you wish to teach? 🎓</h5>
+                                                            <input type="text" class="with-border" name="subject" max="20" @error('subject') style="border: 1px solid #ed9e9e;"@enderror placeholder="e.g : Physics" value="{{$adsDetail->subject}}">
+                                                            @error('subject')
+                                                                <span style="color:red;">{{$message}}</span>
+                                                            @enderror
 
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="col-xl-12">
-                                                    <div class="submit-field">
-                                                        <h5>Subject related to your subject skill</h5>
-                                                        <input  type="text" class="with-border" name="categories" max="20" @error('categories') style="box-shadow: 0px 0px 5px  red"@enderror  height="200px" placeholder="e.g : Mathematics" value="{{$adsDetail->categories}}">
-                                                        @error('categories')
-                                                            <span style="color:red;">{{$message}}</span>
-                                                        @enderror
+                                                    <div class="col-xl-12">
+                                                        <div class="submit-field">
+                                                            <h5>Subject related to your subject skill</h5>
+                                                            <input  type="text" class="with-border" name="categories" max="20" @error('categories') style="border: 1px solid #ed9e9e;"@enderror  height="200px" placeholder="e.g : Mathematics" value="{{$adsDetail->categories}}">
+                                                            @error('categories')
+                                                                <span style="color:red;">{{$message}}</span>
+                                                            @enderror
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="col-xl-12">
-                                                    <div class="submit-field">
-                                                        <h5>Write a beautiful, unique title for your tutor ad 💎</h5>
-                                                        <input type="text" class="with-border" name="title_ads" max="20" @error('title_ads') style="box-shadow: 0px 0px 5px  red"@enderror placeholder="e.g : I will teach you mathematics" value="{{$adsDetail->title_ads}}">
-                                                        @error('title_ads')
-                                                            <span style="color:red;">{{$message}}</span>
-                                                        @enderror
+                                                    <div class="col-xl-12">
+                                                        <div class="submit-field">
+                                                            <h5>Write a beautiful, unique title for your tutor ad 💎</h5>
+                                                            <input type="text" class="with-border" name="title_ads" max="20" @error('title_ads') style="border: 1px solid #ed9e9e;"@enderror placeholder="e.g : I will teach you mathematics" value="{{$adsDetail->title_ads}}">
+                                                            @error('title_ads')
+                                                                <span style="color:red;">{{$message}}</span>
+                                                            @enderror
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="col-xl-12">
-                                                    <!-- Account Type -->
-                                                    <div class="submit-field">
-                                                        <h5>What type of class do you want to give?</h5>
-                                                        <div class="account-type" @error('class_type') style="box-shadow: 0px 0px 5px  red"@enderror>
+                                                    <div class="col-xl-12">
+                                                        <!-- Account Type -->
+                                                        <div class="submit-field">
+                                                            <h5>What type of class do you want to give?</h5>
+                                                            <div class="account-type" @error('class_type') style="border: 1px solid #ed9e9e;"@enderror>
 
-                                                            <div>
-                                                                <input type="radio" name="class_type" id="freelancer-radio" @if($adsDetail->class_type == "Individual class") checked @endif class="account-type-radio" value="Individual class"/>
-                                                                <label for="freelancer-radio" class="ripple-effect-dark"><i class="icon-material-outline-account-circle"></i> Individual class</label>
+                                                                <div>
+                                                                    <input type="radio" name="class_type" id="freelancer-radio" @if($adsDetail->class_type == "Individual class") checked @endif class="account-type-radio" value="Individual class"/>
+                                                                    <label for="freelancer-radio" class="ripple-effect-dark"><i class="icon-material-outline-account-circle"></i> Individual class</label>
+                                                                </div>
+
+
+                                                                <div>
+                                                                    <input type="radio" name="class_type" id="employer-radio" @if($adsDetail->class_type == "Group Class") checked @endif class="account-type-radio" value="Group Class"/>
+                                                                    <label for="employer-radio" class="ripple-effect-dark"><i class="icon-material-outline-group"></i> Group Class</label>
+                                                                </div>
+                                                                <div>
+                                                                    <input type="radio" name="class_type" id="Both"  class="account-type-radio " @if($adsDetail->class_type == "Individual and Group Class") checked @endif value="Individual and Group Class"/>
+                                                                    <label for="Both" class="ripple-effect-dark"><i class="icon-material-outline-business-center"></i> Both</label>
+                                                                </div>
+                                                                @error('class_type')
+                                                                <span style="color:red;">{{$message}}</span>
+                                                            @enderror
                                                             </div>
-
-
-                                                            <div>
-                                                                <input type="radio" name="class_type" id="employer-radio" @if($adsDetail->class_type == "Group Class") checked @endif class="account-type-radio" value="Group Class"/>
-                                                                <label for="employer-radio" class="ripple-effect-dark"><i class="icon-material-outline-group"></i> Group Class</label>
-                                                            </div>
-                                                            <div>
-                                                                <input type="radio" name="class_type" id="Both"  class="account-type-radio " @if($adsDetail->class_type == "Individual and Group Class") checked @endif value="Individual and Group Class"/>
-                                                                <label for="Both" class="ripple-effect-dark"><i class="icon-material-outline-business-center"></i> Both</label>
-                                                            </div>
-                                                            @error('class_type')
-                                                            <span style="color:red;">{{$message}}</span>
-                                                        @enderror
                                                         </div>
                                                     </div>
                                                 </div>
@@ -136,159 +137,158 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Dashboard Box -->
-                        <div class="col-xl-12">
-                            <div class="dashboard-box">
+                            <!-- Dashboard Box -->
+                            <div class="col-xl-12">
+                                <div class="dashboard-box">
 
-                                <!-- Headline -->
-                                <div class="headline">
-                                    <h3><i class="icon-material-outline-face"></i><strong>Your class Profile</strong>
-                                    </h3>
-                                </div>
+                                    <!-- Headline -->
+                                    <div class="headline">
+                                        <h3><i class="icon-material-outline-face"></i><strong>Your class Profile</strong>
+                                        </h3>
+                                    </div>
 
-                                <div class="content">
-                                    <ul class="fields-ul">
-                                        <li>
-                                            <div class="row">
-                                                <div class="col-xl-6">
-                                                    <div class="submit-field">
-                                                        <h5>Address</h5>
-                                                        <input type="text" class="with-border" name="address" @error('address') style="box-shadow: 0px 0px 5px  red"@enderror
-                                                            placeholder="Bodija Ibadan oyo state" value="{{$adsDetail->address}}">
-                                                            @error('address')
+                                    <div class="content">
+                                        <ul class="fields-ul">
+                                            <li>
+                                                <div class="row">
+                                                    <div class="col-xl-6">
+                                                        <div class="submit-field">
+                                                            <h5>Address</h5>
+                                                            <input type="text" class="with-border" name="address" @error('address') style="border: 1px solid #ed9e9e;"@enderror
+                                                                placeholder="Bodija Ibadan oyo state" value="{{$adsDetail->address}}">
+                                                                @error('address')
+                                                                <span style="color:red;">{{$message}}</span>
+                                                            @enderror
+                                                            </div>
+                                                    </div>
+
+                                                    <div class="col-xl-6">
+                                                        <div class="submit-field">
+                                                            <h5>Location (e.g Iwo Osun)</h5>
+                                                            <select class="selectpicker with-border" name="meeting_point" @error('meeting_point') style="border: 1px solid #ed9e9e;"@enderror
+                                                                data-size="7" value="{{$adsDetail->meeting_point}}">
+                                                                <option value="Iwo Osun">Iwo Osun</option>
+                                                                <option value="Ede Osun">Ede Osun</option>
+                                                                <option value="Ibadan Oyo">Ibadan Oyo</option>
+                                                                <option value="Lagos Lagos">Lagos Lagos</option>
+                                                            </select>
+                                                            @error('meeting_point')
                                                             <span style="color:red;">{{$message}}</span>
                                                         @enderror
                                                         </div>
-                                                </div>
-
-                                                <div class="col-xl-6">
-                                                    <div class="submit-field">
-                                                        <h5>Location (e.g Iwo Osun)</h5>
-                                                        <select class="selectpicker with-border" name="meeting_point" @error('meeting_point') style="box-shadow: 0px 0px 5px  red"@enderror
-                                                            data-size="7" value="{{$adsDetail->meeting_point}}">
-                                                            <option value="Iwo Osun">Iwo Osun</option>
-                                                            <option value="Ede Osun">Ede Osun</option>
-                                                            <option value="Ibadan Oyo">Ibadan Oyo</option>
-                                                            <option value="Lagos Lagos">Lagos Lagos</option>
-                                                        </select>
-                                                        @error('meeting_point')
-                                                        <span style="color:red;">{{$message}}</span>
-                                                    @enderror
                                                     </div>
-                                                </div>
 
-                                                <div class="col-xl-6">
-                                                    <div class="submit-field">
-                                                        <h5>Where will your classes be held</h5>
-                                                        <select class="selectpicker with-border" name="class_location" @error('class_location') style="box-shadow: 0px 0px 5px  red"@enderror
-                                                            value="{{$adsDetail->class_location}}"
-                                                            data-live-search="true">
-                                                            <option value="Receive student at my home">I can receive student at my home</option>
-                                                            <option value="Give student online class">I can give student online class</option>
-                                                            <option value="Travel to the student home">I can travel to the student home</option>
-                                                        </select>
-                                                        @error('class_location')
-                                                        <span style="color:red;">{{$message}}</span>
-                                                    @enderror
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-xl-6">
-                                                    <div class="submit-field">
-                                                        <h5>Which language did you want to use to teach</h5>
-                                                        <select class="selectpicker with-border" name="language" @error('language') style="box-shadow: 0px 0px 5px  red"@enderror
-                                                             value="{{$adsDetail->language}}"
-                                                            data-live-search="true">
-                                                            <option value="Engliah">Engliah</option>
-                                                            <option value="Yoruba">Yoruba</option>
-                                                            <option value="Igbo">Igbo</option>
-                                                            <option value="Awusa">Awusa</option>
-                                                        </select>
-                                                        @error('language')
-                                                        <span style="color:red;">{{$message}}</span>
-                                                    @enderror
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="row">
-                                                <div class="col-xl-12">
-                                                    <div class="submit-field">
-                                                        <h5>What method do you intend to use for tutoring</h5>
-                                                        <textarea cols="30" rows="5" name="method" @error('method') style="box-shadow: 0px 0px 5px  red"@enderror
-                                                            class="with-border"
-                                                            placeholder="E.g My teaching method is ... I base my classes on ... I approach each topic by ..." value="{{$adsDetail->method}}">{{$adsDetail->method}}</textarea>
-                                                            @error('method')
+                                                    <div class="col-xl-6">
+                                                        <div class="submit-field">
+                                                            <h5>Where will your classes be held</h5>
+                                                            <select class="selectpicker with-border" name="class_location" @error('class_location') style="border: 1px solid #ed9e9e;"@enderror
+                                                                value="{{$adsDetail->class_location}}"
+                                                                data-live-search="true">
+                                                                <option value="Receive student at my home">I can receive student at my home</option>
+                                                                <option value="Give student online class">I can give student online class</option>
+                                                                <option value="Travel to the student home">I can travel to the student home</option>
+                                                            </select>
+                                                            @error('class_location')
                                                             <span style="color:red;">{{$message}}</span>
                                                         @enderror
                                                         </div>
-                                                </div>
+                                                    </div>
 
-                                                <div class="col-xl-12">
-                                                    <div class="submit-field">
-                                                        <h5>Tell us more about yourself ✍️</h5>
-                                                        <textarea cols="30" rows="5" name="about_tutor" @error('about_tutor') style="box-shadow: 0px 0px 5px  red"@enderror
-                                                            class="with-border"
-                                                            placeholder="E.g I am an engineer / computer scientist/ dancer... I have been  giving private lessions since... I have a degree in..." value="{{$adsDetail->about_tutor}}">{{$adsDetail->about_tutor}}</textarea>
-                                                            @error('about_tutor')
+                                                    <div class="col-xl-6">
+                                                        <div class="submit-field">
+                                                            <h5>Which language did you want to use to teach</h5>
+                                                            <select class="selectpicker with-border" name="language" @error('language') style="border: 1px solid #ed9e9e;"@enderror
+                                                                value="{{$adsDetail->language}}"
+                                                                data-live-search="true">
+                                                                <option value="Engliah">Engliah</option>
+                                                                <option value="Yoruba">Yoruba</option>
+                                                                <option value="Igbo">Igbo</option>
+                                                                <option value="Awusa">Awusa</option>
+                                                            </select>
+                                                            @error('language')
                                                             <span style="color:red;">{{$message}}</span>
                                                         @enderror
                                                         </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                            </li>
+                                            <li>
+                                                <div class="row">
+                                                    <div class="col-xl-12">
+                                                        <div class="submit-field">
+                                                            <h5>What method do you intend to use for tutoring</h5>
+                                                            <textarea cols="30" rows="5" name="method" @error('method') style="border: 1px solid #ed9e9e;"@enderror
+                                                                class="with-border"
+                                                                placeholder="E.g My teaching method is ... I base my classes on ... I approach each topic by ..." value="{{$adsDetail->method}}">{{$adsDetail->method}}</textarea>
+                                                                @error('method')
+                                                                <span style="color:red;">{{$message}}</span>
+                                                            @enderror
+                                                            </div>
+                                                    </div>
+
+                                                    <div class="col-xl-12">
+                                                        <div class="submit-field">
+                                                            <h5>Tell us more about yourself ✍️</h5>
+                                                            <textarea cols="30" rows="5" name="about_tutor" @error('about_tutor') style="border: 1px solid #ed9e9e;"@enderror
+                                                                class="with-border"
+                                                                placeholder="E.g I am an engineer / computer scientist/ dancer... I have been  giving private lessions since... I have a degree in..." value="{{$adsDetail->about_tutor}}">{{$adsDetail->about_tutor}}</textarea>
+                                                                @error('about_tutor')
+                                                                <span style="color:red;">{{$message}}</span>
+                                                            @enderror
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Dashboard Box -->
-                        <div class="col-xl-12">
-                            <div id="test1" class="dashboard-box">
+                            <!-- Dashboard Box -->
+                            <div class="col-xl-12">
+                                <div id="test1" class="dashboard-box">
 
-                                <!-- Headline -->
-                                <div class="headline">
-                                    <h3><i class="icon-material-outline-money"></i><strong>Pricing</strong></h3>
-                                </div>
+                                    <!-- Headline -->
+                                    <div class="headline">
+                                        <h3><i class="icon-material-outline-money"></i><strong>Pricing</strong></h3>
+                                    </div>
 
-                                <div class="content with-padding">
-                                    <div class="row">
-                                        <div class="col-xl-4">
-                                            <div class="submit-field">
-                                                <h5>rate / Week (₦)</h5>
-                                                <input type="number" name="week" class="with-border" @error('week') style="box-shadow: 0px 0px 5px  red"@enderror value="{{$adsDetail->week}}">
+                                    <div class="content with-padding">
+                                        <div class="row">
+                                            <div class="col-xl-4">
+                                                <div class="submit-field">
+                                                    <h5>rate / Week (₦)</h5>
+                                                    <input type="number" name="week" class="with-border" @error('week') style="border: 1px solid #ed9e9e;"@enderror value="{{$adsDetail->week}}">
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div class="col-xl-4">
-                                            <div class="submit-field">
-                                                <h5>rate / Month (₦)</h5>
-                                                <input type="number" name="month" class="with-border" @error('month') style="box-shadow: 0px 0px 5px  red"@enderror value="{{$adsDetail->month}}">
+                                            <div class="col-xl-4">
+                                                <div class="submit-field">
+                                                    <h5>rate / Month (₦)</h5>
+                                                    <input type="number" name="month" class="with-border" @error('month') style="border: 1px solid #ed9e9e;"@enderror value="{{$adsDetail->month}}">
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div class="col-xl-4">
-                                            <div class="submit-field">
-                                                <h5>rate / Year (₦)</h5>
-                                                <input type="number" name="year" class="with-border" @error('year') style="box-shadow: 0px 0px 5px  red"@enderror value="{{$adsDetail->year}}">
+                                            <div class="col-xl-4">
+                                                <div class="submit-field">
+                                                    <h5>rate / Year (₦)</h5>
+                                                    <input type="number" name="year" class="with-border" @error('year') style="border: 1px solid #ed9e9e;"@enderror value="{{$adsDetail->year}}">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Button -->
-                        <div class="col-xl-12">
-                            <button type="submit" class="button ripple-effect big margin-top-30">Update</button>
-                        </div>
+                            <!-- Button -->
+                            <div class="col-xl-12">
+                                <button type="submit" class="button ripple-effect big margin-top-30">Update</button>
+                            </div>
 
-                    </form>
-                </div>
-                @endforeach
+                        </form>
+                    </div>
+                    @endforeach
 
 
                 @else
@@ -307,7 +307,7 @@
                     </div>
                     {{-- Normal form --}}
                     <div class="row">
-                        <form action="become_tutor" method="POST">
+                        <form action="{{route('becometutor')}}" method="POST">
                             @csrf
                             <!-- Dashboard Box -->
                             <div class="col-xl-12">
@@ -315,8 +315,7 @@
 
                                     <!-- Headline -->
                                     <div class="headline">
-                                        <h3><i class="icon-material-outline-account-circle"></i><strong>What do you have to
-                                                offer</strong></h3>
+                                        <h3><i class="icon-material-outline-account-circle"></i><strong>What do you have to offer</strong></h3>
                                     </div>
 
                                     <div class="content with-padding padding-bottom-0">
@@ -327,7 +326,7 @@
                                                     <div class="col-xl-12">
                                                         <div class="submit-field">
                                                             <h5>Which subject do you wish to teach? 🎓</h5>
-                                                            <input type="text" class="with-border" name="subject" max="20" @error('subject') value="{{old('subject')}}" style="box-shadow: 0px 0px 5px  red"@enderror placeholder="e.g : Physics">
+                                                            <input type="text" class="with-border" name="subject" max="20" value="{{old('subject')}}"  @error('subject') style="border: 1px solid #ed9e9e;"@enderror placeholder="e.g : Physics">
                                                             @error('subject')
                                                                 <span style="color:red;">{{$message}}</span>
                                                             @enderror
@@ -338,7 +337,7 @@
                                                     <div class="col-xl-12">
                                                         <div class="submit-field">
                                                             <h5>Subject related to your subject skill</h5>
-                                                            <input  type="text" class="with-border" name="categories" max="20" @error('categories') value="{{old('categories')}}" style="box-shadow: 0px 0px 5px  red"@enderror  height="200px" placeholder="e.g : Mathematics">
+                                                            <input  type="text" class="with-border" name="categories" max="20" value="{{old('categories')}}" @error('categories') style="border: 1px solid #ed9e9e;"@enderror  height="200px" placeholder="e.g : Mathematics">
                                                             @error('categories')
                                                                 <span style="color:red;">{{$message}}</span>
                                                             @enderror
@@ -348,7 +347,7 @@
                                                     <div class="col-xl-12">
                                                         <div class="submit-field">
                                                             <h5>Write a beautiful, unique title for your tutor ad 💎</h5>
-                                                            <input type="text" class="with-border" name="title_ads" max="20" @error('title_ads') value="{{old('title_ads')}}" style="box-shadow: 0px 0px 5px  red"@enderror placeholder="e.g : I will teach you mathematics">
+                                                            <input type="text" class="with-border" name="title_ads" max="20" value="{{old('title_ads')}}" @error('title_ads') value="{{old('title_ads')}}" style="border: 1px solid #ed9e9e;"@enderror placeholder="e.g : I will teach you mathematics">
                                                             @error('title_ads')
                                                             <span style="color:red;">{{$message}}</span>
                                                         @enderror
@@ -360,21 +359,21 @@
                                                         <div class="submit-field">
                                                             <h5>What type of class do you want to give?</h5>
 
-                                                            <div class="account-type" @error('class_type') style="box-shadow: 0px 0px 5px  red"@enderror>
-
+                                                            <div class="account-type"> 
                                                                 <div>
-                                                                    <input type="radio" name="class_type" id="freelancer-radio"  class="account-type-radio" value="Individual class"/>
+                                                                    <input type="radio" name="class_type" id="freelancer-radio"  @if (old('class_type') == 'Individual class') checked  @else  @endif class="account-type-radio" value="Individual class"/>
                                                                     <label for="freelancer-radio" class="ripple-effect-dark"><i class="icon-material-outline-account-circle"></i> Individual class</label>
                                                                 </div>
 
                                                                 <div>
-                                                                    <input type="radio" name="class_type" id="employer-radio" class="account-type-radio" value="Group Class"/>
+                                                                    <input type="radio" name="class_type" id="employer-radio" class="account-type-radio" @if (old('class_type') == 'Group Class') checked  @else  @endif  value="Group Class"/>
                                                                     <label for="employer-radio" class="ripple-effect-dark"><i class="icon-material-outline-group"></i> Group Class</label>
                                                                 </div>
                                                                 <div>
-                                                                    <input type="radio" name="class_type" id="Both" class="account-type-radio " value="Individual and Group Class"/>
+                                                                    <input type="radio" name="class_type" id="Both" class="account-type-radio " @if (old('class_type') == 'Individual and Group Class') checked  @else  @endif value="Individual and Group Class"/>
                                                                     <label for="Both" class="ripple-effect-dark"><i class="icon-material-outline-business-center"></i> Both</label>
-                                                                </div>
+                                                                </div> 
+                                                                
                                                             </div>
                                                             @error('class_type')
                                                                 <span style="color:red;">{{$message}}</span>
@@ -405,24 +404,26 @@
                                                     <div class="col-xl-6">
                                                         <div class="submit-field">
                                                             <h5>Address</h5>
-                                                            <input type="text" class="with-border" name="address" @error('address') value="{{old('address')}}" style="box-shadow: 0px 0px 5px  red"@enderror
-                                                                placeholder="Bodija Ibadan oyo state">
+                                                            <input type="text" class="with-border" name="address" @error('address')  style="border: 1px solid #ed9e9e;"@enderror value="{{old('address')}}" placeholder="Bodija Ibadan oyo state">
                                                             @error('address')
                                                                 <span style="color:red;">{{$message}}</span>
+                                                               
                                                             @enderror
+                                                               
+                                                               
                                                         </div>
                                                     </div>
 
                                                     <div class="col-xl-6">
                                                         <div class="submit-field">
                                                             <h5>Location (e.g Iwo Osun)</h5>
-                                                            <select class="selectpicker with-border" name="meeting_point" @error('meeting_point') value="{{old('meeting_point')}}" style="box-shadow: 0px 0px 5px  red"@enderror
+                                                            <select class="selectpicker with-border" name="meeting_point" @error('meeting_point')  style="border: 1px solid #ed9e9e;"@enderror
                                                                 data-size="7" title="Select your location"
                                                                 data-live-search="true">
-                                                                <option value="Iwo Osun">Iwo Osun</option>
-                                                                <option value="Ede Osun">Ede Osun</option>
-                                                                <option value="Ibadan Oyo">Ibadan Oyo</option>
-                                                                <option value="Lagos Lagos">Lagos Lagos</option>
+                                                                <option @if (old('meeting_point') == 'Iwo Osun') @else @endif value="Iwo Osun">Iwo Osun</option>
+                                                                <option @if (old('meeting_point') == 'Iwo Osun') @else @endif value="Ede Osun">Ede Osun</option>
+                                                                <option @if (old('meeting_point') == 'Iwo Osun') @else @endif value="Ibadan Oyo">Ibadan Oyo</option>
+                                                                <option @if (old('meeting_point') == 'Iwo Osun') @else @endif value="Lagos Lagos">Lagos Lagos</option>
                                                             </select>
                                                             @error('class_type')
                                                                 <span style="color:red;">{{$message}}</span>
@@ -433,7 +434,7 @@
                                                     <div class="col-xl-6">
                                                         <div class="submit-field">
                                                             <h5>Where will your classes be held</h5>
-                                                            <select class="selectpicker with-border" name="class_location" @error('class_location') value="{{old('class_location')}}" style="box-shadow: 0px 0px 5px  red"@enderror
+                                                            <select class="selectpicker with-border" name="class_location" @error('class_location') value="{{old('class_location')}}" style="border: 1px solid #ed9e9e;"@enderror
                                                                 data-size="7" title="Select location where your classes will be held"
                                                                 data-live-search="true">
                                                                 <option value="Receive student at my home">I can receive
@@ -452,7 +453,7 @@
                                                     <div class="col-xl-6">
                                                         <div class="submit-field">
                                                             <h5>Which language did you want to use to teach</h5>
-                                                            <select class="selectpicker with-border" name="language" @error('language') value="{{old('language')}}" style="box-shadow: 0px 0px 5px  red"@enderror
+                                                            <select class="selectpicker with-border" name="language" @error('language') value="{{old('language')}}" style="border: 1px solid #ed9e9e;"@enderror
                                                                 data-size="7" title="Select your teaching language"
                                                                 data-live-search="true">
                                                                 <option value="Engliah">Engliah</option>
@@ -472,7 +473,7 @@
                                                     <div class="col-xl-12">
                                                         <div class="submit-field">
                                                             <h5>What method do you intend to use for tutoring</h5>
-                                                            <textarea cols="30" rows="5" name="method" @error('method') value="{{old('method')}}" style="box-shadow: 0px 0px 5px  red"@enderror
+                                                            <textarea cols="30" rows="5" name="method" @error('method') value="{{old('method')}}" style="border: 1px solid #ed9e9e;"@enderror
                                                                 class="with-border"
                                                                 placeholder="E.g My teaching method is ... I base my classes on ... I approach each topic by ...">{{old('method')}}</textarea>
                                                             @error('method')
@@ -484,7 +485,7 @@
                                                     <div class="col-xl-12">
                                                         <div class="submit-field">
                                                             <h5>Tell us more about yourself ✍️</h5>
-                                                            <textarea cols="30" rows="5" name="about_tutor" @error('about_tutor') value="{{old('about_tutor')}}" style="box-shadow: 0px 0px 5px  red"@enderror
+                                                            <textarea cols="30" rows="5" name="about_tutor" @error('about_tutor') value="{{old('about_tutor')}}" style="border: 1px solid #ed9e9e;"@enderror
                                                                 class="with-border"
                                                                 placeholder="E.g I am an engineer / computer scientist/ dancer... I have been  giving private lessions since... I have a degree in..."> {{old('about_tutor')}}</textarea>
                                                             @error('about_tutor')
@@ -513,7 +514,7 @@
                                             <div class="col-xl-4">
                                                 <div class="submit-field">
                                                     <h5>rate / Week (₦)</h5>
-                                                    <input type="number" name="week" class="with-border" @error('week') value="{{old('week')}}" style="box-shadow: 0px 0px 5px  red"@enderror>
+                                                    <input type="number" name="week" class="with-border" @error('week') value="{{old('week')}}" style="border: 1px solid #ed9e9e;"@enderror>
                                                     @error('week')
                                                         <span style="color:red;">{{$message}}</span>
                                                     @enderror
@@ -523,7 +524,7 @@
                                             <div class="col-xl-4">
                                                 <div class="submit-field">
                                                     <h5>rate / Month (₦)</h5>
-                                                    <input type="number" name="month" class="with-border" @error('month') value="{{old('month')}}" style="box-shadow: 0px 0px 5px  red"@enderror>
+                                                    <input type="number" name="month" class="with-border" @error('month') value="{{old('month')}}" style="border: 1px solid #ed9e9e;"@enderror>
                                                     @error('month')
                                                         <span style="color:red;">{{$message}}</span>
                                                     @enderror
@@ -533,7 +534,7 @@
                                             <div class="col-xl-4">
                                                 <div class="submit-field">
                                                     <h5>rate / Year (₦)</h5>
-                                                    <input type="number" name="year" class="with-border" @error('year') value="{{old('year')}}" style="box-shadow: 0px 0px 5px  red"@enderror>
+                                                    <input type="number" name="year" class="with-border" @error('year') value="{{old('year')}}" style="border: 1px solid #ed9e9e;"@enderror>
                                                     @error('year')
                                                         <span style="color:red;">{{$message}}</span>
                                                     @enderror
