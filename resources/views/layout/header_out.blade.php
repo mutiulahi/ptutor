@@ -3,7 +3,6 @@
 	<!-- Header -->
 	<div id="header">
 		<div class="container">
-
 			<!-- Left Side Content -->
 			<div class="left-side">
 
@@ -81,10 +80,9 @@
                 @endauth
 			</div>
 			<!-- Right Side Content / End -->
-
 		</div>
 	</div>
 	<!-- Header / End -->
 
 </header>
-<div class="clearfix"></div>
+{{-- <div class="clearfix"></div> --}}

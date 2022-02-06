@@ -18,11 +18,13 @@ class TutoringRegistration extends Controller
     {
         $this->middleware(['auth']);
     }
-// https://locus.fkkas.com/api/states
+// https://locus.fkkas.com/api/states LOCATION API
+
+
     public function index() {
-        $response = Http::get('https://locus.fkkas.com/api/states');
-        echo($response);
-        // return view('tutoringRegister');
+        // $response = Http::get('https://locus.fkkas.com/api/states');
+        // echo($response);
+        return view('tutoringRegister');
     }
 
     public function storeGIG(Request $gigstore )
@@ -33,8 +35,8 @@ class TutoringRegistration extends Controller
             "title_ads"=>"required|max:80",
             "class_type"=>"required",
             "address"=>"required",
+            "location"=>"required",
             "class_location"=>"required",
-            "meeting_point"=>"required",
             "language"=>"required",
             "method"=>"required|min:200",
             "about_tutor"=>"required|min:200",
@@ -51,7 +53,7 @@ class TutoringRegistration extends Controller
         $createGIG->class_type=$gigstore->class_type;
         $createGIG->address=$gigstore->address;
         $createGIG->class_location=$gigstore->class_location;
-        $createGIG->meeting_point=$gigstore->meeting_point;
+        $createGIG->meeting_point=$gigstore->location;
         $createGIG->language=$gigstore->language;
         $createGIG->method=$gigstore->method;
         $createGIG->about_tutor=$gigstore->about_tutor;

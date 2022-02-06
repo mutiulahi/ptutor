@@ -121,6 +121,33 @@
 
 									</div>
 								</li>
+								<!-- Apply for a job popup
+									================================================== -->
+									<div id="small-dialog" class="zoom-anim-dialog mfp-hide dialog-with-tabs">
+
+										<!--Tabs -->
+										<ul class="popup-tabs-nav">
+											<li><a href="#tab">Accept Offer</a></li>
+										</ul>
+
+											<div class="popup-tab-content">
+												<div class="welcome-text ">
+													<h3>Write a request note to </h3>
+												</div>
+												<form action="sendMeg" method="post" >
+
+													@csrf
+
+													<input type="hidden" value="{{$msg->user_id}}" name="destination">
+
+													<textarea  name="message" cols="10" placeholder="Message" class="with-border"></textarea>
+
+												<!-- Button -->
+													<button class="button full-width button-sliding-icon ripple-effect margin-top-10" type="submit" >Place Request <i class="icon-material-outline-arrow-right-alt"></i></button>
+												</form>
+										</div>
+									</div>
+									<!-- Apply for a job popup / End -->
                                 @endforeach
 							</ul>
 						</div>
@@ -175,33 +202,7 @@
 <!-- Wrapper / End -->
 
 
-<!-- Apply for a job popup
-================================================== -->
-<div id="small-dialog" class="zoom-anim-dialog mfp-hide dialog-with-tabs">
 
-	<!--Tabs -->
-    <ul class="popup-tabs-nav">
-        <li><a href="#tab">Accept Offer</a></li>
-    </ul>
-
-		<div class="popup-tab-content">
-            <div class="welcome-text ">
-                <h3>Write a request note to </h3>
-            </div>
-            <form action="sendMeg" method="post" >
-
-                @csrf
-
-                <input type="hidden" value="{{$msg->user_id}}" name="destination">
-
-                <textarea  name="message" cols="10" placeholder="Message" class="with-border"></textarea>
-
-            <!-- Button -->
-                <button class="button full-width button-sliding-icon ripple-effect margin-top-10" type="submit" >Place Request <i class="icon-material-outline-arrow-right-alt"></i></button>
-            </form>
-	</div>
-</div>
-<!-- Apply for a job popup / End -->
 
 
 <!-- Scripts

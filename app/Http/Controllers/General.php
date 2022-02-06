@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Mail\orderMail;
 use App\Models\Place_Request;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Mail;
+use Illuminate\Support\Facades\Mail;
 
 class General extends Controller
 {
@@ -29,7 +31,11 @@ class General extends Controller
 
             $ADD = $review->sum('rate');
             $COUNTS = $review->count('rate');
-            $rate = $ADD/$COUNTS;
+            if ($ADD == 0 ) {
+                $rate = 0;
+            }else{
+                $rate = $ADD/$COUNTS;
+            }
             return view('tutorDetail', ['Detail' => $Detail, 'review'=>$review], compact('rate'));
     }
 
@@ -54,15 +60,15 @@ class General extends Controller
             $order->save();
 
             // $mail = $order_data->email;
-            $data = ['name'=>"Tesleem", ];
-            $users['to'] = $order_data->email;
-            
-            Mail::send('mail', $data, function ($message) use ($users) {
-                $message->sender('john@johndoe.com', 'John Doe');
-                $message->to($users['to']);
-                $message->subject('Recieved Order');
-            });
+            // $data = ['name'=>"Tesleem", ];
+            // $users['to'] = $order_data->email;
 
+            $details = [
+                'title' => 'Order Request From ...',
+                'body' => $order_data->message
+            ]; 
+            
+            Mail::to($order_data->email )->send(new orderMail($details));
             return redirect()->back();
     }
     // public function getStatus(Request $order_data)

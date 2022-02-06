@@ -74,11 +74,10 @@
 			<!-- Page Content -->
             @foreach ($Detail as $search)
 			<div class="single-page-section">
-				<h3 class="margin-bottom-25">About Me</h3>
-
-				<p>{{$search->about_tutor}}.</p>
-
+				<h3 class="margin-bottom-25">About Me</h3> 
+				<p>{{$search->about_tutor}}</p> 
 			</div>
+		 
 			<div class="single-page-section">
 				<h3 class="margin-bottom-25">Method of Teaching</h3>
 				<p>{{$search->method}}.</p>
@@ -395,7 +394,7 @@
 				
                 @endforeach
 
-                <textarea  name="message" cols="10" placeholder="Message" class="with-border"></textarea>
+                <textarea  name="message" cols="10" placeholder="Message" class="with-border" required></textarea>
 
             <!-- Button -->
                 <button class="button full-width button-sliding-icon ripple-effect margin-top-10" type="submit" >Place Request <i class="icon-material-outline-arrow-right-alt"></i></button>
