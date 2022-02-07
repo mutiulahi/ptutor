@@ -76,7 +76,7 @@
 
                                     $fulln[] = $myMSG->fullname;
                                     $passport[] = $myMSG->passport;
-                                    $idMe[] = $myMSG->sender;
+                                    $idMe[] = $myMSG->user_id;
                                     
                                
 
@@ -181,7 +181,7 @@
 							<div class="message-reply">
                                 @csrf
                                 
-                                    <input type="hidden" value="{{$mssg->sender}}" name="destination">
+                                    <input type="hidden" value="{{$mssg->user_id}}" name="destination">
 
                                         @endforeach
                                     @endif

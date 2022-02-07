@@ -19,7 +19,7 @@ class SendAndMeg extends Controller
                             ->join('users', 'messages.destination', '=', 'users.id')
                             ->select('users.*', 'messages.*')
                             // ->where('messages.destination',$id)
-                            ->Where('messages.sender',$id)
+                            ->Where('messages.user_id',$id)
                             ->get();
         $status = DB::table('tutregisters')
                             ->select('user_id')
@@ -35,10 +35,10 @@ class SendAndMeg extends Controller
 
 
         $order_message = DB::table('messages')
-                            ->join('users', 'messages.sender', '=', 'users.id')
+                            ->join('users', 'messages.user_id', '=', 'users.id')
                             ->select('users.*', 'messages.*')
                             ->where('messages.destination',$id)
-                            // ->Where('messages.sender',$id)
+                            // ->Where('messages.user_id',$id)
                             ->get();
         $status = DB::table('tutregisters')
                             ->select('user_id')
@@ -52,16 +52,16 @@ class SendAndMeg extends Controller
     {
         $id = Auth::id();
         $messageShow = DB::table('messages')
-                            ->join('users', 'messages.sender', '=', 'users.id')
+                            ->join('users', 'messages.user_id', '=', 'users.id')
                             ->select('users.*', 'messages.*')
                             // ->where('messages.destination',$id)
-                            ->Where('messages.sender',$id)
+                            ->Where('messages.user_id',$id)
                             ->get();
         $order_message = DB::table('messages')
                                     ->join('users', 'messages.destination', '=', 'users.id')
                                     ->select('users.*', 'messages.*')
                                     // ->where('messages.destination',$id)
-                                    ->Where('messages.sender',$id)
+                                    ->Where('messages.user_id',$id)
                                     ->get();
 
      $status = DB::table('tutregisters')
@@ -79,13 +79,13 @@ class SendAndMeg extends Controller
                             ->join('users', 'messages.destination', '=', 'users.id')
                             ->select('users.*', 'messages.*')
                             ->where('messages.destination',$id)
-                            // ->Where('messages.sender',$id)
+                            // ->Where('messages.user_id',$id)
                             ->get();
         $order_message = DB::table('messages')
-                                    ->join('users', 'messages.sender', '=', 'users.id')
+                                    ->join('users', 'messages.user_id', '=', 'users.id')
                                     ->select('users.*', 'messages.*')
                                     ->where('messages.destination',$id)
-                                    // ->Where('messages.sender',$id)
+                                    // ->Where('messages.user_id',$id)
                                     ->get();
 
      $status = DB::table('tutregisters')
@@ -101,7 +101,7 @@ class SendAndMeg extends Controller
     public function sendMessage(Request $sendMsg)
     {
         $sendMessage = new Message;
-        $sendMessage->sender=auth()->user()->id;
+        $sendMessage->user_id=auth()->user()->id;
         $sendMessage->destination=$sendMsg->destination;
         $sendMessage->message=$sendMsg->message;
         $sendMessage->save();
