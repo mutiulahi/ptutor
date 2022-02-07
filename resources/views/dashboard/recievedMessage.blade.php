@@ -76,7 +76,7 @@
 
                                     $fulln[] = $myMSG->fullname;
                                     $passport[] = $myMSG->passport;
-                                    $idMe[] = $myMSG->user_id;
+                                    $idMe[] = $myMSG->sender;
                                     
                                
 
