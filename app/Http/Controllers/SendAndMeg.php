@@ -16,11 +16,13 @@ class SendAndMeg extends Controller
         $id = Auth::id();
 
         $order_message = DB::table('messages')
+        
                             ->join('users', 'messages.destination', '=', 'users.id')
                             ->select('users.*', 'messages.*')
                             // ->where('messages.destination',$id)
                             ->Where('messages.sender',$id)
                             ->get();
+
         $status = DB::table('tutregisters')
                             ->select('user_id')
                             ->where('user_id', $id)
