@@ -25,10 +25,10 @@ class SendAndMeg extends Controller
 
         $order_message = DB::table('messages')
                             ->join('users', 'messages.destination', '=', 'users.id') 
-                            ->select('users.*', 'messages.*') 
+                            ->select('users.*', 'messages.*')  
+                            ->Where('messages.sender',$id)
                             ->get();
-        $query = DB::table('messages')->select('*')->where('sender',$id);
-        $users = $query->addSelect('users')->where('id','messages.destination')->get();
+  
 
         $status = DB::table('tutregisters')
                             ->select('user_id')
