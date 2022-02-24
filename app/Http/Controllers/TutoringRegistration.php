@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Tutregister;
 use App\Models\User;
+use App\Models\state_lga;
+use Database\Seeders\state_location;
 use Faker\Provider\Lorem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -13,19 +15,43 @@ use Illuminate\Support\Facades\Http;
 
 class TutoringRegistration extends Controller
 {
-    //
-    public function __construct()
+    // https://locus.fkkas.com/api/states 
+    //https://locus.fkkas.com/api/regions/lagos  LOCATION API
+
+
+    // public function __construct()
+    // {
+    //     $this->middleware(['auth']);
+    // }
+
+
+
+    public function index() 
     {
-        $this->middleware(['auth']);
-    }
-// https://locus.fkkas.com/api/states LOCATION API
 
+        // $response_state = Http::get('https://locus.fkkas.com/api/states');
+        // $raw_state =  json_decode($response_state, true);
+        // foreach ($raw_state['data'] as $state) {
+        //     // print_r ($state['name']);
+        //     $response_LGA = Http::get("https://locus.fkkas.com/api/regions/".$state['alias']);
+        //     $raw_LGA = json_decode($response_LGA, true);
+        //     foreach ($raw_LGA['data'] as $lga) {
+        //         $location[] = $state['name'].' '.$lga['name'];
+        //     }
+        // }
 
-    public function index() {
-        // $response = Http::get('https://locus.fkkas.com/api/states');
-        // echo($response);
-        return view('tutoringRegister');
+        $state_lga = DB::table('state_lgas')->select('*')->get();
+        
+        return view('tutoringRegister', ['state_lga' => $state_lga]);
+        
     }
+
+    public function autocomplete(Request $request)
+    {  
+        return state_lga::select('location')
+            ->where('location', 'like', "%{$request->term}%")
+            ->pluck('location'); 
+    } 
 
     public function storeGIG(Request $gigstore )
     {

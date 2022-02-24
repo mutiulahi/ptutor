@@ -6,11 +6,12 @@
     <title>Creation | Private Tutor </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <!-- =============================================== CSS ================================================== -->
+    <!-- =============================================== CSS ================================================== --> 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/colors/blue.css">
-
+    <link rel="stylesheet" href="css/colors/blue.css"> 
 </head>
 
 <body class="gray">
@@ -49,7 +50,7 @@
                         </div>
 
                         {{-- Normal form --}}
-                        <form action="{{route('becometutor')}}" method="POST">
+                        <form action="{{route('becometutor')}}" method="POST" autocomplete="off">
                             <div class="row"> 
                                 @csrf
                                 <!-- Dashboard Box -->
@@ -159,14 +160,8 @@
 
                                                         <div class="col-xl-6">
                                                             <div class="submit-field">
-                                                                <h5>Location (e.g Iwo Osun)</h5>
-                                                                <select class="selectpicker with-border" name="location" @error('location')  style="border: 1px solid #ed9e9e;"@enderror
-                                                                    data-size="7" title="Select your location" data-live-search="true">
-                                                                    <option @if (old('location') == 'Iwo Osun') selected @else @endif value="Iwo Osun">Iwo Osun</option>
-                                                                    <option @if (old('location') == 'Ede Osun') selected @else @endif value="Ede Osun">Ede Osun</option>
-                                                                    <option @if (old('location') == 'Ibadan Osun') selected @else @endif value="Ibadan Oyo">Ibadan Oyo</option>
-                                                                    <option @if (old('location') == 'Lagos Osun') selected @else @endif value="Lagos Lagos">Lagos Lagos</option>
-                                                                </select>
+                                                                <h5>Location</h5> 
+                                                                <input type="text" class="with-border typeahead" id="location" name="location" @error('location')  style="border: 1px solid #ed9e9e;"@enderror value="{{old('location')}}" placeholder="Bodija Ibadan oyo state">
                                                                 @error('location')
                                                                     <span style="color:red;">{{$message}}</span>
                                                                 @enderror
@@ -175,8 +170,8 @@
 
                                                         <div class="col-xl-6">
                                                             <div class="submit-field">
-                                                                <h5>Where will your classes be held</h5>
-                                                                <select class="selectpicker with-border" name="class_location" value="{{old('class_location')}}" @error('class_location') style="border: 1px solid #ed9e9e;"@enderror
+                                                                <h5>Where will your classes be held</h5> 
+                                                                <select class="selectpicker default with-border" multiple data-selected-text-format="count" data-size="7" title="All Categories" name="class_location" value="{{old('class_location')}}" @error('class_location') style="border: 1px solid #ed9e9e;"@enderror
                                                                     data-size="7" title="Select location where your classes will be held"
                                                                     data-live-search="true">
                                                                     <option @if (old('class_location') == 'I can receive student at my home') selected @else @endif value="I can receive student at my home">I can receive student at my home</option>
@@ -212,14 +207,16 @@
                                                     <div class="row">
                                                         <div class="col-xl-12">
                                                             <div class="submit-field">
-                                                                <h5>What method do you intend to use for tutoring</h5>
-                                                                <textarea cols="30" rows="5" name="method" minlength="200" value="{{old('method')}}" @error('method') style="border: 1px solid #ed9e9e;"@enderror
+                                                                <h5>What method do you intend to use for tutoring </h5>
+                                                                <textarea cols="30" rows="5" name="method" id="word" oninput="countWord()" value="{{old('method')}}" @error('method') style="border: 1px solid #ed9e9e;"@enderror
                                                                     class="with-border"
                                                                     placeholder="E.g My teaching method is ... I base my classes on ... I approach each topic by ...">{{old('method')}}</textarea>
                                                                 @error('method')
                                                                     <span style="color:red;">{{$message}}</span>
-                                                                @enderror
-                                                                </div>
+                                                                @enderror 
+                                                                <code>minimum of 40 words maximum of 100 words </code> 
+                                                                <p>Word Count: <span id="show">0</span></p>
+                                                            </div>
                                                         </div>
 
                                                         <div class="col-xl-12">
@@ -341,8 +338,10 @@
 
     <!-- Scripts
 ================================================== -->
-    <script src="js/jquery-3.4.1.min.js"></script>
-    <script src="js/jquery-migrate-3.1.0.min.html"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js" ></script>
+    {{-- <script src="js/jquery-3.4.1.min.js"></script> --}}
+    {{-- <script src="js/jquery-migrate-3.1.0.min.html"></script> --}}
     <script src="js/mmenu.min.js"></script>
     <script src="js/tippy.all.min.js"></script>
     <script src="js/simplebar.min.js"></script>
@@ -354,7 +353,6 @@
     <script src="js/magnific-popup.min.js"></script>
     <script src="js/slick.min.js"></script>
     <script src="js/custom.js"></script>
-
     <!-- Snackbar // documentation: https://www.polonel.com/snackbar/ -->
     <script>
         // Snackbar for user status switcher
@@ -372,130 +370,20 @@
 
     </script>
 
-    <!-- Chart.js // documentation: http://www.chartjs.org/docs/latest/ -->
-    <script src="js/chart.min.js"></script>
     <script>
-        Chart.defaults.global.defaultFontFamily = "Nunito";
-        Chart.defaults.global.defaultFontColor = '#888';
-        Chart.defaults.global.defaultFontSize = '14';
-
-        var ctx = document.getElementById('chart').getContext('2d');
-
-        var chart = new Chart(ctx, {
-            type: 'line',
-
-            // The data for our dataset
-            data: {
-                labels: ["January", "February", "March", "April", "May", "June"],
-                // Information about the dataset
-                datasets: [{
-                    label: "Views",
-                    backgroundColor: 'rgba(42,65,232,0.08)',
-                    borderColor: '#2a41e8',
-                    borderWidth: "3",
-                    data: [196, 132, 215, 362, 210, 252],
-                    pointRadius: 5,
-                    pointHoverRadius: 5,
-                    pointHitRadius: 10,
-                    pointBackgroundColor: "#fff",
-                    pointHoverBackgroundColor: "#fff",
-                    pointBorderWidth: "2",
-                }]
-            },
-
-            // Configuration options
-            options: {
-
-                layout: {
-                    padding: 10,
-                },
-
-                legend: {
-                    display: false
-                },
-                title: {
-                    display: false
-                },
-
-                scales: {
-                    yAxes: [{
-                        scaleLabel: {
-                            display: false
-                        },
-                        gridLines: {
-                            borderDash: [6, 10],
-                            color: "#d8d8d8",
-                            lineWidth: 1,
-                        },
-                    }],
-                    xAxes: [{
-                        scaleLabel: {
-                            display: false
-                        },
-                        gridLines: {
-                            display: false
-                        },
-                    }],
-                },
-
-                tooltips: {
-                    backgroundColor: '#333',
-                    titleFontSize: 13,
-                    titleFontColor: '#fff',
-                    bodyFontColor: '#fff',
-                    bodyFontSize: 13,
-                    displayColors: false,
-                    xPadding: 10,
-                    yPadding: 10,
-                    intersect: false
-                }
-            },
-
-
-        });
-
-    </script>
-
-
-    <!-- Google Autocomplete -->
-    <script>
-        function initAutocomplete() {
-            var options = {
-                types: ['(cities)'],
-                componentRestrictions: {country: "us"}
-            };
-
-            var input = document.getElementById('autocomplete-input');
-            var autocomplete = new google.maps.places.Autocomplete(input, options);
-
-            if ($('.submit-field')[0]) {
-                setTimeout(function() {
-                    $(".pac-container").prependTo("#autocomplete-container");
-                }, 300);
+        var path = "{{ route('autocomplete')  }}";
+        $('input.typeahead').typeahead({
+            source:  function (query, process) {
+            return $.get(path, { term: query }, function (data) {
+                    return process(data);
+                });
             }
-        }
-
+        });
     </script>
+    
 
-    <!-- Google API -->
-    <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAaoOT9ioUE4SA8h-anaFyU4K63a7H-7bc&amp;libraries=places&amp;callback=initAutocomplete">
-    </script>
-
-    <script>
-        //ES5
-        // const NaijaStates = require('naija-state-local-government');
-
-        // ES6
-        // import NaijaStates from 'naija-state-local-government';
-
-        // console.log(NaijaStates.all());
-        // console.log(NaijaStates.states());
-        // console.log(NaijaStates.lgas("Oyo"))
-
-    </script>
-</body>
-
-<!-- Mirrored from www.vasterad.com/themes/hireo/dashboard-settings.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 12 Dec 2020 02:32:05 GMT -->
-
+    <!-- Chart.js // documentation: http://www.chartjs.org/docs/latest/ -->
+    <script src="js/chart.min.js"></script> 
+    <script src="js/wordcount.js"></script>
+</body> 
 </html>

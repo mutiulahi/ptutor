@@ -10,6 +10,7 @@ class SearchTutor extends Controller
     //
     public function index(Request $searchDetail)
     {
+        // dd($searchDetail->input('age'));
         // dd($searchDetail->only('location','subject'));
         $location= $searchDetail->input('location');
         $subject= $searchDetail->input('subject');

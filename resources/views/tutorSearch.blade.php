@@ -60,31 +60,32 @@
                         </div>
                     </div>
 
-
-                    <!-- Category -->
-                    {{-- <div class="sidebar-widget">
-                        <h3>Category</h3>
-                        <select class="selectpicker default" multiple data-selected-text-format="count" data-size="7" title="All Categories" >
-                            <option>Admin Support</option>
-                            <option>Customer Service</option>
-                            <option>Data Analytics</option>
-                            <option>Design & Creative</option>
-                            <option>Legal</option>
-                            <option>Software Developing</option>
-                            <option>IT & Networking</option>
-                            <option>Writing</option>
-                            <option>Translation</option>
-                            <option>Sales & Marketing</option>
-                        </select>
+                    <div class="sidebar-widget">
+                        <h3>Sex</h3> 
+                        <div class="tags-container">
+                           <select name="sex" id="">
+                               <option value="male">male</option>
+                               <option value="female">female</option>
+                           </select>
+                        </div>
                     </div>
 
-                    <!-- Hourly Rate -->
+                    <!-- Category -->
                     <div class="sidebar-widget">
-                        <h3>Hourly Rate</h3>
+                        <h3>Age</h3> 
+                        <div class="tags-container">
+                           <input type="number" name="age" id="" placeholder="Tutor Age"> 
+                        </div>
+                        <div class="clearfix"></div> 
+                    </div>
+
+                    {{-- <!-- Hourly Rate -->
+                    <div class="sidebar-widget">
+                        <h3>Years of Experience</h3>
                         <div class="margin-top-55"></div>
 
                         <!-- Range Slider -->
-                        <input class="range-slider" type="text" value="50" data-slider-currency="$" data-slider-min="10" data-slider-max="250" data-slider-step="5" data-slider-value="[10,250]"/>
+                        <input class="range-slider" type="text" name="experience"  data-slider-currency="" data-slider-min="1" data-slider-max="20" data-slider-step="1" data-slider-value="[1,20]"/>
                     </div> --}}
 
 
@@ -109,11 +110,11 @@
 			<h3 class="page-title">Search Results</h3>
 
 			<div class="notify-box margin-top-15">
-				{{-- <div class="switch-container">
+				<div class="switch-container">
 					<label class="switch"><input type="checkbox"><span class="switch-button"></span><span class="switch-text">Turn on email alerts for this search</span></label>
-				</div> --}}
+				</div>
 
-				{{-- <div class="sort-by">
+				<div class="sort-by">
 					<span>Sort by:</span>
 					<select class="selectpicker hide-tick">
 						<option>Relevance</option>
@@ -121,7 +122,7 @@
 						<option>Oldest</option>
 						<option>Random</option>
 					</select>
-				</div> --}}
+				</div>
 			</div>
 
 			<!-- Freelancers List Container -->

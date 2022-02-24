@@ -24,8 +24,8 @@ class SendAndMeg extends Controller
         //                     ->get();
 
         $order_message = DB::table('messages')
-                            ->join('users', 'messages.destination', '=', 'users.id') 
-                            ->select('users.*', 'messages.*')  
+                            ->join('users', 'messages.destination', 'users.id') 
+                            ->select('users.*', '*')  
                             ->Where('messages.sender',$id)
                             ->get();
   

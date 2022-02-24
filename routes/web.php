@@ -10,7 +10,9 @@ use App\Http\Controllers\Userall\Dashboard;
 use App\Http\Controllers\General;
 use App\Http\Controllers\AddReview;
 use App\Http\Controllers\SendAndMeg;
+use App\Http\Controllers\Index;
 use App\Models\Review as ModelsReview;
+use App\Models\Tutregister;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,14 +25,13 @@ use App\Models\Review as ModelsReview;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
+// Route::get('/', function () {
+//     return view('index');
 
-})->name('/');
+// })->name('/');
 
-// Route::group(['prefix' => 'admin'], function () {
-//     Voyager::routes();
-// });
+Route::get('/', [Index::class, 'index'])->name('/');
+// Route::post('autocomplete', [Index::class, 'autocomplete'])->name('autocomplete'); 
 
 // authentication route
 Route::get('RegisterUser', [RegisterController::class, 'index'])->name('RegisterUser');
@@ -44,8 +45,8 @@ Route::get('Logout', [Logout::class, 'logout'])->name('logout');
 
 
 // Tutoring gig creation
-Route::get('creategig', [TutoringRegistration::class, 'index'])->name('becometutor');
-Route::post('creategig', [TutoringRegistration::class, 'storeGIG']);
+Route::get('creategig', [TutoringRegistration::class, 'index'])->middleware('auth')->name('becometutor');
+Route::post('creategig', [TutoringRegistration::class, 'storeGIG'])->middleware('auth');
 
 
 // finding tutor section
@@ -91,5 +92,8 @@ Route::post('placeOrder', [General::class, 'order']);
 
 //review
 Route::post('review', [AddReview::class, 'Review']);
+
+//location search
+Route::get('location', [TutoringRegistration::class, 'autocomplete'])->name('autocomplete');
 
 
