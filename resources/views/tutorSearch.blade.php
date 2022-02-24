@@ -71,26 +71,19 @@
                     </div>
 
                     <!-- Category -->
-                    <div class="sidebar-widget">
+                    <div class="sidebar-widget mb-5">
                         <h3>Age</h3> 
                         <div class="tags-container">
                            <input type="number" name="age" id="" placeholder="Tutor Age"> 
                         </div>
                         <div class="clearfix"></div> 
                     </div>
-
-                    {{-- <!-- Hourly Rate -->
-                    <div class="sidebar-widget">
-                        <h3>Years of Experience</h3>
-                        <div class="margin-top-55"></div>
-
-                        <!-- Range Slider -->
-                        <input class="range-slider" type="text" name="experience"  data-slider-currency="" data-slider-min="1" data-slider-max="20" data-slider-step="1" data-slider-value="[1,20]"/>
-                    </div> --}}
-
-
+                    <div class="sidebar-widget mb-5">
+                        <h3></h3>  
+                        <div class="clearfix"></div> 
+                    </div>
                 </div>
-                <div class="clearfix"></div>
+                {{-- <div class="clearfix"></div> --}}
                 <!-- Sidebar Container / End -->
 
                 <!-- Search Button -->
