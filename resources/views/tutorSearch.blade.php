@@ -90,6 +90,7 @@
 
 
                 </div>
+                <div class="clearfix"></div>
                 <!-- Sidebar Container / End -->
 
                 <!-- Search Button -->
