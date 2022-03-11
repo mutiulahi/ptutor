@@ -16,7 +16,7 @@
 				<!-- Welcome Text -->
 				<div class="welcome-text">
 					<h3>We're glad to see you again!</h3>
-					<span>Don't have an account? <a href="{{route('RegisterUser')}}">Sign Up!</a></span>
+					<span>Don't have an account? <a href="{{route('signup')}}">Sign Up!</a></span>
 					@if(session('error'))
 					<span style="color: #fff; background-color: rgb(247, 149, 154); padding: 5px; width: 50%; margin-left: 25%; border-radius: 5px">
 							{{session('error')}}

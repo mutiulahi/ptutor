@@ -9,6 +9,7 @@ use App\Http\Controllers\SearchTutor;
 use App\Http\Controllers\Userall\Dashboard;
 use App\Http\Controllers\General;
 use App\Http\Controllers\AddReview;
+use App\Http\Controllers\CenterMail;
 use App\Http\Controllers\SendAndMeg;
 use App\Http\Controllers\Index;
 use App\Models\Review as ModelsReview;
@@ -25,28 +26,24 @@ use App\Models\Tutregister;
 |
 */
 
-// Route::get('/', function () {
-//     return view('index');
-
-// })->name('/');
 
 Route::get('/', [Index::class, 'index'])->name('/');
 // Route::post('autocomplete', [Index::class, 'autocomplete'])->name('autocomplete'); 
 
 // authentication route
-Route::get('RegisterUser', [RegisterController::class, 'index'])->name('RegisterUser');
-Route::post('RegisterUser', [RegisterController::class, 'register']);
+Route::get('signup', [RegisterController::class, 'index'])->name('signup');
+Route::post('signup', [RegisterController::class, 'register']);
 
-Route::get('Login', [Login::class, 'index'])->name('login');
-Route::post('Login', [Login::class, 'login']);
+Route::get('login', [Login::class, 'index'])->name('login');
+Route::post('login', [Login::class, 'login']);
 
-Route::get('Logout', [Logout::class, 'logout'])->name('logout');
+Route::get('logout', [Logout::class, 'logout'])->name('logout');
 //end of authentication route
 
 
 // Tutoring gig creation
-Route::get('creategig', [TutoringRegistration::class, 'index'])->middleware('auth')->name('becometutor');
-Route::post('creategig', [TutoringRegistration::class, 'storeGIG'])->middleware('auth');
+Route::get('create_ads', [TutoringRegistration::class, 'index'])->middleware('auth')->name('becometutor');
+Route::post('create_ads', [TutoringRegistration::class, 'storeGIG'])->middleware('auth');
 
 
 // finding tutor section
@@ -93,7 +90,13 @@ Route::post('placeOrder', [General::class, 'order']);
 //review
 Route::post('review', [AddReview::class, 'Review']);
 
+//-------------------auto complete search---------------------//
 //location search
 Route::get('location', [TutoringRegistration::class, 'autocomplete'])->name('autocomplete');
+Route::get('subject', [TutoringRegistration::class, 'subject'])->name('subjectcomplete');
+
+//----------email----------//
+Route::post('verifymail', [CenterMail::class, 'mailVarification'])->name('verifymail');
 
 
+Route::get('verify_mail', [CenterMail::class, 'verify_mail'])->name('verify_mail');

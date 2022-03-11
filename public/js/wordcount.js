@@ -14,21 +14,23 @@
 //       }
 
 // });
+document.getElementById('about_youerror').style.display = 'none';
+document.getElementById('methoderror').style.display = 'none';
 
-function countWord() {
+function methodcountWord() {
 
     // Get the input text value
-    var words = document
-        .getElementById("word").value;
+    var methods = document
+        .getElementById("method").value;
 
     // Initialize the word counter
     var count = 0;
 
-    // Split the words on each
+    // Split the method on each
     // space character
-    var split = words.split(' ');
+    var split = methods.split(' ');
 
-    // Loop through the words and
+    // Loop through the method and
     // increase the counter when
     // each split word is not empty
     for (var i = 0; i < split.length; i++) {
@@ -38,6 +40,77 @@ function countWord() {
     }
 
     // Display it as output
-    document.getElementById("show")
+    document.getElementById("show_method")
         .innerHTML = count;
+
+    document.getElementById('methoderror').style.display = 'none';
+
+    if (count < 40 || count > 100) {
+        document.getElementById("show_method")
+            .style.color = "red";
+        document.getElementById("method_over")
+            .style.color = "red";
+        document.getElementById('published').disabled = true;
+        document.getElementById('published').style.backgroundColor = 'gray';
+        document.getElementById('methoderror').style.display = 'block';
+    } else {
+        document.getElementById("show_method")
+            .style.color = "green";
+        document.getElementById("method_over")
+            .style.color = "green";
+        document.getElementById('published').disabled = false;
+        document.getElementById('published').style.backgroundColor = 'green';
+        document.getElementById('methoderror').style.display = 'none';
+
+
+    }
+
+}
+
+function about_youcountWord() {
+
+    // Get the input text value
+    var about_yous = document
+        .getElementById("about_you").value;
+
+    // Initialize the word counter
+    var count = 0;
+
+    // Split the about_you on each
+    // space character
+    var split = about_yous.split(' ');
+
+    // Loop through the about_you and
+    // increase the counter when
+    // each split word is not empty
+    for (var i = 0; i < split.length; i++) {
+        if (split[i] != "") {
+            count += 1;
+        }
+    }
+
+    // Display it as output
+    document.getElementById("show_about_you")
+        .innerHTML = count;
+    document.getElementById('about_youerror').style.display = 'none';
+
+    if (count < 40 || count > 100) {
+        document.getElementById("show_about_you")
+            .style.color = "red";
+        document.getElementById("about_you_over")
+            .style.color = "red";
+        document.getElementById('published').disabled = true;
+        document.getElementById('published').style.backgroundColor = 'gray';
+        document.getElementById('about_youerror').style.display = 'block';
+    } else {
+        document.getElementById("show_about_you")
+            .style.color = "green";
+        document.getElementById("about_you_over")
+            .style.color = "green";
+        document.getElementById('published').disabled = false;
+        document.getElementById('published').style.backgroundColor = 'green';
+
+
+    }
+
 }

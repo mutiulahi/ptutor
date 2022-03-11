@@ -23,21 +23,29 @@
 			<!-- Right Side Content / End -->
 			<div class="right-side">
 				@guest
-                    <div class="header-widget ">
-                        <a href="{{route('RegisterUser')}}" class="log-in-button"><i class="icon-feather-user"></i><span>Become a tutor</span></a>
-                    </div>
+                    {{-- <div class="header-widget ">
+                        <a href="{{route('signup')}}" class="log-in-button"><i class="icon-feather-user"></i><span>Become a tutor</span></a>
+                    </div> --}}
                     <div class="header-widget">
-                        <a href="{{route('RegisterUser')}}" class="log-in-button"><i class="icon-feather-log-in"></i> <span>Log In | Register </span></a>
+                        <a href="{{route('signup')}}" class="log-in-button"><i class="icon-feather-log-in"></i> <span>Log In | Register </span></a>
                     </div>
                     {{-- <div class="header-widget">
-                        <a href="{{route('RegisterUser')}}" class="log-in-button"><i class="icon-feather-user"></i><span>Register</span></a>
+                        <a href="{{route('signup')}}" class="log-in-button"><i class="icon-feather-user"></i><span>Register</span></a>
                     </div> --}}
 				@endguest
 
                 @auth
-                    <div class="header-widget ">
-                        <a href="{{route('becometutor')}}" class=" log-in-button"><i class="icon-feather-user"></i><span>Become a tutor</span></a>
-                    </div>
+                    @if (auth()->user()->status === 'Tutor') 
+                        <div class="header-widget">
+                            <a href="{{route('logout')}}" class="log-in-button"><i class="icon-feather-log-out"></i> <span>Log Out </span></a>
+                        </div>
+                    @else
+                        <div class="header-widget ">
+                            <a href="{{route('becometutor')}}" class=" log-in-button"><i class="icon-feather-user"></i><span>Become a tutor</span></a>
+                        </div>
+                    @endif
+                    
+
                     <div class="header-widget">
                         <!-- Messages -->
                         <div class="header-notifications user-menu">
@@ -46,7 +54,7 @@
                                 <a href="#"><div class="user-avatar status-online"><img src="images/user-avatar-placeholder.png" alt=""></div></a>
                                 @else
                                 <a href="#"><div class="user-avatar status-online"><img src="images/passport/{{auth()->user()->passport}}" alt=""></div></a>
-                                @endif
+                                @endif  
                             </div>
 
                             <!-- Dropdown -->

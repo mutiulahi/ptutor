@@ -67,7 +67,7 @@
 					@endif
 				</div>
 				<!-- Form -->
-				<form action="RegisterUser" method="post" >
+				<form action="{{route('signup')}}" method="post" >
 					@csrf
 
                     {{-- fullname --}}

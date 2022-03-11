@@ -57,9 +57,16 @@
 			<!-- Right Side Content / End -->
 			<div class="right-side">
                 @auth
-                <div class="header-widget ">
-                    <a href="{{route('becometutor')}}" class="log-in-button"><i class="icon-feather-user"></i><span>Become a tutor</span></a>
-                </div>
+
+                	@if (auth()->user()->status === 'Tutor') 
+                        <div class="header-widget">
+                            <a href="{{route('logout')}}" class="log-in-button"><i class="icon-feather-log-out"></i> <span>Log Out </span></a>
+                        </div>
+                    @else
+                        <div class="header-widget ">
+                            <a href="{{route('becometutor')}}" class=" log-in-button"><i class="icon-feather-user"></i><span>Become a tutor</span></a>
+                        </div>
+                    @endif
                     <div class="header-widget">
                         <!-- Messages -->
                         <div class="header-notifications user-menu">

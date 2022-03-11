@@ -34,7 +34,8 @@ class General extends Controller
             if ($ADD == 0 ) {
                 $rate = 0;
             }else{
-                $rate = $ADD/$COUNTS;
+                 $rate_to_round = $ADD/$COUNTS;
+                 $rate = number_format((float)$rate_to_round, 1, '.', '');
             }
             return view('tutorDetail', ['Detail' => $Detail, 'review'=>$review], compact('rate'));
     }

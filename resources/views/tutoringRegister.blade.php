@@ -3,7 +3,7 @@
 <head>
 
     <!-- =============================================== Basic Page Needs ================================================== -->
-    <title>Creation | Private Tutor </title>
+    <title>Create Ads | Private Tutor </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -44,7 +44,7 @@
                                 <ul>
                                     <li><a href="{{route('/')}}">Home</a></li>
                                     <li><a href="{{route('dashboard')}}">Dashboard</a></li>
-                                    <li>Become Tutor</li>
+                                    <li>Create Class Ad</li>
                                 </ul>
                             </nav>
                         </div>
@@ -70,7 +70,7 @@
                                                         <div class="col-xl-12">
                                                             <div class="submit-field">
                                                                 <h5>Which subject do you wish to teach? 🎓</h5>
-                                                                <input type="text" class="with-border" name="subject" max="20" value="{{old('subject')}}"  @error('subject') style="border: 1px solid #ed9e9e;"@enderror placeholder="e.g : Physics">
+                                                                <input type="text" class="with-border subject" name="subject" max="20" value="{{old('subject')}}"  @error('subject') style="border: 1px solid #ed9e9e;"@enderror placeholder="e.g : Physics">
                                                                 @error('subject')
                                                                     <span style="color:red;">{{$message}}</span>
                                                                 @enderror
@@ -105,16 +105,16 @@
 
                                                                 <div class="account-type"> 
                                                                     <div>
-                                                                        <input type="radio" name="class_type" id="freelancer-radio"  @if (old('class_type') == 'Individual class') checked  @else  @endif class="account-type-radio" value="Individual class"/>
+                                                                        <input type="radio" name="class_type" id="freelancer-radio"  @if (old('class_type') == 'I Can Take Individual Class') checked  @else  @endif class="account-type-radio" value="I Can Take Individual Class"/>
                                                                         <label for="freelancer-radio" class="ripple-effect-dark"><i class="icon-material-outline-account-circle"></i> Individual class</label>
                                                                     </div>
 
                                                                     <div>
-                                                                        <input type="radio" name="class_type" id="employer-radio" class="account-type-radio" @if (old('class_type') == 'Group Class') checked  @else  @endif  value="Group Class"/>
+                                                                        <input type="radio" name="class_type" id="employer-radio" class="account-type-radio" @if (old('class_type') == 'I Can Take Group Class') checked  @else  @endif  value="I Can Take Group Class"/>
                                                                         <label for="employer-radio" class="ripple-effect-dark"><i class="icon-material-outline-group"></i> Group Class</label>
                                                                     </div>
                                                                     <div>
-                                                                        <input type="radio" name="class_type" id="Both" class="account-type-radio " @if (old('class_type') == 'Individual and Group Class') checked  @else  @endif value="Individual and Group Class"/>
+                                                                        <input type="radio" name="class_type" id="Both" class="account-type-radio " @if (old('class_type') == 'I Can Take Both Individual and Group Class') checked  @else  @endif value="I Can Take Both Individual and Group Class"/>
                                                                         <label for="Both" class="ripple-effect-dark"><i class="icon-material-outline-business-center"></i> Both</label>
                                                                     </div> 
                                                                     
@@ -161,7 +161,7 @@
                                                         <div class="col-xl-6">
                                                             <div class="submit-field">
                                                                 <h5>Location</h5> 
-                                                                <input type="text" class="with-border typeahead" id="location" name="location" @error('location')  style="border: 1px solid #ed9e9e;"@enderror value="{{old('location')}}" placeholder="Bodija Ibadan oyo state">
+                                                                <input type="text" class="with-border typeahead" id="location" onchange="location()" name="location" @error('location')  style="border: 1px solid #ed9e9e;"@enderror value="{{old('location')}}" placeholder="Bodija Ibadan oyo state">
                                                                 @error('location')
                                                                     <span style="color:red;">{{$message}}</span>
                                                                 @enderror
@@ -171,7 +171,7 @@
                                                         <div class="col-xl-6">
                                                             <div class="submit-field">
                                                                 <h5>Where will your classes be held</h5> 
-                                                                <select class="selectpicker default with-border" multiple data-selected-text-format="count" data-size="7" title="All Categories" name="class_location" value="{{old('class_location')}}" @error('class_location') style="border: 1px solid #ed9e9e;"@enderror
+                                                                <select class="selectpicker default with-border" multiple data-selected-text-format="count" data-size="7"  name="class_location" value="{{old('class_location')}}" @error('class_location') style="border: 1px solid #ed9e9e;"@enderror
                                                                     data-size="7" title="Select location where your classes will be held"
                                                                     data-live-search="true">
                                                                     <option @if (old('class_location') == 'I can receive student at my home') selected @else @endif value="I can receive student at my home">I can receive student at my home</option>
@@ -207,27 +207,26 @@
                                                     <div class="row">
                                                         <div class="col-xl-12">
                                                             <div class="submit-field">
-                                                                <h5>What method do you intend to use for tutoring </h5>
-                                                                <textarea cols="30" rows="5" name="method" id="word" oninput="countWord()" value="{{old('method')}}" @error('method') style="border: 1px solid #ed9e9e;"@enderror
+                                                                <h5>What method do you intend to use for tutoring (<code style="font-size: 10px;">minimum of 40 words maximum of 100 words </code>) </h5>
+                                                                
+                                                                <textarea cols="30" rows="3" name="method" id="method" oninput="methodcountWord()" value="{{old('method')}}" @error('method') style="border: 1px solid #ed9e9e;"@enderror
                                                                     class="with-border"
                                                                     placeholder="E.g My teaching method is ... I base my classes on ... I approach each topic by ...">{{old('method')}}</textarea>
                                                                 @error('method')
                                                                     <span style="color:red;">{{$message}}</span>
-                                                                @enderror 
-                                                                <code>minimum of 40 words maximum of 100 words </code> 
-                                                                <p>Word Count: <span id="show">0</span></p>
+                                                                @enderror  <span id="show_method">0</span><span id="method_over">/100 words</span> <span style="font-size: 15px; color:red;" id="methoderror">minimum of 40 words maximum of 100 words </span>
                                                             </div>
                                                         </div>
 
                                                         <div class="col-xl-12">
                                                             <div class="submit-field">
-                                                                <h5>Tell us more about yourself ✍️</h5>
-                                                                <textarea cols="30" rows="5" minlength="200" name="about_tutor" value="{{old('about_tutor')}}" @error('about_tutor')  style="border: 1px solid #ed9e9e;"@enderror
+                                                                <h5>Tell us more about yourself ✍️ (<code style="font-size: 10px;">minimum of 40 words maximum of 100 words </code>)</h5>
+                                                                <textarea cols="30" rows="3" minlength="200" oninput="about_youcountWord()" id="about_you" name="about_you" value="{{old('about_you')}}" @error('about_you')  style="border: 1px solid #ed9e9e;"@enderror
                                                                     class="with-border"
-                                                                    placeholder="E.g I am an engineer / computer scientist/ dancer... I have been  giving private lessions since... I have a degree in..."> {{old('about_tutor')}}</textarea>
-                                                                @error('about_tutor')
+                                                                    placeholder="E.g I am an engineer / computer scientist/ dancer... I have been  giving private lessions since... I have a degree in...">{{old('about_you')}}</textarea>
+                                                                @error('about_you')
                                                                     <span style="color:red;">{{$message}}</span>
-                                                                @enderror
+                                                                @enderror <span id="show_about_you">0</span><span id="about_you_over">/100 words</span> <span style="font-size: 15px; color:red;" id="about_youerror">minimum of 40 words maximum of 100 words </span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -251,8 +250,8 @@
                                                 <div class="col-xl-4">
                                                     <div class="submit-field">
                                                         <h5>rate / Week (₦)</h5>
-                                                        <input type="number" name="week" class="with-border" value="{{old('week')}}" @error('week') style="border: 1px solid #ed9e9e;"@enderror>
-                                                        @error('week')
+                                                        <input type="number" name="week_rate" min="100" class="with-border" value="{{old('week_rate')}}" @error('week_rate') style="border: 1px solid #ed9e9e;"@enderror>
+                                                        @error('week_rate')
                                                             <span style="color:red;">{{$message}}</span>
                                                         @enderror
                                                     </div>
@@ -261,8 +260,8 @@
                                                 <div class="col-xl-4">
                                                     <div class="submit-field">
                                                         <h5>rate / Month (₦)</h5>
-                                                        <input type="number" name="month" class="with-border" value="{{old('month')}}" @error('month') style="border: 1px solid #ed9e9e;"@enderror>
-                                                        @error('month')
+                                                        <input type="number" name="month_rate" min="200" class="with-border" value="{{old('month_rate')}}" @error('month_rate') style="border: 1px solid #ed9e9e;"@enderror>
+                                                        @error('month_rate')
                                                             <span style="color:red;">{{$message}}</span>
                                                         @enderror
                                                     </div>
@@ -271,8 +270,8 @@
                                                 <div class="col-xl-4">
                                                     <div class="submit-field">
                                                         <h5>rate / Year (₦)</h5>
-                                                        <input type="number" name="year" class="with-border" value="{{old('year')}}" @error('year') style="border: 1px solid #ed9e9e;"@enderror>
-                                                        @error('year')
+                                                        <input type="number" name="year_rate" min="300" class="with-border" value="{{old('year_rate')}}" @error('year_rate') style="border: 1px solid #ed9e9e;"@enderror>
+                                                        @error('year_rate')
                                                             <span style="color:red;">{{$message}}</span>
                                                         @enderror
                                                     </div>
@@ -284,7 +283,7 @@
 
                                 <!-- Button -->
                                 <div class="col-xl-12">
-                                    <button type="submit" class="button ripple-effect big margin-top-30">   Published class ad</button>
+                                    <button type="submit" id="published" class="button ripple-effect big margin-top-30">   Published class ad</button>
                                 </div> 
                             </div>
                         </form>
@@ -371,15 +370,32 @@
     </script>
 
     <script>
-        var path = "{{ route('autocomplete')  }}";
-        $('input.typeahead').typeahead({
-            source:  function (query, process) {
-            return $.get(path, { term: query }, function (data) {
-                    return process(data);
-                });
-            }
-        });
+        // function subject() {
+            var route = "{{ route('subjectcomplete')  }}";
+            $('.subject').typeahead({
+                source:  function (querys, process) {
+                return $.get(route, { term: querys }, function (subject) {
+                        return process(subject);
+                    });
+                }
+            });
+        // }
+
+        // function location() {
+            var path = "{{ route('autocomplete')  }}";
+            $('.typeahead').typeahead({
+                source:  function (query, process) {
+                return $.get(path, { term: query }, function (datas) {
+                        return process(datas);
+                    });
+                }
+            });
+        // }
     </script>
+
+    {{-- <script>
+        
+    </script> --}}
     
 
     <!-- Chart.js // documentation: http://www.chartjs.org/docs/latest/ -->

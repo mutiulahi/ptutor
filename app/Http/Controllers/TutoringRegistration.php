@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Tutregister;
 use App\Models\User;
 use App\Models\state_lga;
+use App\Models\Subject;
 use Database\Seeders\state_location;
 use Faker\Provider\Lorem;
 use Illuminate\Http\Request;
@@ -52,7 +53,12 @@ class TutoringRegistration extends Controller
             ->where('location', 'like', "%{$request->term}%")
             ->pluck('location'); 
     } 
-
+    public function subject(Request $request)
+    {  
+        return Subject::select('subject')
+            ->where('subject', 'like', "%{$request->term}%")
+            ->pluck('subject'); 
+    } 
     public function storeGIG(Request $gigstore )
     {
         $this->validate($gigstore, [
@@ -65,10 +71,10 @@ class TutoringRegistration extends Controller
             "class_location"=>"required",
             "language"=>"required",
             "method"=>"required|min:200",
-            "about_tutor"=>"required|min:200",
-            "week"=>"required",
-            "month"=>"required",
-            "year"=>"required",
+            "about_you"=>"required|min:200",
+            "week_rate"=>"required",
+            "month_rate"=>"required",
+            "year_rate"=>"required",
         ]);
 
         $createGIG = new Tutregister;
@@ -82,10 +88,10 @@ class TutoringRegistration extends Controller
         $createGIG->meeting_point=$gigstore->location;
         $createGIG->language=$gigstore->language;
         $createGIG->method=$gigstore->method;
-        $createGIG->about_tutor=$gigstore->about_tutor;
-        $createGIG->week=$gigstore->week;
-        $createGIG->month=$gigstore->month;
-        $createGIG->year=$gigstore->year;
+        $createGIG->about_tutor=$gigstore->about_you;
+        $createGIG->week=$gigstore->week_rate;
+        $createGIG->month=$gigstore->month_rate;
+        $createGIG->year=$gigstore->year_rate;
         $createGIG->status='active';
         $createGIG->save();
 
@@ -95,7 +101,7 @@ class TutoringRegistration extends Controller
                 ->update(['status' => 'Tutor']);
 
 
-        return redirect()->route('dashboard')->with('Account_Creation','Congratulation Your Lession has been created');
+        return redirect()->route('dashboard')->with('Account_Creation','Congratulation Your lesson has been created');
         // return back(); view('dashboard.index')
 
         // dd($gigstore->input());

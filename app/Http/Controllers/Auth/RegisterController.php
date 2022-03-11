@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-// use App\Http\Controllers\Auth\Input;
+use App\Mail\mailVerification;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\str;
 class RegisterController extends Controller
 {
     //
@@ -23,25 +25,30 @@ class RegisterController extends Controller
     public function register(Request $requestUser) {
         // dd($requestUser->input());
         $this->validate($requestUser, [
-            "fullname"=>"required|max:255",
-            "username"=>"required|max:255",
-            "email"=>"required|email|unique:users|max:255",
+            "fullname"=>"required",
+            "username"=>"required",
+            "email"=>"required|email|unique:users",
             "password"=>"required|min:8|confirmed",
-        ]);
-
-        // $userAttempt  = User::where('email', $requestUser->input('email'))->first();
-        // if($userAttempt){
-        //     // if exist and redirect back
-        //     return back()->with('error', 'This email has been use by another person');
-        // }else{
-            // create account for new user's
+        ]); 
+            $verify_token = str::random(20); 
             $addtodo = new User;
             $addtodo->fullname=$requestUser->fullname;
             $addtodo->username=$requestUser->username;
             $addtodo->email=$requestUser->email;
             $addtodo->status='student';
+            $addtodo->remember_token=$verify_token;
             $addtodo->password=Hash::make($requestUser->password);
             $addtodo->save();
+
+            $details = [
+                'title' => 'Welcome to PTutor',
+                'email' => $requestUser->email,
+                'verify_token' => $verify_token,
+                'name' => $requestUser->fullname
+            ]; 
+            
+            Mail::to($requestUser->email )->send(new mailVerification($details));
+            // return redirect()->back();
         // }
 
         // User::create([
@@ -52,8 +59,8 @@ class RegisterController extends Controller
         //     'password'=> Hash::make($requestUser->password),
         // ]);
 
-        auth()->attempt($requestUser->only('email','password'));
-        return redirect('/');
+        // auth()->attempt($requestUser->only('email','password'));
+        return redirect('login')->with('success', 'Please check your email to verify your account');
     }
 
 }

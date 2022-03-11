@@ -3,7 +3,7 @@
 <head>
 
     <!-- =============================================== Basic Page Needs ================================================== -->
-    <title>Creation | Private Tutor </title>
+    <title>Creation Ads | Private Tutor </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -296,7 +296,7 @@
                             <ul>
                                 <li><a href="{{route('/')}}">Home</a></li>
                                 <li><a href="{{route('dashboard')}}">Dashboard</a></li>
-                                <li>Become Tutor</li>
+                                <li>Create Ads</li>
                             </ul>
                         </nav>
                     </div>

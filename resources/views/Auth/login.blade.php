@@ -52,34 +52,44 @@
 ================================================== -->
 <div class="container">
 	<div class="row">
-		<div class="col-xl-5 offset-xl-3">
+		<div class="col-xl-6 offset-xl-3">
 
 
 			<div class="login-register-page">
 				<!-- Welcome Text -->
 				<div class="welcome-text">
 					<h3>We're glad to see you again!</h3>
-					<span>Don't have an account? <a href="{{route('RegisterUser')}}">Sign Up!</a></span>
+					<span>Don't have an account? <a href="{{route('signup')}}">Sign Up!</a></span>
 
+					@if(session('error_mail')) 
+						<div class="notification error closeable">
+							<p>{{session('error_mail')}} 
+								<a href="#small-dialog" class=" popup-with-zoom-anim  ripple-effect"> Re-send verification mail</a>
+							</p>
+							<a class="close" href="#"></a>
+						</div>
+					@endif
 					@if(session('error'))
-                    <div class="notification error closeable">
-                        <p>{{session('error')}}</p>
-                        <a class="close" href="#"></a>
-                    </div>
-					{{-- <span style="color: #fff; background-color: rgb(247, 149, 154); padding: 5px; width: 50%; margin-left: 25%; border-radius: 5px">
-							{{session('error')}}
-					</span> --}}
-
+						<div class="notification error closeable">
+							<p>{{session('error')}}</p>
+							<a class="close" href="#"></a>
+						</div> 
+					@endif
+					@if(session('success'))
+						<div class="notification success closeable">
+							<p>{{session('success')}}</p>
+							<a class="close" href="#"></a>
+						</div>
 					@endif
 					
 				</div>
 
 				<!-- Form -->
-				<form action="Login" method="post" >
+				<form action="{{route('login')}}" method="post" >
 					@csrf
 					<div class="input-with-icon-left">
 						<i class="icon-material-baseline-mail-outline"></i>
-						<input type="text" class="input-text with-border" name="email"  placeholder="Email Address" @error('email') style="box-shadow: 0px 0px 5px  red"@enderror value="{{old('email')}}"/>
+						<input type="text" class="input-text with-border" name="email" id="email" placeholder="Email Address" @error('email') style="box-shadow: 0px 0px 5px  red"@enderror value="{{old('email')}}"/>
 						@error('email')
 							<span style="color:red;">{{$message}}</span>
 						@enderror
@@ -114,7 +124,34 @@
 
 </div>
 <!-- Wrapper / End -->
+<!-- Make an Offer Popup
+================================================== -->
+<div id="small-dialog" class="zoom-anim-dialog mfp-hide dialog-with-tabs">
 
+	<!--Tabs -->
+    <ul class="popup-tabs-nav">
+        <li><a href="#tab">Resend verification mail</a></li>
+    </ul>
+		<div class="popup-tab-content">
+
+            {{-- @foreach ($Detail as $search) --}}
+            <div class="welcome-text ">
+                <h3>Enter your registered E-mail</h3>
+            </div>
+            {{-- @endforeach --}}
+            <form action="{{route('verifymail')}}" method="post" >
+                @csrf 
+				<div class="input-with-icon-left">
+					<i class="icon-material-baseline-mail-outline"></i>
+					<input type="text" class="input-text with-border" name="email" placeholder="Email Address" required/>
+				</div>
+				
+            <!-- Button -->
+                <button class="button full-width button-sliding-icon ripple-effect margin-top-10" type="submit" >Send <i class="icon-material-outline-arrow-right-alt"></i></button>
+            </form>
+	</div>
+</div>
+<!-- Make an Offer Popup / End -->
 <!-- Scripts
 ================================================== -->
 <script src="js/jquery-3.4.1.min.js"></script>
@@ -129,7 +166,7 @@
 <script src="js/counterup.min.js"></script>
 <script src="js/magnific-popup.min.js"></script>
 <script src="js/slick.min.js"></script>
-<script src="js/custom.js"></script>
+<script src="js/custom.js"></script> 
 
 <!-- Snackbar // documentation: https://www.polonel.com/snackbar/ -->
 <script>

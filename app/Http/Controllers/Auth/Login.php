@@ -20,16 +20,33 @@ class Login extends Controller
     }
 
     public function login(Request $loginUser){
-        $this->validate($loginUser, [
-            "email"=>"required|email",
-            "password"=>"required",
+        // $this->validate($loginUser, [
+        //     "email"=>"required|email",
+        //     "password"=>"required",
+        // ]);
+
+        $email = $loginUser->email;
+        $password = $loginUser->password;
+
+        $credentials = $loginUser->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
         ]);
 
-        if(!auth()->attempt($loginUser->only('email','password'))) {
-            return back()->with('error', 'Invalid Login Details');
+        if (Auth::attempt($credentials) and auth()->user()->email_verify_status === '0') {
+
+            Auth::logout();
+            return back()->with('error_mail', 'Sorry you have to verify your email before you get access');  
+
+        }elseif(Auth::attempt($credentials) and auth()->user()->email_verify_status === '1'){
+
+            $loginUser->session()->regenerate();
+            return redirect()->intended('/');          
+
+        }else{
+            return back()->with('error', 'The provided credentials do not match our records.');
         }
-        else{
-            return redirect()->route('/');
-        }
+
+      
     }
 }
