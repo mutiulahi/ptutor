@@ -81,7 +81,7 @@
                                                         <div class="col-xl-12">
                                                             <div class="submit-field">
                                                                 <h5>Subject related to your subject skill</h5>
-                                                                <input  type="text" class="with-border" name="categories" max="20" value="{{old('categories')}}" @error('categories') style="border: 1px solid #ed9e9e;"@enderror  height="200px" placeholder="e.g : Mathematics">
+                                                                <input  type="text" class="with-border subject" name="categories" max="20" value="{{old('categories')}}" @error('categories') style="border: 1px solid #ed9e9e;"@enderror  height="200px" placeholder="e.g : Mathematics">
                                                                 @error('categories')
                                                                     <span style="color:red;">{{$message}}</span>
                                                                 @enderror
@@ -91,10 +91,10 @@
                                                         <div class="col-xl-12">
                                                             <div class="submit-field">
                                                                 <h5>Write a beautiful, unique title for your tutor ad 💎</h5>
-                                                                <input type="text" class="with-border" name="title_ads" max="20" value="{{old('title_ads')}}" @error('title_ads') value="{{old('title_ads')}}" style="border: 1px solid #ed9e9e;"@enderror placeholder="e.g : I will teach you mathematics">
+                                                                <input type="text" class="with-border" name="title_ads" oninput="title_word()" id="title_ads" max="20" value="{{old('title_ads')}}" @error('title_ads') value="{{old('title_ads')}}" style="border: 1px solid #ed9e9e;"@enderror placeholder="e.g : I will teach you mathematics">
                                                                 @error('title_ads')
-                                                                <span style="color:red;">{{$message}}</span>
-                                                            @enderror
+                                                                    <span style="color:red;">{{$message}}</span>
+                                                                @enderror<span style="font-size: 15px; color:red;" id="title_error">minimum of 5 words maximum of 25 words </span>
                                                             </div>
                                                         </div>
 

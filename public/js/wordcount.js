@@ -16,6 +16,7 @@
 // });
 document.getElementById('about_youerror').style.display = 'none';
 document.getElementById('methoderror').style.display = 'none';
+document.getElementById('title_error').style.display = 'none';
 
 function methodcountWord() {
 
@@ -109,6 +110,41 @@ function about_youcountWord() {
             .style.color = "green";
         document.getElementById('published').disabled = false;
         document.getElementById('published').style.backgroundColor = 'green';
+
+
+    }
+
+}
+
+function title_word() {
+
+    // Get the input text value
+    var title = document.getElementById("title_ads").value;
+
+    // Initialize the word counter
+    var count = 0;
+
+    // Split the method on each
+    // space character
+    var split = title.split(' ');
+
+    // Loop through the method and
+    // increase the counter when
+    // each split word is not empty
+    for (var i = 0; i < split.length; i++) {
+        if (split[i] != "") {
+            count += 1;
+        }
+    }
+
+    if (count < 5 || count > 15) { 
+        document.getElementById('published').disabled = true;
+        document.getElementById('published').style.backgroundColor = 'gray';
+        document.getElementById('title_error').style.display = 'block';
+    } else {
+        document.getElementById('published').disabled = false;
+        document.getElementById('published').style.backgroundColor = 'green';
+        document.getElementById('title_error').style.display = 'none';
 
 
     }

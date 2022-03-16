@@ -2,20 +2,18 @@
 <!doctype html>
 <html lang="en">
 
-<!-- Mirrored from www.vasterad.com/themes/hireo/dashboard-messages.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 12 Dec 2020 02:32:03 GMT -->
-<head>
+<head> 
+	<!-- Basic Page Needs
+	================================================== -->
+	<title>Dashboard Send Order</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-<!-- Basic Page Needs
-================================================== -->
-<title>Dashboard Send Order</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-<!-- CSS
-================================================== -->
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/colors/blue.css">
-
+	<!-- CSS
+	================================================== -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/colors/blue.css"> 
 </head>
 <body class="gray">
 
@@ -58,16 +56,24 @@
 
 					</ul>
 				</nav>
+				
 			</div>
 
-
+			@if(session('success'))
+            <div class="notification success closeable">
+				<p>{{session('success')}}</p>
+				<a class="close" href="#"></a>
+			</div>
+            @endif
             <div class="row">
 
 				<!-- Dashboard Box -->
 				<div class="col-xl-12">
-
+					<div class="dashboard-headline">
+						<a href="{{route('becometutor')}}" style="float: right;" class="button ripple-effect">Create Class <i class="icon-feather-arrow-right"></i></a>
+					</div>
 					<div class="dashboard-box margin-top-0">
-						<!-- Headline -->
+							<!-- Headline -->
 						<div class="headline">
 							<h3><i class="icon-material-outline-gavel"></i> Active Ads List</h3>
 						</div>
@@ -86,9 +92,9 @@
                                                 <div class="job-listing-description">
                                                     <h3 class="job-listing-title"><a href="#">{{$ad->title_ads}}</a>
                                                         @if ($ad->status == 'active')
-                                                        <span class="dashboard-status-button green">{{$ad->status}}</span>
+                                                        	<span class="dashboard-status-button green">{{$ad->status}}</span>
                                                         @else
-                                                        <span class="dashboard-status-button yellow">{{$ad->status}}</span>
+                                                        	<span class="dashboard-status-button yellow">{{$ad->status}}</span>
                                                         @endif
                                                     </h3>
 
@@ -104,23 +110,16 @@
                                         </ul>
                                         {{-- popup-with-zoom-anim --}}
                                         <!-- Buttons -->
-                                        <div class="buttons-to-right me always-visible">
-                                            <form action="adsEdit" method="get">
-                                                <input type="hidden" name="ads_id" value="{{$ad->id}}">
-                                                <button class=" button dark ripple-effect ico" title="Edit Ads" data-tippy-placement="top"><i class="icon-feather-edit"></i></button>
-
-                                            </form>
-
-                                            <form class="me-2" action="adsDelet" method="get">
-                                                <input type="hidden" name="ads_id" value="{{$ad->id}}">
-                                                <button class="button red ripple-effect ico" title="Cancel Ads" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></button>
-                                            </form>
-
-                                        </div>
+                                        <div class="buttons-to-right me always-visible"> 
+											<button type="button" class="button popup-with-zoom-anim dark ripple-effect ico" data-toggle="modal" data-target="#aDsEdit{{$ad->id}}" title="Edit Ad" data-tippy-placement="top"><i class="icon-feather-edit"></i></button>
+											<button type="button" class="button popup-with-zoom-anim red ripple-effect ico" data-toggle="modal" data-target="#myModal{{$ad->id}}" title="Delete Ad" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></button>
+                                        </div><br><br><br>
+										
                                     </li>
+									
                                 @endforeach
 
-
+								
 							</ul>
 						</div>
 					</div>
@@ -128,7 +127,7 @@
 
 			</div>
 
-
+		
 
 
 			<!-- Footer -->
@@ -172,37 +171,60 @@
 
 </div>
 <!-- Wrapper / End -->
-
-
-<!-- Apply for a job popup
-================================================== -->
-<div id="small-dialog" class="zoom-anim-dialog mfp-hide dialog-with-tabs">
-
-	<!--Tabs -->
-    <ul class="popup-tabs-nav">
-        <li><a href="#tab">Accept Offer</a></li>
-    </ul>
-
-		<div class="popup-tab-content">
-            <div class="welcome-text ">
-                <h3>Write a request note to </h3>
-            </div>
-            <form action="../placeOrder" method="post" >
-                @csrf
-                <input type="hidden" value="" name="tutor_id">
-
-                <textarea  name="message" cols="10" placeholder="Message" class="with-border"></textarea>
-
-            <!-- Button -->
-                <button class="button full-width button-sliding-icon ripple-effect margin-top-10" type="submit" >Place Request <i class="icon-material-outline-arrow-right-alt"></i></button>
-            </form>
+@foreach ($ads as $ad)
+	<div id="myModal{{$ad->id}}" class="modal fade" role="dialog">
+		<div class="modal-dialog"> 
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title text-danger">Delete Class {{$ad->title_ads}}</h4>
+			</div>
+			<div class="modal-body" style="text-align: center;">
+				<p class="text-warning">Hey! You are about to delete your Class Ad {{$ad->title_ads}}</p>
+				<h3 class="red">Are sure of this action!!!</h3>
+				<h4>Note that this action can't be reverse</h4>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-success button-sliding-icon ripple-effect" style="border:none;" data-dismiss="modal">Close</button>
+				<a type="button" href="{{route('delete_ads',$ad->id)}}" class="btn btn-success button-sliding-icon ripple-effect text-white"  style="width: 100px; border:none;">Confirm</a>
+			</div>
+		</div>
+		</div>
 	</div>
-</div>
-<!-- Apply for a job popup / End -->
+@endforeach
+
+@foreach ($ads as $ad)
+	<div id="myModal{{$ad->id}}" class="modal fade" role="dialog">
+		<div class="modal-dialog"> 
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title text-danger">Delete Class {{$ad->title_ads}}</h4>
+			</div>
+			<div class="modal-body" style="text-align: center;">
+				<p class="text-warning">Hey! You are about to delete your Class Ad {{$ad->title_ads}}</p>
+				<h3 class="red">Are sure of this action!!!</h3>
+				<h4>Note that this action can't be reverse</h4>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-success button-sliding-icon ripple-effect" style="border:none;" data-dismiss="modal">Close</button>
+				<a type="button" href="{{route('delete_ads',$ad->id)}}" class="btn btn-success button-sliding-icon ripple-effect text-white"  style="width: 100px; border:none;">Confirm</a>
+			</div>
+		</div>
+		</div>
+	</div>
+@endforeach
 
 
-<!-- Scripts
-================================================== -->
+
+<!-- Scripts ================================================== -->
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script src="js/jquery-3.4.1.min.js"></script>
 <script src="js/jquery-migrate-3.1.0.min.html"></script>
 <script src="js/mmenu.min.js"></script>
@@ -232,9 +254,13 @@ $('#snackbar-user-status label').click(function() {
 	});
 });
 </script>
-
+<script>
+	function Get_Ad_id() {
+		var id = document.getElementById('id').value;
+		console.log(id);
+	}
+</script>
 
 </body>
 
-<!-- Mirrored from www.vasterad.com/themes/hireo/dashboard-messages.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 12 Dec 2020 02:32:03 GMT -->
 </html>

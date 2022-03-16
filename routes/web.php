@@ -61,14 +61,14 @@ Route::get('sendOrder', [Dashboard::class, 'sendOrder'])->name('sendOrder')->mid
 Route::get('status/{id}', [Dashboard::class, 'acceptOrder'])->name('accept')->middleware('auth');
 Route::get('statusR/{id}', [Dashboard::class, 'rejectOrder'])->name('reject')->middleware('auth');
 
-Route::get('setting', [Dashboard::class, 'setting'])->name('setting')->middleware('auth');
-Route::post('Update', [Dashboard::class, 'settingUpdate'])->middleware('auth');
+Route::get('dashboard/setting', [Dashboard::class, 'setting'])->name('setting')->middleware('auth');
+Route::post('dashboard/update', [Dashboard::class, 'settingUpdate'])->name('updatesetting')->middleware('auth');
 Route::get('ads', [Dashboard::class, 'adsView'])->name('ads')->middleware('auth');
 
 Route::get('adsEdit', [Dashboard::class, 'adsEdit'])->middleware('auth');
 
 Route::post('adsUpdate', [Dashboard::class, 'adsUpdate'])->middleware('auth');
-Route::get('adsDelet', [Dashboard::class, 'adsDelet'])->middleware('auth');
+Route::get('adsDelet/{id}', [Dashboard::class, 'adsDelet'])->name('delete_ads')->middleware('auth');
 
 //message
 Route::get('message', [SendAndMeg::class, 'index'])->name('message')->middleware('auth');

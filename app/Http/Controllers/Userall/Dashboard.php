@@ -26,7 +26,6 @@ class Dashboard extends Controller
     public function recieve(Request $order_message)
     {
         $id = Auth::id();
-
         $order_message = DB::table('place__requests')
                             ->join('users', 'place__requests.user_id', '=', 'users.id')
                             ->join('tutregisters', 'place__requests.tutor_id', '=', 'tutregisters.user_id')
@@ -107,15 +106,15 @@ class Dashboard extends Controller
             "fullname"=>"required|max:255",
             "username"=>"required|max:255",
             "phone"=>"required|max:15|min:11",
-            "fileName"=>"required|mimes:png,jpg,jfif"
+            "passport"=>"required|mimes:png,jpg,jfif"
         ]);
         $fname = $update->input('fullname');
         $username = $update->input('username');
             $phone = $update->input('phone');
             $email = $update->input('email');
-            $file = $update->file('fileName');
+            $file = $update->file('passport');
 
-            $passName = $update->file('fileName')->getClientOriginalName();
+            $passName = $update->file('passport')->getClientOriginalName();
             $pssID = $email."_".$passName;
 
             $file->move('images/passport', $pssID);
@@ -146,7 +145,6 @@ class Dashboard extends Controller
     }
 
     public function adsEdit(Request $getid)
-
     {
         $ads_id = $getid->input('ads_id');
         // $_SESSION['gig'] = $getid->input('ads_id');
@@ -162,23 +160,24 @@ class Dashboard extends Controller
         return view('tutoringRegister', ['ads'=> $ads], compact('id'));
 
     }
-    public function adsDelet(Request $getid)
 
+    public function adsDelet(Request $getid, $id_ads)
     {
-        $ads_id = $getid->input('ads_id');
-        // $_SESSION['gig'] = $getid->input('ads_id');
-        // dd($ads_id);
-        $id = Auth::id();
-
+        $ads_id = $id_ads; 
+        $id = Auth::id(); 
         $ads = DB::table('tutregisters')
-        ->select('*')
-        ->where('user_id', $id)
-        ->where( 'id', $ads_id)
-        ->delete();
-
-        return redirect()->route('ads');
+            ->select('*')
+            ->where('user_id', $id)
+            ->where( 'id', $ads_id)
+            ->delete();
+        // dd($ads);
+        if ($ads == 1) {
+            return redirect()->route('ads')->with('success','Your class ads has been successfully deleted!' );
+        }
+        
 
     }
+
     public function adsUpdate(Request $gigstore)
     {
         $id = Auth::id();

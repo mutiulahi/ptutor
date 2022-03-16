@@ -53,7 +53,7 @@
                                 @if (auth()->user()->passport =='')
                                 <a href="#"><div class="user-avatar status-online"><img src="images/user-avatar-placeholder.png" alt=""></div></a>
                                 @else
-                                <a href="#"><div class="user-avatar status-online"><img src="images/passport/{{auth()->user()->passport}}" alt=""></div></a>
+                                <a href="#"><div class="user-avatar status-online"><img style="height: 40px; width:40px;" src="../images/passport/{{auth()->user()->passport}}" alt=""></div></a>
                                 @endif  
                             </div>
 
@@ -67,7 +67,7 @@
                                         @if (auth()->user()->passport =='')
                                         <a href="#"><div class="user-avatar status-online"><img src="images/user-avatar-placeholder.png" alt=""></div></a>
                                         @else
-                                        <a href="#"><div class="user-avatar status-online"><img src="images/passport/{{auth()->user()->passport}}" alt=""></div></a>
+                                        <a href="#"><div class="user-avatar status-online"><img style="height: 40px; width:40px;" src="../images/passport/{{auth()->user()->passport}}" alt=""></div></a>
                                         @endif
 
                                                 <div class="user-name">

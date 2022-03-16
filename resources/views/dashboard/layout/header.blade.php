@@ -9,7 +9,7 @@
 
 				<!-- Logo -->
 				<div id="logo">
-					<a href="{{route('/')}}"><img src="images/logo.png" alt=""></a>
+					<a href="{{route('/')}}"><img src="../images/logo.png" alt=""></a>
 				</div>
 
 				<!-- Main Navigation -->
@@ -72,9 +72,9 @@
                         <div class="header-notifications user-menu">
                             <div class="header-notifications-trigger">
                                 @if (auth()->user()->passport =='')
-                                <a href="#"><div class="user-avatar status-online"><img src="images/user-avatar-placeholder.png" alt=""></div></a>
+                                <a href="#"><div class="user-avatar status-online"><img src="../images/user-avatar-placeholder.png" alt=""></div></a>
                                 @else
-                                <a href="#"><div class="user-avatar status-online"><img src="images/passport/{{auth()->user()->passport}}" alt=""></div></a>
+                                <a href="#"><div class="user-avatar status-online"><img style="height: 40px; width:40px;" src="../images/passport/{{auth()->user()->passport}}" alt=""></div></a>
                                 @endif
 
                                 {{-- <a href="#"><div class="user-avatar status-online"><img src="images/user-avatar-small-01.jpg" alt="ff"></div></a> --}}
@@ -88,20 +88,14 @@
                                     <!-- User Name / Avatar -->
                                     <div class="user-details">
                                         @if (auth()->user()->passport =='')
-                                        <a href="#"><div class="user-avatar status-online"><img src="images/user-avatar-placeholder.png" alt=""></div></a>
-                                        @else
-                                        <a href="#"><div class="user-avatar status-online"><img src="images/passport/{{auth()->user()->passport}}" alt=""></div></a>
-                                        @endif
-
-                                        @if($status > 0)
+											<a href="#"><div class="user-avatar status-online"><img src="../images/user-avatar-placeholder.png" alt=""></div></a>
+										@else
+											<a href="#"><div class="user-avatar status-online"><img style="height: 40px; width:40px;" src="../images/passport/{{auth()->user()->passport}}" alt=""></div></a>
+										@endif
+ 
                                         <div class="user-name">
-                                            {{auth()->user()->username}}<span>Tutor</span>
-                                        </div>
-                                        @else
-                                            <div class="user-name">
-                                                {{auth()->user()->username}}<span>Student</span>
-                                            </div>
-                                        @endif
+                                            {{auth()->user()->username}}<span>{{auth()->user()->status}}</span>
+                                        </div> 
                                     </div>
                                 </div>
 

@@ -1,7 +1,5 @@
 <!doctype html>
 <html lang="en">
-
-<!-- Mirrored from www.vasterad.com/themes/hireo/dashboard-messages.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 12 Dec 2020 02:32:03 GMT -->
 <head>
 
 <!-- Basic Page Needs
@@ -12,8 +10,8 @@
 
 <!-- CSS
 ================================================== -->
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/colors/blue.css">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/colors/blue.css">
 
 </head>
 <body class="gray">
@@ -56,7 +54,7 @@
 					</ul>
 				</nav>
 			</div>
-            <form action="Update" method="post" enctype="multipart/form-data">
+            <form action="{{route('updatesetting')}}" method="post" enctype="multipart/form-data">
                 @csrf
             <div class="row">
 
@@ -74,67 +72,73 @@
 
 							<div class="row">
                                 @foreach ($setting as $data)
-								<div class="col-auto">
-                                    @error('fileName')
-                                    <span style="color:red;">{{$message}}</span>
-                                @enderror
-									<div class="avatar-wrapper" data-tippy-placement="bottom" title="Change Avatar">
-										<img class="profile-pic" src="images/passport/{{$data->passport}}" alt="" />
-										<div class="upload-button"></div>
+									<div class="col-auto"> 
+										<div class="avatar-wrapper" data-tippy-placement="bottom" title="Change Avatar">
+											<img class="profile-pic" src="../images/passport/{{$data->passport}}" alt="" />
+											<div class="upload-button"></div>  
+											<input class="file-upload" type="file" name="passport" accept="image/*"/> 
+										</div>
+										@error('passport')
+											<span style="color:red;">{{$message}}</span>
+										@enderror
+									</div> 
+									
+									<div class="col">
+										<div class="row">
+												<div class="col-xl-6">
+													<div class="submit-field">
+														<h5>Full Name</h5>
+														<input type="text" name="fullname" class="with-border" value="{{$data->fullname}}" readonly>
+														@error('fullname')
+															<span style="color:red;">{{$message}}</span>
+														@enderror
+													</div>
+												</div>
 
-
-										<input class="file-upload" type="file" name="fileName" accept="image/*"/>
-
-
+												<div class="col-xl-6">
+													<div class="submit-field">
+														<h5>Username</h5>
+														<input type="text" name="username" class="with-border" value="{{$data->username}}" readonly>
+														@error('username')
+															<span style="color:red;">{{$message}}</span>
+														@enderror
+													</div>
+												</div> 
+												<div class="col-xl-6">
+													<div class="submit-field">
+														<h5>Phone Number</h5>
+														<input type="text" name="phone" class="with-border" value="{{$data->phone}}">
+														@error('phone')
+															<span style="color:red;">{{$message}}</span>
+														@enderror
+													</div>
+												</div>
+												<div class="col-xl-6">
+													<div class="submit-field">
+														<h5>Email</h5>
+														<input type="text" name="email" class="with-border" value="{{$data->email}}" readonly>
+													</div> 
+											 	</div> 
+												 <div class="col-xl-6">
+													<div class="submit-field">
+														<h5>Phone Number</h5>
+														<input type="text" name="phone" class="with-border" value="{{$data->phone}}">
+														@error('phone')
+															<span style="color:red;">{{$message}}</span>
+														@enderror
+													</div>
+												</div>
+												<div class="col-xl-6">
+													<div class="submit-field">
+														<h5>Email</h5>
+														<input type="text" name="email" class="with-border" value="{{$data->email}}" readonly>
+													</div> 
+											 	</div> 
+										</div>
 									</div>
-								</div>
-                                {{-- <img src="images/passport/tesleem.png" alt="mnn" srcset=""> --}}
-                                {{-- {{$data->passport}} --}}
-								<div class="col">
-									<div class="row">
-                                            <div class="col-xl-6">
-                                                <div class="submit-field">
-                                                    <h5>Full Name</h5>
-                                                    <input type="text" name="fullname" class="with-border" value="{{$data->fullname}}">
-                                                    @error('fullname')
-                                                        <span style="color:red;">{{$message}}</span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-
-                                            <div class="col-xl-6">
-                                                <div class="submit-field">
-                                                    <h5>Username</h5>
-                                                    <input type="text" name="username" class="with-border" value="{{$data->username}}">
-                                                    @error('username')
-                                                        <span style="color:red;">{{$message}}</span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-
-
-                                            <div class="col-xl-6">
-                                                <div class="submit-field">
-                                                    <h5>Phone Number</h5>
-                                                    <input type="text" name="phone" class="with-border" value="{{$data->phone}}">
-                                                        @error('phone')
-                                                            <span style="color:red;">{{$message}}</span>
-                                                        @enderror
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-6">
-                                                <div class="submit-field">
-                                                    <h5>Email</h5>
-                                                    <input type="text" name="email" class="with-border" value="{{$data->email}}" readonly>
-                                            </div>
-                                        @endforeach
-
-									</div>
-								</div>
+								@endforeach 
 							</div>
-
 						</div>
-					</div>
 
 
                 </form>
@@ -223,19 +227,19 @@
 
 <!-- Scripts
 ================================================== -->
-<script src="js/jquery-3.4.1.min.js"></script>
-<script src="js/jquery-migrate-3.1.0.min.html"></script>
-<script src="js/mmenu.min.js"></script>
-<script src="js/tippy.all.min.js"></script>
-<script src="js/simplebar.min.js"></script>
-<script src="js/bootstrap-slider.min.js"></script>
-<script src="js/bootstrap-select.min.js"></script>
-<script src="js/snackbar.js"></script>
-<script src="js/clipboard.min.js"></script>
-<script src="js/counterup.min.js"></script>
-<script src="js/magnific-popup.min.js"></script>
-<script src="js/slick.min.js"></script>
-<script src="js/custom.js"></script>
+<script src="../js/jquery-3.4.1.min.js"></script>
+<script src="../js/jquery-migrate-3.1.0.min.html"></script>
+<script src="../js/mmenu.min.js"></script>
+<script src="../js/tippy.all.min.js"></script>
+<script src="../js/simplebar.min.js"></script>
+<script src="../js/bootstrap-slider.min.js"></script>
+<script src="../js/bootstrap-select.min.js"></script>
+<script src="../js/snackbar.js"></script>
+<script src="../js/clipboard.min.js"></script>
+<script src="../js/counterup.min.js"></script>
+<script src="../js/magnific-popup.min.js"></script>
+<script src="../js/slick.min.js"></script>
+<script src="../js/custom.js"></script>
 
 <!-- Snackbar // documentation: https://www.polonel.com/snackbar/ -->
 <script>
