@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+    <!-- =============================================== Basic Page Needs ================================================== -->
+    <title>Edit Ads | Private Tutor </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <!-- =============================================== CSS ================================================== --> 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/colors/blue.css"> 
+</head>
+
+<body class="gray">
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- =============================================== Header Container ================================================= -->
+        {{-- @extends('layout/header_out') --}}
+        @include('layout/header_out')
+        <!-- ============================================ Header Container / End =============================================== -->
+
+
+        <!-- Dashboard Container -->
+        <div class="dashboard-container">
+
+             <!-- Dashboard Sidebar -->
+                {{-- removed --}}
+            <!-- Dashboard Sidebar / End -->
+
+            <!--=============================================== Dashboard Content ================================================== -->
+            <div class="dashboard-content-container" data-simplebar>
+                @if(session('error'))
+                <div class="notification error closeable">
+                    <p>{{session('error')}}</p>
+                    <a class="close" href="#"></a>
+                </div> 
+            @endif
+            @if(session('success'))
+                <div class="notification success closeable">
+                    <p>{{session('success')}}</p>
+                    <a class="close" href="#"></a>
+                </div>
+            @endif
+                <div class="dashboard-content-inner"> 
+                    
+                        <div class="dashboard-headline">
+                            <h3>Edit your class ad 💎</h3>
+
+                            <!-- Breadcrumbs -->
+                            <nav id="breadcrumbs" class="dark">
+                                <ul>
+                                    <li><a href="{{route('/')}}">Home</a></li>
+                                    <li><a href="{{route('dashboard')}}">Dashboard</a></li>
+                                    <li>Edit Class Ad</li>
+                                </ul>
+                            </nav>
+                        </div>
+
+                        {{-- Normal form --}}
+                        <form action="{{route('update_ads')}}" method="POST" autocomplete="off">
+                            <div class="row"> 
+                                @csrf
+                                
+                                <!-- Dashboard Box -->
+                                <div class="col-xl-12">
+                                    <div class="dashboard-box margin-top-0">
+
+                                        <!-- Headline -->
+                                        <div class="headline">
+                                            <h3><i class="icon-material-outline-account-circle"></i> <strong>What do you have to offer</strong></h3>
+                                        </div>
+                                        @foreach ($ads as $ad_details)
+                                        <input type="hidden" name="id" value="{{$ad_details->id}}">
+                                            <div class="content with-padding padding-bottom-0">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="row">
+                                                            {{-- @foreach ($ads as $ad_details) --}}
+                                                                
+                                                            {{-- @endforeach --}}
+                                                            <div class="col-xl-12">
+                                                                <div class="submit-field">
+                                                                    <h5>Which subject do you wish to teach? 🎓</h5>
+                                                                    <input type="text" class="with-border subject" name="subject" max="20" value="{{$ad_details->subject}}" @error('subject') style="border: 1px solid #ed9e9e;"@enderror placeholder="e.g : Physics" required>
+                                                                    @error('subject')
+                                                                        <span style="color:red;">{{$message}}</span>
+                                                                    @enderror
+
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-xl-12">
+                                                                <div class="submit-field">
+                                                                    <h5>Subject related to your subject skill</h5>
+                                                                    <input  type="text" class="with-border subject" name="categories" required max="20" value="{{$ad_details->categories}}" @error('categories') style="border: 1px solid #ed9e9e;"@enderror  required height="200px" placeholder="e.g : Mathematics">
+                                                                    @error('categories')
+                                                                        <span style="color:red;">{{$message}}</span>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-xl-12">
+                                                                <div class="submit-field">
+                                                                    <h5>Write a beautiful, unique title for your tutor ad 💎</h5>
+                                                                    <input type="text" class="with-border" name="title_ads" oninput="title_word()" id="title_ads" required max="20" value="{{$ad_details->title_ads}}" @error('title_ads') required value="{{old('title_ads')}}" style="border: 1px solid #ed9e9e;"@enderror placeholder="e.g : I will teach you mathematics">
+                                                                    @error('title_ads')
+                                                                        <span style="color:red;">{{$message}}</span>
+                                                                    @enderror<span style="font-size: 15px; color:red;" id="title_error">minimum of 5 words maximum of 25 words </span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-xl-12">
+                                                                <!-- Account Type -->
+                                                                <div class="submit-field">
+                                                                    <h5>What type of class do you want to give?</h5>
+
+                                                                    <div class="account-type"> 
+                                                                        <div>
+                                                                            <input type="radio" name="class_type" id="freelancer-radio"  @if ($ad_details->class_type == 'I Can Take Individual Class') checked  @else  @endif class="account-type-radio" value="I Can Take Individual Class"/>
+                                                                            <label for="freelancer-radio" class="ripple-effect-dark"><i class="icon-material-outline-account-circle"></i> Individual class</label>
+                                                                        </div>
+
+                                                                        <div>
+                                                                            <input type="radio" name="class_type" id="employer-radio" class="account-type-radio" @if ($ad_details->class_type == 'I Can Take Group Class') checked  @else  @endif  value="I Can Take Group Class"/>
+                                                                            <label for="employer-radio" class="ripple-effect-dark"><i class="icon-material-outline-group"></i> Group Class</label>
+                                                                        </div>
+                                                                        <div>
+                                                                            <input type="radio" name="class_type" id="Both" class="account-type-radio " @if ($ad_details->class_type == 'I Can Take Both Individual and Group Class') checked  @else  @endif value="I Can Take Both Individual and Group Class"/>
+                                                                            <label for="Both" class="ripple-effect-dark"><i class="icon-material-outline-business-center"></i> Both</label>
+                                                                        </div> 
+                                                                        
+                                                                    </div>
+                                                                    @error('class_type')
+                                                                        <span style="color:red;">{{$message}}</span>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+
+                                <!-- Dashboard Box -->
+                                <div class="col-xl-12">
+                                    <div class="dashboard-box">
+
+                                        <!-- Headline -->
+                                        <div class="headline">
+                                            <h3><i class="icon-material-outline-face"></i><strong>Your class Profile</strong>
+                                            </h3>
+                                        </div>
+
+                                        <div class="content">
+                                            <ul class="fields-ul">
+                                                <li>
+                                                    <div class="row">
+                                                        <div class="col-xl-6">
+                                                            <div class="submit-field">
+                                                                <h5>Address</h5>
+                                                                <input required type="text" class="with-border" name="address" @error('address')  style="border: 1px solid #ed9e9e;"@enderror value="{{$ad_details->address}}" placeholder="Bodija Ibadan oyo state">
+                                                                @error('address')
+                                                                    <span style="color:red;">{{$message}}</span>
+                                                                
+                                                                @enderror
+                                                                
+                                                                
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-xl-6">
+                                                            <div class="submit-field">
+                                                                <h5>Location</h5> 
+                                                                <input type="text" class="with-border typeahead" id="location" onchange="location()" name="location" @error('location')  style="border: 1px solid #ed9e9e;"@enderror value="{{$ad_details->meeting_point}}" placeholder="Bodija Ibadan oyo state" required>
+                                                                @error('location')
+                                                                    <span style="color:red;">{{$message}}</span>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-xl-6">
+                                                            <div class="submit-field">
+                                                                <h5>Where will your classes be held</h5> 
+                                                                <select class="selectpicker default with-border"  data-selected-text-format="count" data-size="7"  name="class_location" value="{{old('class_location')}}" @error('class_location') style="border: 1px solid #ed9e9e;"@enderror
+                                                                    data-size="7" title="Select location where your classes will be held"
+                                                                    data-live-search="true" required>
+                                                                    <option @if ($ad_details->class_location == 'I can receive student at my home') selected @else @endif value="I can receive student at my home">I can receive student at my home</option>
+                                                                    <option @if ($ad_details->class_location == 'I can give student online class') selected @else @endif value="I can give student online class">I can give student online class</option>
+                                                                    <option @if ($ad_details->class_location == 'I can travel to the student home') selected @else @endif value="I can travel to the student home">I can travel to the student home</option>
+                                                                    <option @if ($ad_details->class_location == 'I can teach anywhere base on student decision') selected @else @endif value="I can teach anywhere base on student decision">I can teach anywhere base on student decision</option>
+                                                                </select>
+                                                                @error('class_location')
+                                                                    <span style="color:red;">{{$message}}</span>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-xl-6">
+                                                            <div class="submit-field">
+                                                                <h5>Which language will you use to teach</h5>
+                                                                <select class="selectpicker with-border" name="language" value="{{old('language')}}" @error('language') style="border: 1px solid #ed9e9e;"@enderror
+                                                                    data-size="7" title="Select your teaching language"
+                                                                    data-live-search="true" required>
+                                                                    <option @if ($ad_details->language == 'Engliah') selected @else @endif value="Engliah">English</option>
+                                                                    <option @if ($ad_details->language == 'Yoruba') selected @else @endif value="Yoruba">Yoruba</option>
+                                                                    <option @if ($ad_details->language == 'Igbo') selected @else @endif value="Igbo">Igbo</option>
+                                                                    <option @if ($ad_details->language == 'Hausa') selected @else @endif value="Hausa">Hausa</option>
+                                                                </select>
+                                                                @error('language')
+                                                                    <span style="color:red;">{{$message}}</span>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="row">
+                                                        <div class="col-xl-12">
+                                                            <div class="submit-field">
+                                                                <h5>What method do you intend to use for tutoring (<code style="font-size: 10px;">minimum of 40 words maximum of 100 words </code>) </h5>
+                                                                
+                                                                <textarea cols="30" rows="3" required name="method" id="method" oninput="methodcountWord()" value="{{$ad_details->method}}" @error('method') style="border: 1px solid #ed9e9e;"@enderror
+                                                                    class="with-border"
+                                                                    placeholder="E.g My teaching method is ... I base my classes on ... I approach each topic by ...">{{$ad_details->method}}</textarea>
+                                                                @error('method')
+                                                                    <span style="color:red;">{{$message}}</span>
+                                                                @enderror  <span id="show_method">0</span><span id="method_over">/100 words</span> <span style="font-size: 15px; color:red;" id="methoderror">minimum of 40 words maximum of 100 words </span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-xl-12">
+                                                            <div class="submit-field">
+                                                                <h5>Tell us more about yourself ✍️ (<code style="font-size: 10px;">minimum of 40 words maximum of 100 words </code>)</h5>
+                                                                <textarea cols="30" rows="3" required oninput="about_youcountWord()" id="about_you" name="about_you"  value="{{$ad_details->about_tutor}}" @error('about_you')  style="border: 1px solid #ed9e9e;"@enderror
+                                                                    class="with-border"
+                                                                    placeholder="E.g I am an engineer / computer scientist/ dancer... I have been  giving private lessions since... I have a degree in...">{{$ad_details->about_tutor}}</textarea>
+                                                                @error('about_you')
+                                                                    <span style="color:red;">{{$message}}</span>
+                                                                @enderror <span id="show_about_you">0</span><span id="about_you_over">/100 words</span> <span style="font-size: 15px; color:red;" id="about_youerror">minimum of 40 words maximum of 100 words </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Dashboard Box -->
+                                <div class="col-xl-12">
+                                    <div id="test1" class="dashboard-box">
+
+                                        <!-- Headline -->
+                                        <div class="headline">
+                                            <h3><i class="icon-material-outline-money"></i><strong>Pricing</strong></h3>
+                                        </div>
+
+                                        <div class="content with-padding">
+                                            <div class="row">
+                                                <div class="col-xl-4">
+                                                    <div class="submit-field">
+                                                        <h5>rate / Week (₦)</h5>
+                                                        <input type="number" name="week_rate" min="100" class="with-border" value="{{$ad_details->week}}" @error('week_rate') style="border: 1px solid #ed9e9e;"@enderror required>
+                                                        @error('week_rate')
+                                                            <span style="color:red;">{{$message}}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-4">
+                                                    <div class="submit-field">
+                                                        <h5>rate / Month (₦)</h5>
+                                                        <input type="number" name="month_rate" min="200" class="with-border" value="{{$ad_details->month}}" @error('month_rate') style="border: 1px solid #ed9e9e;"@enderror required>
+                                                        @error('month_rate')
+                                                            <span style="color:red;">{{$message}}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-4">
+                                                    <div class="submit-field">
+                                                        <h5>rate / Year (₦)</h5>
+                                                        <input type="number" name="year_rate" min="300" class="with-border" value="{{$ad_details->year}}" @error('year_rate') style="border: 1px solid #ed9e9e;"@enderror required>
+                                                        @error('year_rate')
+                                                            <span style="color:red;">{{$message}}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Button -->
+                                <div class="col-xl-12">
+                                    <button type="submit" id="published" class="button ripple-effect big margin-top-30">   Published class ad</button>
+                                </div> 
+                            </div>
+                        </form>
+                    {{-- End normal form --}}
+                
+
+
+
+                    <!-- Footer -->
+                    <div class="dashboard-footer-spacer"></div>
+                    <div class="small-footer margin-top-15">
+                        <div class="small-footer-copyrights">
+                            © 2019 <strong>Hireo</strong>. All Rights Reserved.
+                        </div>
+                        <ul class="footer-social-links">
+                            <li>
+                                <a href="#" title="Facebook" data-tippy-placement="top">
+                                    <i class="icon-brand-facebook-f"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" title="Twitter" data-tippy-placement="top">
+                                    <i class="icon-brand-twitter"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" title="Google Plus" data-tippy-placement="top">
+                                    <i class="icon-brand-google-plus-g"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" title="LinkedIn" data-tippy-placement="top">
+                                    <i class="icon-brand-linkedin-in"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <!-- Footer / End -->
+
+                </div>
+            </div>
+            <!-- Dashboard Content / End -->
+
+        </div>
+    <!-- Dashboard Container / End -->
+
+    </div>
+    <!-- Wrapper / End -->
+
+
+    <!-- Scripts
+================================================== -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js" ></script>
+    {{-- <script src="js/jquery-3.4.1.min.js"></script> --}}
+    {{-- <script src="js/jquery-migrate-3.1.0.min.html"></script> --}}
+    <script src="js/mmenu.min.js"></script>
+    <script src="js/tippy.all.min.js"></script>
+    <script src="js/simplebar.min.js"></script>
+    <script src="js/bootstrap-slider.min.js"></script>
+    <script src="js/bootstrap-select.min.js"></script>
+    <script src="js/snackbar.js"></script>
+    <script src="js/clipboard.min.js"></script>
+    <script src="js/counterup.min.js"></script>
+    <script src="js/magnific-popup.min.js"></script>
+    <script src="js/slick.min.js"></script>
+    <script src="js/custom.js"></script>
+    <!-- Snackbar // documentation: https://www.polonel.com/snackbar/ -->
+    <script>
+        // Snackbar for user status switcher
+        $('#snackbar-user-status label').click(function() {
+            Snackbar.show({
+                text: 'Your status has been changed!',
+                pos: 'bottom-center',
+                showAction: false,
+                actionText: "Dismiss",
+                duration: 3000,
+                textColor: '#fff',
+                backgroundColor: '#383838'
+            });
+        });
+
+    </script>
+
+    <script>
+        // function subject() {
+            var route = "{{ route('subjectcomplete')  }}";
+            $('.subject').typeahead({
+                source:  function (querys, process) {
+                return $.get(route, { term: querys }, function (subject) {
+                        return process(subject);
+                    });
+                }
+            });
+        // }
+
+        // function location() {
+            var path = "{{ route('autocomplete')  }}";
+            $('.typeahead').typeahead({
+                source:  function (query, process) {
+                return $.get(path, { term: query }, function (datas) {
+                        return process(datas);
+                    });
+                }
+            });
+        // }
+    </script>
+
+    {{-- <script>
+        
+    </script> --}}
+    
+
+    <!-- Chart.js // documentation: http://www.chartjs.org/docs/latest/ -->
+    <script src="js/chart.min.js"></script> 
+    <script src="js/wordcount.js"></script>
+</body> 
+</html>

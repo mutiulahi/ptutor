@@ -48,19 +48,17 @@ class RegisterController extends Controller
             ]; 
             
             Mail::to($requestUser->email )->send(new mailVerification($details));
-            // return redirect()->back();
-        // }
-
-        // User::create([
-        //     'firstname'=> $requestUser->firstname,
-        //     'lastname'=> $requestUser->lastname,
-        //     'username'=> $requestUser->username,
-        //     'email'=> $requestUser->email,
-        //     'password'=> Hash::make($requestUser->password),
-        // ]);
-
-        // auth()->attempt($requestUser->only('email','password'));
+            
+        
         return redirect('login')->with('success', 'Please check your email to verify your account');
+        // $response = null;
+        // $check = system("ping -c 1 google.com", $response);
+        // if($response == 0)
+        // {
+        //     dd('connect');
+        // }else{
+        //     dd('not connect');
+        // }
     }
 
 }

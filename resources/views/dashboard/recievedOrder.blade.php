@@ -13,8 +13,9 @@
 
 <!-- CSS
 ================================================== -->
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/colors/blue.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/colors/blue.css">
 
 </head>
 <body class="gray">
@@ -62,6 +63,18 @@
 				<!-- Dashboard Box -->
 				<div class="col-xl-12">
 					<div class="dashboard-box margin-top-0">
+						@if(session('error'))
+						<div class="notification error closeable">
+							<p>{{session('error')}}</p>
+							<a class="close" href="#"></a>
+						</div> 
+					@endif
+					@if(session('success'))
+						<div class="notification success closeable">
+							<p>{{session('success')}}</p>
+							<a class="close" href="#"></a>
+						</div>
+					@endif
 
 						<!-- Headline -->
 						<div class="headline">
@@ -123,22 +136,20 @@
 								</li>
 								<!-- Apply for a job popup
 									================================================== -->
-									<div id="small-dialog" class="zoom-anim-dialog mfp-hide dialog-with-tabs">
-
-										<!--Tabs -->
+									<div id="small-dialog" class="zoom-anim-dialog mfp-hide dialog-with-tabs"> 
 										<ul class="popup-tabs-nav">
 											<li><a href="#tab">Accept Offer</a></li>
 										</ul>
 
 											<div class="popup-tab-content">
 												<div class="welcome-text ">
-													<h3>Write a request note to </h3>
+													<h3>send message to your student</h3>
 												</div>
 												<form action="sendMeg" method="post" >
 
 													@csrf
 
-													<input type="hidden" value="{{$msg->user_id}}" name="destination">
+													<input type="text" value="4" name="destination">
 
 													<textarea  name="message" cols="10" placeholder="Message" class="with-border"></textarea>
 

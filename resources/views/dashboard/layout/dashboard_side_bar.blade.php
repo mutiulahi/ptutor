@@ -24,12 +24,11 @@
                             <ul data-submenu-title="Message">
                                 <li><a href="#"><i class="icon-material-outline-business-center"></i> Message</a>
                                     <ul>
-                                            <li><a href="{{route('Recievedmessage')}}">Recieved Message </a></li>
-                                        <li><a href="{{route('message')}}">Sent Message</a></li>
+                                        <li><a href="{{route('message')}}">Messages</a></li>
                                     </ul>
                                 </li>
                             </ul>
-                            @if($status > 0)
+                            @if(auth()->user()->status == 'Tutor')
 
 							<li><a href="{{route('ads')}}"><i class=""></i> Ads </a></li>
                             @endif
@@ -38,7 +37,7 @@
 						<ul data-submenu-title="Organize and Manage">
 							<li><a href="#"><i class="icon-material-outline-business-center"></i> Request</a>
 								<ul>
-                                    @if($status > 0)
+                                    @if(auth()->user()->status == 'Tutor')
                                         <li><a href="{{route('recieved')}}">Recieved request </a></li>
                                         {{-- <li><a href="{{route('recieved')}}">Accepted request</a></li> --}}
                                     @endif

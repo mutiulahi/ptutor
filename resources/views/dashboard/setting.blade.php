@@ -119,21 +119,7 @@
 														<input type="text" name="email" class="with-border" value="{{$data->email}}" readonly>
 													</div> 
 											 	</div> 
-												 <div class="col-xl-6">
-													<div class="submit-field">
-														<h5>Phone Number</h5>
-														<input type="text" name="phone" class="with-border" value="{{$data->phone}}">
-														@error('phone')
-															<span style="color:red;">{{$message}}</span>
-														@enderror
-													</div>
-												</div>
-												<div class="col-xl-6">
-													<div class="submit-field">
-														<h5>Email</h5>
-														<input type="text" name="email" class="with-border" value="{{$data->email}}" readonly>
-													</div> 
-											 	</div> 
+												 
 										</div>
 									</div>
 								@endforeach 

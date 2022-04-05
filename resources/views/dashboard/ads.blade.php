@@ -12,20 +12,18 @@
 	<!-- CSS
 	================================================== -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/style.css">
-	<link rel="stylesheet" href="css/colors/blue.css"> 
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="stylesheet" href="../css/colors/blue.css"> 
 </head>
 <body class="gray">
 
 <!-- Wrapper -->
 <div id="wrapper">
 
-<!-- Header Container
-================================================== -->
-@include('dashboard/layout/header')
-<div class="clearfix"></div>
-
-<!-- Header Container / End -->
+	<!-- Header Container -->
+		@include('dashboard/layout/header')
+		<div class="clearfix"></div>
+	<!-- Header Container / End -->
 
 
 <!-- Dashboard Container -->
@@ -90,7 +88,7 @@
 
                                                 <!-- Details -->
                                                 <div class="job-listing-description">
-                                                    <h3 class="job-listing-title"><a href="#">{{$ad->title_ads}}</a>
+                                                    <h3 class="job-listing-title"><a href="{{route('detail',$ad->user_id)}}">{{$ad->title_ads}}</a>
                                                         @if ($ad->status == 'active')
                                                         	<span class="dashboard-status-button green">{{$ad->status}}</span>
                                                         @else
@@ -100,8 +98,7 @@
 
                                                 </div>
                                             </div>
-                                        </div>
-
+                                        </div> 
                                         <!-- Task Details -->
                                         <ul class="dashboard-task-info">
                                             <li><strong>₦ {{$ad->week}}</strong><span>Weekly Rate</span></li>
@@ -178,10 +175,10 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title text-danger">Delete Class {{$ad->title_ads}}</h4>
+				<h4 class="modal-title text-danger">Delete Class (<b> {{$ad->title_ads}} </b>)</h4>
 			</div>
 			<div class="modal-body" style="text-align: center;">
-				<p class="text-warning">Hey! You are about to delete your Class Ad {{$ad->title_ads}}</p>
+				<p class="text-warning">Hey! You are about to <b>Delete</b> your Class Ad <b>'{{$ad->title_ads}}'</b></p>
 				<h3 class="red">Are sure of this action!!!</h3>
 				<h4>Note that this action can't be reverse</h4>
 			</div>
@@ -195,22 +192,21 @@
 @endforeach
 
 @foreach ($ads as $ad)
-	<div id="myModal{{$ad->id}}" class="modal fade" role="dialog">
+	<div id="aDsEdit{{$ad->id}}" class="modal fade" role="dialog">
 		<div class="modal-dialog"> 
 		<!-- Modal content-->
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title text-danger">Delete Class {{$ad->title_ads}}</h4>
+				<h4 class="modal-title text-warning">Editing Class (<b>{{$ad->title_ads}}</b>)</h4>
 			</div>
 			<div class="modal-body" style="text-align: center;">
-				<p class="text-warning">Hey! You are about to delete your Class Ad {{$ad->title_ads}}</p>
-				<h3 class="red">Are sure of this action!!!</h3>
-				<h4>Note that this action can't be reverse</h4>
+				<p class="text-success">Hey! You are about to <b>Edit</b> your Class Ad <b>'{{$ad->title_ads}}'</b></p>
+				<h3 class="red">You will be redirected to your class ad editing page</h3> 
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-success button-sliding-icon ripple-effect" style="border:none;" data-dismiss="modal">Close</button>
-				<a type="button" href="{{route('delete_ads',$ad->id)}}" class="btn btn-success button-sliding-icon ripple-effect text-white"  style="width: 100px; border:none;">Confirm</a>
+					<a type="button" href="{{route('adEdit')}}?ads_id={{$ad->id}}" class="btn btn-success button-sliding-icon ripple-effect text-white"  style="width: 100px; border:none;">Confirm</a>
 			</div>
 		</div>
 		</div>
@@ -225,19 +221,19 @@
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<script src="js/jquery-3.4.1.min.js"></script>
-<script src="js/jquery-migrate-3.1.0.min.html"></script>
-<script src="js/mmenu.min.js"></script>
-<script src="js/tippy.all.min.js"></script>
-<script src="js/simplebar.min.js"></script>
-<script src="js/bootstrap-slider.min.js"></script>
-<script src="js/bootstrap-select.min.js"></script>
-<script src="js/snackbar.js"></script>
-<script src="js/clipboard.min.js"></script>
-<script src="js/counterup.min.js"></script>
-<script src="js/magnific-popup.min.js"></script>
-<script src="js/slick.min.js"></script>
-<script src="js/custom.js"></script>
+<script src="../js/jquery-3.4.1.min.js"></script>
+<script src="../js/jquery-migrate-3.1.0.min.html"></script>
+<script src="../js/mmenu.min.js"></script>
+<script src="../js/tippy.all.min.js"></script>
+<script src="../js/simplebar.min.js"></script>
+<script src="../js/bootstrap-slider.min.js"></script>
+<script src="../js/bootstrap-select.min.js"></script>
+<script src="../js/snackbar.js"></script>
+<script src="../js/clipboard.min.js"></script>
+<script src="../js/counterup.min.js"></script>
+<script src="../js/magnific-popup.min.js"></script>
+<script src="../js/slick.min.js"></script>
+<script src="../js/custom.js"></script>
 
 <!-- Snackbar // documentation: https://www.polonel.com/snackbar/ -->
 <script>

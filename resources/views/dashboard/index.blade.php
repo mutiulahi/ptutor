@@ -61,7 +61,7 @@
 				<!-- Breadcrumbs -->
 				<nav id="breadcrumbs" class="dark">
 					<ul>
-						<li><a href="#">Home</a></li>
+						<li><a href="{{route('/')}}">Home</a></li>
 						<li>Dashboard</li>
 					</ul>
 				</nav>

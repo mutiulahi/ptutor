@@ -63,21 +63,20 @@ Route::get('statusR/{id}', [Dashboard::class, 'rejectOrder'])->name('reject')->m
 
 Route::get('dashboard/setting', [Dashboard::class, 'setting'])->name('setting')->middleware('auth');
 Route::post('dashboard/update', [Dashboard::class, 'settingUpdate'])->name('updatesetting')->middleware('auth');
-Route::get('ads', [Dashboard::class, 'adsView'])->name('ads')->middleware('auth');
+Route::get('dashboard/ads', [Dashboard::class, 'adsView'])->name('ads')->middleware('auth');
 
-Route::get('adsEdit', [Dashboard::class, 'adsEdit'])->middleware('auth');
+Route::get('adsEdit', [Dashboard::class, 'adsEdit'])->name('adEdit')->middleware('auth');
 
-Route::post('adsUpdate', [Dashboard::class, 'adsUpdate'])->middleware('auth');
+Route::post('adsUpdate', [Dashboard::class, 'adsUpdate'])->name('update_ads')->middleware('auth');
 Route::get('adsDelet/{id}', [Dashboard::class, 'adsDelet'])->name('delete_ads')->middleware('auth');
 
 //message
 Route::get('message', [SendAndMeg::class, 'index'])->name('message')->middleware('auth');
-Route::post('sendMeg', [SendAndMeg::class, 'sendMessage'])->middleware('auth');
-Route::get('show', [SendAndMeg::class, 'Show'])->middleware('auth');
+Route::post('sendMeg', [SendAndMeg::class, 'sendMessage'])->name('sendMeg')->middleware('auth');
+Route::get('message/{id}', [SendAndMeg::class, 'Show'])->name('show')->middleware('auth');
+Route::post('replymessage', [SendAndMeg::class, 'replymessage'])->name('replymessage')->middleware('auth');
 
-Route::get('Recievedmessage', [SendAndMeg::class, 'Recievedindex'])->name('Recievedmessage')->middleware('auth');
-Route::post('RecievedsendMeg', [SendAndMeg::class, 'RecievedsendMessage'])->middleware('auth');
-Route::get('Recievedshow', [SendAndMeg::class, 'RecievedShow'])->middleware('auth');
+
 
 
 

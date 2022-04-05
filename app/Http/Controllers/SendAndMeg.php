@@ -13,113 +13,121 @@ class SendAndMeg extends Controller
     //
     public function index()
     {
-        $id = Auth::id();
+        $my_id = Auth::id();
 
-
-        // $order_message = DB::table('messages') 
-        //                     ->join('users', 'messages.destination', '=', 'users.id')
-        //                     ->select('users.*', 'messages.*')
-        //                     // ->where('messages.destination',$id)
-        //                     ->Where('messages.sender',$id)
-        //                     ->get();
-
-        $order_message = DB::table('messages')
-                            ->join('users', 'messages.destination', 'users.id') 
-                            ->select('users.*', '*')  
-                            ->Where('messages.sender',$id)
+        $fetch_connected_contact = DB::table('messages')
+                            ->join('users', 'messages.user_id','=','users.id')
+                            ->where('messages.sender_id',$my_id)
+                            ->orWhere('messages.destination_id',$my_id)
                             ->get();
-  
+        foreach ($fetch_connected_contact as $value) {
+            if($value->sender_id == $my_id) {
+                $my_contacts_id[] = $value->destination_id;
+            }else{
+                $my_contacts_id[] = $value->sender_id;
+            }
+        }
 
-        $status = DB::table('tutregisters')
-                            ->select('user_id')
-                            ->where('user_id', $id)
-                            ->get()->count();
-        return view('dashboard.message', ['message'=>$order_message], compact('status'));
+        // remove duplicate fecth of users
+        if (empty($my_contacts_id)) {
+            $contacts_id_neet = [];
+        }else{
+            $contacts_id_neet = array_unique($my_contacts_id);
+        }
+
+        foreach ($contacts_id_neet as $contact_id) {
+            $fetch_contact_list[] = DB::table('users')
+                        ->select('*')
+                        ->where('id',$contact_id)
+                        ->get();
+                    }
+        if (empty($fetch_contact_list)) {
+                $contact = [];
+        }else{
+            foreach ($fetch_contact_list as $value) {
+                foreach ($value as  $value) {
+                    $contact[] = $value;
+                }
+            }
+        }
+
+
+        return view('dashboard.message',  ['contact_list'=>$contact]);
     }
 
-
-    public function Recievedindex()
+    public function Show(Request $get, $id)
     {
-        $id = Auth::id();
+        //get contact start 
+        $my_id = Auth::id();
+        $fetch_connected_contact = DB::table('messages')
+                    ->join('users', 'messages.user_id','=','users.id')
+                    ->where('messages.sender_id',$my_id)
+                    ->orWhere('messages.destination_id',$my_id)
+                    ->get();
+            
+            foreach ($fetch_connected_contact as $value) {
+                if($value->sender_id == $my_id) {
+                    $my_contacts_id[] = $value->destination_id;
+                }else{
+                    $my_contacts_id[] = $value->sender_id;
+                }
+            }
+
+            // remove duplicate fecth of users
+            if (empty($my_contacts_id)) {
+                $contacts_id_neet = [];
+            }else{
+                $contacts_id_neet = array_unique($my_contacts_id);
+            }
+            
+
+            foreach ($contacts_id_neet as $contact_id) {
+                $fetch_contact_list[] = DB::table('users')
+                    ->select('*')
+                    ->where('id',$contact_id)
+                    ->get();
+            }
+
+            foreach ($fetch_contact_list as $value) {
+                foreach ($value as  $value) {
+                    $contact[] = $value;
+                }
+            } 
+        $messages = DB::select('select * from messages where (sender_id = ? and destination_id = ?) or (sender_id = ? and destination_id = ?)', [$my_id,$id,$id,$my_id]);
 
 
-        $order_message = DB::table('messages')
-                            ->join('users', 'messages.sender', '=', 'users.id')
-                            ->select('users.*', 'messages.*')
-                            ->where('messages.destination',$id)
-                            // ->Where('messages.sender',$id)
-                            ->get();
-        $status = DB::table('tutregisters')
-                            ->select('user_id')
-                            ->where('user_id', $id)
-                            ->get()->count();
-
-        return view('dashboard.recievedMessage', ['message'=>$order_message], compact('status'));
+        return view('dashboard.message', ['messages'=>$messages, 'contact_list'=>$contact]);
     }
 
-    public function Show()
+    public function replymessage(Request $sendMsg)
     {
-        $id = Auth::id();
-        $messageShow = DB::table('messages')
-                            ->join('users', 'messages.sender', '=', 'users.id')
-                            ->select('users.*', 'messages.*')
-                            // ->where('messages.destination',$id)
-                            ->Where('messages.sender',$id)
-                            ->get();
-        $order_message = DB::table('messages')
-                                    ->join('users', 'messages.destination', '=', 'users.id')
-                                    ->select('users.*', 'messages.*')
-                                    // ->where('messages.destination',$id)
-                                    ->Where('messages.sender',$id)
-                                    ->get();
+        $sendMessage = new Message;
+        $sendMessage->sender_id=auth()->user()->id;
+        $sendMessage->user_id=auth()->user()->id;
+        $sendMessage->destination_id=$sendMsg->destination_id;
+        $sendMessage->mgs=$sendMsg->message;
+        $sendMessage->status='0'; 
+        $sendMessage->save();   
 
-     $status = DB::table('tutregisters')
-                            ->select('user_id')
-                            ->where('user_id', $id)
-                            ->get()->count();
-
-        return view('dashboard.message', ['message'=>$order_message,'messageShow'=>$messageShow], compact('status'));
+        return redirect()->route('show',$sendMsg->destination_id);
     }
-
-    public function RecievedShow()
-    {
-        $id = Auth::id();
-        $messageShow = DB::table('messages')
-                            ->join('users', 'messages.destination', '=', 'users.id')
-                            ->select('users.*', 'messages.*')
-                            ->where('messages.destination',$id)
-                            // ->Where('messages.sender',$id)
-                            ->get();
-        $order_message = DB::table('messages')
-                                    ->join('users', 'messages.sender', '=', 'users.id')
-                                    ->select('users.*', 'messages.*')
-                                    ->where('messages.destination',$id)
-                                    // ->Where('messages.sender',$id)
-                                    ->get();
-
-     $status = DB::table('tutregisters')
-                            ->select('user_id')
-                            ->where('user_id', $id)
-                            ->get()->count();
-
-        return view('dashboard.recievedMessage', ['message'=>$order_message,'messageShow'=>$messageShow], compact('status'));
-    }
-
-
 
     public function sendMessage(Request $sendMsg)
     {
         $sendMessage = new Message;
-        $sendMessage->sender=auth()->user()->id;
-        $sendMessage->destination=$sendMsg->destination;
-        $sendMessage->message=$sendMsg->message;
+        $sendMessage->sender_id=auth()->user()->id;
+        $sendMessage->user_id=auth()->user()->id;
+        $sendMessage->destination_id=$sendMsg->destination;
+        $sendMessage->mgs=$sendMsg->message;
+        $sendMessage->status='0'; 
         $sendMessage->save();
         $id = Auth::id();
-
-        $status = DB::table('tutregisters')
-                            ->select('user_id')
-                            ->where('user_id', $id)
-                            ->get()->count();
-        return redirect()->route('message');
+ 
+        if ($sendMessage) {
+            return redirect()->route('message')->with('success','message sent successfully !');
+        }else{
+            return redirect()->route('message')->with('error','message not sent');
+        }
+       
     }
 }

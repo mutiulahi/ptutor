@@ -64,7 +64,7 @@ class TutoringRegistration extends Controller
         $this->validate($gigstore, [
             "subject"=>"required|max:255",
             "categories"=>"required|max:255",
-            "title_ads"=>"required|max:80",
+            "title_ads"=>"required",
             "class_type"=>"required",
             "address"=>"required",
             "location"=>"required",

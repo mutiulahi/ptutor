@@ -8,7 +8,7 @@
 
 				<!-- Logo -->
 				<div id="logo">
-					<a href="{{route('/')}}"><img src="images/logo.png" alt=""></a>
+					<a href="{{route('/')}}"><img src="../images/logo.png" alt=""></a>
 				</div>
 
 				<!-- Main Navigation -->
@@ -51,7 +51,7 @@
                         <div class="header-notifications user-menu">
                             <div class="header-notifications-trigger">
                                 @if (auth()->user()->passport =='')
-                                <a href="#"><div class="user-avatar status-online"><img src="images/user-avatar-placeholder.png" alt=""></div></a>
+                                <a href="#"><div class="user-avatar status-online"><img src="../images/user-avatar-placeholder.png" alt=""></div></a>
                                 @else
                                 <a href="#"><div class="user-avatar status-online"><img style="height: 40px; width:40px;" src="../images/passport/{{auth()->user()->passport}}" alt=""></div></a>
                                 @endif  
@@ -65,7 +65,7 @@
                                     <!-- User Name / Avatar -->
                                     <div class="user-details">
                                         @if (auth()->user()->passport =='')
-                                        <a href="#"><div class="user-avatar status-online"><img src="images/user-avatar-placeholder.png" alt=""></div></a>
+                                        <a href="#"><div class="user-avatar status-online"><img src="../images/user-avatar-placeholder.png" alt=""></div></a>
                                         @else
                                         <a href="#"><div class="user-avatar status-online"><img style="height: 40px; width:40px;" src="../images/passport/{{auth()->user()->passport}}" alt=""></div></a>
                                         @endif

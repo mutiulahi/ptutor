@@ -146,19 +146,15 @@ class Dashboard extends Controller
 
     public function adsEdit(Request $getid)
     {
-        $ads_id = $getid->input('ads_id');
-        // $_SESSION['gig'] = $getid->input('ads_id');
-        // dd($ads_id);
+        $ads_id = $getid->input('ads_id'); 
         $id = Auth::id();
-
+        // dd($ads_id);id
         $ads = DB::table('tutregisters')
-        ->select('*')
-        ->where('user_id', $id)
-        ->where( 'id', $ads_id)
-        ->get();
-
-        return view('tutoringRegister', ['ads'=> $ads], compact('id'));
-
+                ->select('*')
+                ->where('user_id', $id)
+                ->where('id', $ads_id)
+                ->get();
+        return view('editAds', ['ads'=> $ads], compact('id'));
     }
 
     public function adsDelet(Request $getid, $id_ads)
@@ -181,9 +177,7 @@ class Dashboard extends Controller
     public function adsUpdate(Request $gigstore)
     {
         $id = Auth::id();
-        $hid = $gigstore->input('hid');
-        // dd($hid);
-
+        $hid = $gigstore->input('id'); 
 
         $this->validate($gigstore, [
             "subject"=>"required|max:255",
@@ -191,24 +185,39 @@ class Dashboard extends Controller
             "title_ads"=>"required",
             "class_type"=>"required",
             "address"=>"required",
+            "location"=>"required",
             "class_location"=>"required",
-            "meeting_point"=>"required",
             "language"=>"required",
-            "method"=>"required",
-            "about_tutor"=>"required",
-            "week"=>"required",
-            "month"=>"required",
-            "year"=>"required",
+            "method"=>"required|min:200",
+            "about_you"=>"required|min:200",
+            "week_rate"=>"required",
+            "month_rate"=>"required",
+            "year_rate"=>"required",
         ]);
 
         $ads = DB::table('tutregisters')
         ->where('user_id', $id)
         ->where('id', $hid)
-        ->update(['subject' => $gigstore->subject, 'categories' => $gigstore->categories, 'title_ads'=>$gigstore->title_ads, 'class_type'=>$gigstore->class_type, 'address'=>$gigstore->address,
-                            'class_location'=>$gigstore->class_location, 'meeting_point'=>$gigstore->meeting_point, 'language'=>$gigstore->language,  'method'=>$gigstore->method, 'about_tutor'=>$gigstore->about_tutor,
-                            'week'=>$gigstore->week, 'month'=>$gigstore->month, 'year'=>$gigstore->year]);
+        ->update(['subject'=>$gigstore->subject,
+                    'categories'=>$gigstore->categories,
+                    'user_id'=>auth()->user()->id,
+                    'title_ads'=>$gigstore->title_ads,
+                    'class_type'=>$gigstore->class_type,
+                    'address'=>$gigstore->address,
+                    'class_location'=>$gigstore->class_location,
+                    'meeting_point'=>$gigstore->location,
+                    'language'=>$gigstore->language,
+                    'method'=>$gigstore->method,
+                    'about_tutor'=>$gigstore->about_you,
+                    'week'=>$gigstore->week_rate,
+                    'month'=>$gigstore->month_rate,
+                    'year'=>$gigstore->year_rate]);
 
-        return redirect()->route('ads');
+              if ($ads) {
+                return redirect()->back()->with('success', 'Update made successfully!');
+              } else{
+                return redirect()->back()->with('error', ' Error occur');
+              }
 
     }
 

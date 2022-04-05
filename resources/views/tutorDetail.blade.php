@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="en">
 
-<!-- Mirrored from www.vasterad.com/themes/hireo/single-freelancer-profile.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 12 Dec 2020 02:31:54 GMT -->
 <head>
 
 <!-- Basic Page Needs
@@ -34,7 +33,7 @@
 
 <!-- Titlebar
 ================================================== -->
-<div class="single-page-header freelancer-header" data-background-image="../images/single-freelancer.jpg">
+{{-- <div class="single-page-header freelancer-header" data-background-image="../images/single-freelancer.jpg">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
@@ -42,7 +41,11 @@
 
                     @foreach ($Detail as $search)
                         <div class="left-side">
-                            <div class="header-image freelancer-avatar"><img src="../images/passport/{{$search->passport}}" alt=""></div>
+							@if ($search->passport == '')
+                            	<div class="header-image freelancer-avatar"><img src="../images/user-avatar-placeholder.png" alt=""></div>
+							@else
+	                            <div class="header-image freelancer-avatar"><img src="../images/passport/{{$search->passport}}" alt=""></div>
+							@endif
                             <div class="header-details">
                                 <h2>{{$search->title_ads}} </h2>
                                 <h4>{{$search->fullname}} </h4>
@@ -55,6 +58,35 @@
                             </div>
                         </div>
                     @endforeach
+				</div>
+			</div>
+		</div>
+	</div>
+</div> --}}
+
+<div class="single-page-header freelancer-header" data-background-image="../images/single-freelancer.jpg">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="single-page-header-inner">
+					@foreach ($Detail as $search)
+						<div class="left-side">
+							@if ($search->passport == '')
+                            	<div class="header-image freelancer-avatar"><img src="../images/user-avatar-placeholder.png" alt=""></div>
+							@else
+	                            <div class="header-image freelancer-avatar"><img src="../images/passport/{{$search->passport}}" alt=""></div>
+							@endif
+							<div class="header-details">
+								<h3>{{$search->title_ads}} <span>{{$search->fullname}}</span><br> <span style="margin-top: -40px;"><strong>Subject: </strong> {{$search->subject}}</span></h3>
+								{{-- <h4> <strong>Subject: </strong> {{$search->subject}}</h4> --}}
+								<ul>
+									<li><div class="star-rating" data-rating="{{$rate}}"></div></li>
+									<li><img class="flag" src="images/flags/de.svg" alt=""> {{$search->meeting_point}}</li>
+									<li><div class="verified-badge-with-title">Verified</div></li>
+								</ul>
+							</div>
+						</div>
+					@endforeach	
 				</div>
 			</div>
 		</div>
@@ -122,13 +154,19 @@
 					<div class="overview-item"><strong>{{$search->month}}</strong><span>Monthly Rate</span></div>
 					<div class="overview-item"><strong>{{$search->year}}</strong><span>Yearly Rate</span></div>
 				</div>
-                @endforeach
+                
 
-				<!-- Button -->
-                @auth
-				    <a href="#small-dialog" class="apply-now-button margin-bottom-50 popup-with-zoom-anim button ripple-effect">Place Request<i class="icon-material-outline-arrow-right-alt"></i></a>
-				    {{-- <a href="#small-dialog" class="popup-with-zoom-anim button dark ripple-effect">Place Request<i class="icon-material-outline-arrow-right-alt"></i></a> --}}
-                    @endauth
+					<!-- Button -->
+					@auth
+						@if (auth()->user()->id == $search->user_id)
+							<a class="apply-now-button margin-bottom-50 popup-with-zoom-anim button ripple-effect" @disabled(true)>Place Request<i class="icon-material-outline-arrow-right-alt"></i></a>
+						@else
+							<a href="#small-dialog" class="apply-now-button margin-bottom-50 popup-with-zoom-anim button ripple-effect">Place Request<i class="icon-material-outline-arrow-right-alt"></i></a>
+						@endif
+					
+						{{-- <a href="#small-dialog" class="popup-with-zoom-anim button dark ripple-effect">Place Request<i class="icon-material-outline-arrow-right-alt"></i></a> --}}
+					@endauth
+				@endforeach
                 @guest
 				    <a href="{{route('login')}}" class="apply-now-button margin-bottom-50">Place Request<i class="icon-material-outline-arrow-right-alt"></i></a>
                 @endguest
@@ -137,7 +175,7 @@
 					<div class="freelancer-indicators">
 
 						<!-- Indicator -->
-						<div class="indicator">
+						{{-- <div class="indicator">
 							<strong>88%</strong>
 							<div class="indicator-bar" data-indicator-percentage="88"><span></span></div>
 							<span>Successful Order </span>
@@ -155,7 +193,7 @@
 							<strong>80%</strong>
 							<div class="indicator-bar" data-indicator-percentage="80"><span></span></div>
 							<span>Active Order</span>
-						</div>
+						</div> --}}
 					</div>
 				</div>
 

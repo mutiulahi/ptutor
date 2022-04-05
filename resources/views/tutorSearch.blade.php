@@ -60,7 +60,7 @@
                         </div>
                     </div>
 
-                    <div class="sidebar-widget">
+                    {{-- <div class="sidebar-widget">
                         <h3>Sex</h3> 
                         <div class="tags-container">
                            <select name="sex" id="">
@@ -68,16 +68,16 @@
                                <option value="female">female</option>
                            </select>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <!-- Category -->
-                    <div class="sidebar-widget mb-5">
+                    {{-- <div class="sidebar-widget mb-5">
                         <h3>Age</h3> 
                         <div class="tags-container">
                            <input type="number" name="age" id="" placeholder="Tutor Age"> 
                         </div>
                         <div class="clearfix"></div> 
-                    </div>
+                    </div> --}}
                     <div class="sidebar-widget mb-5">
                         <h3></h3>  
                         <div class="clearfix"></div> 
@@ -105,10 +105,10 @@
 
 			<div class="notify-box margin-top-15">
 				<div class="switch-container">
-					<label class="switch"><input type="checkbox"><span class="switch-button"></span><span class="switch-text">Turn on email alerts for this search</span></label>
+					<label class="switch"><span class="">Use the search bar to search for your prefered tutor</span></label>
 				</div>
 
-				<div class="sort-by">
+				{{-- <div class="sort-by">
 					<span>Sort by:</span>
 					<select class="selectpicker hide-tick">
 						<option>Relevance</option>
@@ -116,7 +116,7 @@
 						<option>Oldest</option>
 						<option>Random</option>
 					</select>
-				</div>
+				</div> --}}
 			</div>
 
 			<!-- Freelancers List Container -->
@@ -124,7 +124,7 @@
                 <div class="freelancers-container freelancers-grid-layout margin-top-35">
                     <!--Freelancer -->
                     @if (empty($searchGIGs))
-                        <h3 style="margin-left: 15%; font-weight: 600">Please use the side search bar to select your prefered tutor</h3>
+                        <h3 style="margin-left: auth; margin-top: -50px; font-size:15px; text-align:center;">no tutor found use the search bar to search for your prefered tutor</h3>
                     @else
 
                         @foreach ($searchGIGs as $search)
@@ -143,9 +143,9 @@
                                         <div class="freelancer-avatar">
                                             <div class="verified-badge"></div>
                                             @if ($search->passport == '')
-                                            <a href="single-freelancer-profile.html"><img src="images/user-avatar-placeholder.png" alt=""></a>
+                                            <a href="{{route('detail',$search->id)}}"><img src="images/user-avatar-placeholder.png" alt=""></a>
                                             @else
-                                            <a href="single-freelancer-profile.html"><img src="images/passport/{{$search->passport}}" alt=""></a>
+                                            <a href="{{route('detail',$search->id)}}"><img style="height: 90px; width:90px;" src="images/passport/{{$search->passport}}" alt=""></a>
                                             {{-- {{$search->passport}} --}}
                                             @endif
 
@@ -194,42 +194,42 @@
 
 			<!-- Pagination -->
 			<div class="clearfix"></div>
-
 			<div class="clearfix"></div>
 			<div class="clearfix"></div>
 			<div class="clearfix"></div>
 			<div class="clearfix"></div>
 			<!-- Pagination / End -->
 
-			<!-- Footer -->
-			<div class="small-footer margin-top-15">
-				<div class="small-footer-copyrights">
-					© {{date('Y')}} <strong>Hireo</strong>. All Rights Reserved.
-				</div>
-				<ul class="footer-social-links">
-					<li>
-						<a href="#" title="Facebook" data-tippy-placement="top">
-							<i class="icon-brand-facebook-f"></i>
-						</a>
-					</li>
-					<li>
-						<a href="#" title="Twitter" data-tippy-placement="top">
-							<i class="icon-brand-twitter"></i>
-						</a>
-					</li>
-					<li>
-						<a href="#" title="Google Plus" data-tippy-placement="top">
-							<i class="icon-brand-google-plus-g"></i>
-						</a>
-					</li>
-					<li>
-						<a href="#" title="LinkedIn" data-tippy-placement="top">
-							<i class="icon-brand-linkedin-in"></i>
-						</a>
-					</li>
-				</ul>
-				<div class="clearfix"></div>
-			</div>
+			<!-- Footer --> 
+                <div class="small-footer" style="margin-top: 20px;">
+                    <div class="small-footer-copyrights">
+                        © {{date('Y')}} <strong>Hireo</strong>. All Rights Reserved.
+                    </div>
+                    <ul class="footer-social-links">
+                        <li>
+                            <a href="#" title="Facebook" data-tippy-placement="top">
+                                <i class="icon-brand-facebook-f"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" title="Twitter" data-tippy-placement="top">
+                                <i class="icon-brand-twitter"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" title="Google Plus" data-tippy-placement="top">
+                                <i class="icon-brand-google-plus-g"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" title="LinkedIn" data-tippy-placement="top">
+                                <i class="icon-brand-linkedin-in"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+            
 			<!-- Footer / End -->
 
 		</div>
