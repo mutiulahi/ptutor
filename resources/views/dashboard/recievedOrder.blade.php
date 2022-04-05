@@ -127,38 +127,15 @@
 												<div class="buttons-to-right always-visible margin-top-25 margin-bottom-5">
 													<a href="{{route('accept',$msg->id)}}" class="button  ripple-effect"><i class="icon-material-outline-check"></i> Accept Offer</a>
 													<a href="{{route('reject',$msg->id)}}" class="button  ripple-effect"><i class="icon-feather-trash-2"></i> Reject Offer</a>
-													<a href="#small-dialog" class="popup-with-zoom-anim button  ripple-effect"><i class="icon-feather-mail"></i> Send Message</a>
+													<a type="button" style="width: 150px; color:#fff" class="button ripple-effect ico" data-toggle="modal" data-target="#myModal{{$msg->id}}" title="Send Message" data-tippy-placement="top"><i class="icon-feather-mail"></i> Send Message</a>
+
 												</div>
 											</div>
 										</div>
 
 									</div>
 								</li>
-								<!-- Apply for a job popup
-									================================================== -->
-									<div id="small-dialog" class="zoom-anim-dialog mfp-hide dialog-with-tabs"> 
-										<ul class="popup-tabs-nav">
-											<li><a href="#tab">Accept Offer</a></li>
-										</ul>
-
-											<div class="popup-tab-content">
-												<div class="welcome-text ">
-													<h3>send message to your student</h3>
-												</div>
-												<form action="sendMeg" method="post" >
-
-													@csrf
-
-													<input type="text" value="4" name="destination">
-
-													<textarea  name="message" cols="10" placeholder="Message" class="with-border"></textarea>
-
-												<!-- Button -->
-													<button class="button full-width button-sliding-icon ripple-effect margin-top-10" type="submit" >Place Request <i class="icon-material-outline-arrow-right-alt"></i></button>
-												</form>
-										</div>
-									</div>
-									<!-- Apply for a job popup / End -->
+								
                                 @endforeach
 							</ul>
 						</div>
@@ -212,25 +189,53 @@
 </div>
 <!-- Wrapper / End -->
 
+<!-- Apply for a job popup
+	================================================== -->
+	@foreach ($order_message as $msg )
+		<div id="myModal{{$msg->id}}" class="modal fade" role="dialog">
+			<div class="modal-dialog"> 
+			<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title text-secondary"><b>Send message to your student </b></h4>
+					</div>
+					<form action="sendMeg" method="post" >
+						@csrf
+						<input type="hidden" value="{{$msg->user_id}}" name="destination">
+						<textarea style="width:40%;" name="message" cols="10" placeholder="Message"></textarea> 
+						<!-- Button -->
+						{{-- <button class="button full-width button-sliding-icon ripple-effect margin-top-10" type="submit" >Place Request <i class="icon-material-outline-arrow-right-alt"></i></button> --}}
+						<button type="submit" class="btn btn-success button-sliding-icon ripple-effect" style="border:none; width:80%; margin-left:10%; padding:2%; margin-bottom:10px;">Place Request <i class="icon-material-outline-arrow-right-alt"></i></button>
 
+					</form>
+				</div>
+			</div>
+		</div>
+	@endforeach
+<!-- Apply for a job popup / End -->
 
 
 
 <!-- Scripts
 ================================================== -->
-<script src="js/jquery-3.4.1.min.js"></script>
-<script src="js/jquery-migrate-3.1.0.min.html"></script>
-<script src="js/mmenu.min.js"></script>
-<script src="js/tippy.all.min.js"></script>
-<script src="js/simplebar.min.js"></script>
-<script src="js/bootstrap-slider.min.js"></script>
-<script src="js/bootstrap-select.min.js"></script>
-<script src="js/snackbar.js"></script>
-<script src="js/clipboard.min.js"></script>
-<script src="js/counterup.min.js"></script>
-<script src="js/magnific-popup.min.js"></script>
-<script src="js/slick.min.js"></script>
-<script src="js/custom.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="../js/jquery-3.4.1.min.js"></script>
+<script src="../js/jquery-migrate-3.1.0.min.html"></script>
+<script src="../js/mmenu.min.js"></script>
+<script src="../js/tippy.all.min.js"></script>
+<script src="../js/simplebar.min.js"></script>
+<script src="../js/bootstrap-slider.min.js"></script>
+<script src="../js/bootstrap-select.min.js"></script>
+<script src="../js/snackbar.js"></script>
+<script src="../js/clipboard.min.js"></script>
+<script src="../js/counterup.min.js"></script>
+<script src="../js/magnific-popup.min.js"></script>
+<script src="../js/slick.min.js"></script>
+<script src="../js/custom.js"></script>
 
 <!-- Snackbar // documentation: https://www.polonel.com/snackbar/ -->
 <script>
@@ -252,4 +257,26 @@ $('#snackbar-user-status label').click(function() {
 </body>
 
 <!-- Mirrored from www.vasterad.com/themes/hireo/dashboard-messages.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 12 Dec 2020 02:32:03 GMT -->
+{{-- <div id="small-dialog" class="zoom-anim-dialog mfp-hide dialog-with-tabs"> 
+	<ul class="popup-tabs-nav">
+		<li><a href="#tab">Accept Offer</a></li>
+	</ul>
+
+		<div class="popup-tab-content">
+			<div class="welcome-text ">
+				<h3>send message to your student</h3>
+			</div>
+			<form action="sendMeg" method="post" >
+
+				@csrf
+
+				<input type="text" value="4" name="destination">
+
+				<textarea  name="message" cols="10" placeholder="Message" class="with-border"></textarea>
+
+			<!-- Button -->
+				<button class="button full-width button-sliding-icon ripple-effect margin-top-10" type="submit" >Place Request <i class="icon-material-outline-arrow-right-alt"></i></button>
+			</form>
+	</div>
+</div> --}}
 </html>
