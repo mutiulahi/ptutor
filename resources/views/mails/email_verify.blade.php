@@ -379,11 +379,11 @@
                                 <td>
                                     <div class="text" style="padding: 0 2.5em; text-align: center;"> 
                                         <p>Please click on the link below to verify your email address. This is required to confirm ownership of the email address.</p>
-                                        <p><a href="http://127.0.0.1:8000/verify_mail/?token={{$details['verify_token']}}" class="btn btn-primary">Confirm</a></p> 
+                                        <p><a href="https://ptutor.herokuapp.com/verify_mail/?token={{$details['verify_token']}}" class="btn btn-primary">Confirm</a></p> 
                                     </div>
                                     <div>
                                         <p>If you're having trouble, try copying and pasting the following URL into your browser:</p>
-                                        <p>http://127.0.0.1:8000/verify_mail/?token={{$details['verify_token']}}</p>
+                                        <p>https://ptutor.herokuapp.com/verify_mail/?token={{$details['verify_token']}}</p>
                                     </div>
                                 </td>
                             </tr>
