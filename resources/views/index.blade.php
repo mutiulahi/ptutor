@@ -116,13 +116,13 @@
 					<!-- Section Headline -->
 					<div class="col-xl-12">
 						<div class="section-headline centered margin-top-0 margin-bottom-45">
-							<h3>Popular Categories</h3>
+							<h3>What we cover</h3>
 						</div>
 					</div>
 		
 					<div class="col-xl-3 col-md-6">
 						<!-- Photo Box -->
-						<a href="jobs-list-layout-1.html" class="photo-box small" data-background-image="images/job-category-01.jpg">
+						<a  class="photo-box small" data-background-image="images/job-category-01.jpg">
 							<div class="photo-box-content">
 								<h3>Computer programming</h3>
 								<span>612</span>
@@ -132,7 +132,7 @@
 					
 					<div class="col-xl-3 col-md-6">
 						<!-- Photo Box -->
-						<a href="jobs-list-layout-full-page-map.html" class="photo-box small" data-background-image="images/job-category-02.jpg">
+						<a class="photo-box small" data-background-image="images/job-category-02.jpg">
 							<div class="photo-box-content">
 								<h3>Secondary Sch. Subject</h3>
 								<span>113</span>
@@ -142,7 +142,7 @@
 					
 					<div class="col-xl-3 col-md-6">
 						<!-- Photo Box -->
-						<a href="jobs-grid-layout-full-page.html" class="photo-box small" data-background-image="images/job-category-03.jpg">
+						<a class="photo-box small" data-background-image="images/job-category-03.jpg">
 							<div class="photo-box-content">
 								<h3>Institution Subject</h3>
 								<span>186</span>
@@ -152,7 +152,7 @@
 		
 					<div class="col-xl-3 col-md-6">
 						<!-- Photo Box -->
-						<a href="jobs-list-layout-2.html" class="photo-box small" data-background-image="images/job-category-04.jpg">
+						<a class="photo-box small" data-background-image="images/job-category-04.jpg">
 							<div class="photo-box-content">
 								<h3>Other Businesses</h3>
 								<span>298</span>
@@ -186,8 +186,8 @@
 									<div class="icon-box-check"><i class="icon-material-outline-check"></i></div>
 								</div>
 							</div>
-							<h3>Create an Account</h3>
-							<p>Creating new account will let us know you.</p>
+							<h3>Create an account</h3>
+							<p>Create a new account by providing all the required details in the sign up page.</p>
 						</div>
 					</div>
 
@@ -201,8 +201,8 @@
 									<div class="icon-box-check"><i class="icon-material-outline-check"></i></div>
 								</div>
 							</div>
-							<h3>Login to your account</h3>
-							<p>Your have to login for security purpose.</p>
+							<h3>Login and verify your account</h3>
+							<p>Your have to verify your email before you will have access to login in to your account for security purpose.</p>
 						</div>
 					</div>
 
@@ -217,7 +217,7 @@
 								</div>
 							</div>
 							<h3>Create your class ads</h3>
-							<p>Just what you wanted to teach and fill the form become a tutor.</p>
+							<p>Then navigate to Become a tutor and fill all the required boxes appropriately</p>
 						</div>
 					</div>
 
