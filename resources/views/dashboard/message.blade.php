@@ -124,7 +124,16 @@
 							<div class="message-content">
 
 								<div class="messages-headline">
-									<h4>Sindy Forest</h4>
+									<h4>
+										@if (empty($patiner_details))
+										
+										@else 
+									
+											@foreach ($patiner_details as $user_detail)
+												{{$user_detail->fullname}}
+											@endforeach
+										@endif	
+									</h4>
 									<a href="#" class="message-action"><i class="icon-feather-trash-2"></i> Delete
 										Conversation</a>
 								</div>

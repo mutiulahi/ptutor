@@ -93,10 +93,13 @@ class SendAndMeg extends Controller
                     $contact[] = $value;
                 }
             } 
-        $messages = DB::select('select * from messages where (sender_id = ? and destination_id = ?) or (sender_id = ? and destination_id = ?)', [$my_id,$id,$id,$my_id]);
+            $messages = DB::select('select * from messages where (sender_id = ? and destination_id = ?) or (sender_id = ? and destination_id = ?)', [$my_id,$id,$id,$my_id]);
+            $patiner_details = DB::table('users')
+                                ->select('*')
+                                ->where('id',$id)
+                                ->get();
 
-
-        return view('dashboard.message', ['messages'=>$messages, 'contact_list'=>$contact]);
+        return view('dashboard.message', ['messages'=>$messages, 'contact_list'=>$contact, 'patiner_details'=>$patiner_details]);
     }
 
     public function replymessage(Request $sendMsg)

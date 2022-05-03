@@ -101,13 +101,21 @@
 	<div class="full-page-content-container" data-simplebar>
 		<div class="full-page-content-inner">
 
-			<h3 class="page-title">Search Results</h3>
+			<h3 class="page-title">Search Results 
+                @if (!empty($searchGIGs))
+                    @if ($location != null or $subject != null)
+                        <code>(subject: {{$subject}}| location: {{$location}})</code>
+                    @else
+                        
+                    @endif
+                @endif
+                
+            </h3>
 
 			<div class="notify-box margin-top-15">
 				<div class="switch-container">
-					<label class="switch"><span class="">Use the search bar to search for your prefered tutor</span></label>
+					<label class="switch"><center>Use the search box to choose your preferred tutor.</center></label>
 				</div>
-
 				{{-- <div class="sort-by">
 					<span>Sort by:</span>
 					<select class="selectpicker hide-tick">
@@ -118,17 +126,15 @@
 					</select>
 				</div> --}}
 			</div>
-
-			<!-- Freelancers List Container -->
+            @if (empty($searchGIGs))
+                    <h3 style="text-align: center; margin-top:-10px">Sorry, no tutor is available for your demand.</h3>
+                @endif
             <div class="col-xl-12">
                 <div class="freelancers-container freelancers-grid-layout margin-top-35">
                     <!--Freelancer -->
                     @if (empty($searchGIGs))
-                        <h3 style="margin-left: auth; margin-top: -50px; font-size:15px; text-align:center;">no tutor found use the search bar to search for your prefered tutor</h3>
-                    @else
-
-                        @foreach ($searchGIGs as $search)
-                            @if ($search->tutor_id=='')
+                        @else
+                        @foreach ($searchGIGs as $search) 
                             <div class="freelancer">
                                 {{-- {{$search['user_id']}} --}}
 
@@ -165,8 +171,7 @@
                                             <div class="star-rating" data-rating="5"></div>
                                         </div> --}}
                                     </div>
-                                </div>
-
+                                </div> 
                                 <!-- Details -->
                                 <div class="freelancer-details">
                                     <div class="freelancer-details-list">
@@ -179,14 +184,9 @@
                                     </div>
                                     <a href="{{route('detail',$search->id)}}" class="button button-sliding-icon ripple-effect">View Profile <i class="icon-material-outline-arrow-right-alt"></i></a>
                                 </div>
-                            </div>
-                            @elseif($search->tutor_id=='')
-                                <h3 style="margin-left: 35%; font-weight: 600">Sorry, No tutor available for your demand</h3>
-                            @endif
-
+                            </div> 
                         @endforeach
-                    @endif
-
+                    @endif 
                     <!-- Freelancer / End -->
                 </div>
             </div>
