@@ -17,12 +17,16 @@ class SearchTutor extends Controller
         // dd($subject);
 
         $searchGIG = Tutregister::where('tutregisters.subject', 'like', "%$subject%")
-        ->join('users', 'users.id','=','tutregisters.user_id')
+        // ->join('users', 'users.id','=','tutregisters.user_id')
         ->orWhere('tutregisters.meeting_point', 'like', "%$location%")->get();
+        
+        if (!$searchGIG) {
+            return view('tutorSearch')->with('search', 'sorry tutor not found');
+        }else{
+            return view('tutorSearch',['searchGIGs'=>$searchGIG, 'location'=>$location, 'subject'=>$subject]);
+        }
 
-        // dd($searchGIG);
-
-        return view('tutorSearch',['searchGIGs'=>$searchGIG, 'location'=>$location, 'subject'=>$subject])->with('search', 'sorry tutor not found');
+        
 
     }
 }

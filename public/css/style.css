@@ -433,8 +433,8 @@ header.fullwidth .container {
 	.header-widget .log-in-button span { display: none; }
 
 	.header-widget .log-in-button i {
-		font-size: 10px;
-		top: 3px;
+		font-size: 25px;
+		top: 9px;
 	}
 
 	.header-widget .log-in-button i,

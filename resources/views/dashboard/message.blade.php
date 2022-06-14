@@ -107,7 +107,7 @@
 												<div class="message-by">
 													<div class="message-by-headline">
 														<h5>{{$contact->fullname}}</h5>
-														<span>4 hours ago</span>
+														{{-- <span>4 hours ago</span> --}}
 													</div>
 													{{-- <p>{{$contact->mgs}}</p> --}}
 												</div>
@@ -134,8 +134,8 @@
 											@endforeach
 										@endif	
 									</h4>
-									<a href="#" class="message-action"><i class="icon-feather-trash-2"></i> Delete
-										Conversation</a>
+									{{-- <a href="#" class="message-action"><i class="icon-feather-trash-2"></i> Delete
+										Conversation</a> --}}
 								</div>
 
 								<!-- Message Content Inner -->

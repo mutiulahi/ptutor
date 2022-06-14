@@ -1,7 +1,5 @@
 <!doctype html>
 <html lang="en">
-
-<!-- Mirrored from www.vasterad.com/themes/hireo/pages-checkout-page.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 12 Dec 2020 02:32:21 GMT -->
 <head>
 
 <!-- Basic Page Needs

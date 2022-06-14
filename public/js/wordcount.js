@@ -74,7 +74,7 @@ function about_youcountWord() {
     var about_yous = document
         .getElementById("about_you").value;
 
-    // Initialize the word counter
+    // Initialize the word counterabout_youcountWord
     var count = 0;
 
     // Split the about_you on each
