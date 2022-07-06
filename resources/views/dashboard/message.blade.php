@@ -175,12 +175,12 @@
 								<form action="{{route('replymessage')}}" method="post"> 
 									@csrf
 								    <div class="message-reply">
-										<textarea cols="1" rows="1" name="message" placeholder="Your Message" data-autoresize></textarea>
+										<textarea cols="1" rows="1" required name="message" id="message" oninput="messageIn()" placeholder="Your Message" data-autoresize></textarea>
 										@if (empty($messages))
-											<button class="button ripple-effect" disabled>Send</button>
+											<button class="button ripple-effect" disabled >Send</button>
 										@else 
 											<input type="hidden" name="destination_id" value="{{$new_destination_id}}">
-											<button class="button ripple-effect">Send</button>
+											<button class="button ripple-effect" id="send" disabled >Send</button>
 										@endif
 									</div>
 								</form>
@@ -318,6 +318,23 @@
 				backgroundColor: '#383838'
 			});
 		}); 
+	</script>
+	<script>
+		function messageIn() {
+			// disable send button until message is typed
+
+			var methods = document.getElementById("message").value;
+			if (methods.length > 0) {
+				document.getElementById("send").disabled = false;
+			} else {
+				document.getElementById("send").disabled = true;
+			}
+
+	        
+			} else {
+				
+			}
+		}
 	</script>
 
 
