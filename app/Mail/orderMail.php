@@ -12,6 +12,7 @@ class orderMail extends Mailable
     use Queueable, SerializesModels;
 
     public $details;
+    public $user;
     /**
      * Create a new message instance.
      *
